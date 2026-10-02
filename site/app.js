@@ -625,3 +625,183 @@ renderBms();
 
 // ===== Init (must be last — all sections defined) =====
 renderStory(); renderVocab(); renderKanji(); renderGrammar();
+
+// ===== Keyboard shortcuts =====
+let focusedSent = null;
+function focusSentence(ci, si){
+  document.querySelectorAll('#storyText p.sent').forEach(p => p.classList.remove('focused'));
+  const p = document.querySelector(`#storyText p[data-ch="${ci}"][data-si="${si}"]`);
+  if (p){ p.classList.add('focused'); p.scrollIntoView({behavior:'smooth', block:'nearest'}); focusedSent = {ci, si}; }
+}
+function moveFocus(dir){
+  if (!focusedSent){
+    const first = document.querySelector('#storyText p.sent');
+    if (first){ focusSentence(+first.dataset.ch, +first.dataset.si); }
+    return;
+  }
+  const {ci, si} = focusedSent;
+  const ch = window.CHAPTERS[ci];
+  const total = ch.sentences.length;
+  let nsi = si + dir, nci = ci;
+  if (nsi < 0){ nci = ci - 1; nsi = nci >= 0 ? window.CHAPTERS[nci].sentences.length - 1 : 0; }
+  if (nsi >= total){ nci = ci + 1; nsi = 0; }
+  if (nci >= 0 && nci < window.CHAPTERS.length) focusSentence(nci, nsi);
+}
+function selectFocused(){
+  if (!focusedSent) return;
+  const {ci, si} = focusedSent;
+  const p = document.querySelector(`#storyText p[data-ch="${ci}"][data-si="${si}"]`);
+  if (p) p.click();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+  if (e.key === '?' || (e.shiftKey && e.key === '/')){
+    document.getElementById('kbdHelp').classList.toggle('hidden');
+    return;
+  }
+  if (e.key === 'Escape'){
+    document.getElementById('kbdHelp').classList.add('hidden');
+    document.querySelectorAll('#storyText p.sent').forEach(p => p.classList.remove('focused'));
+    focusedSent = null;
+    return;
+  }
+
+  const activeTab = document.querySelector('.tab.active').dataset.tab;
+
+  if (activeTab === 'story'){
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); moveFocus(-1); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); moveFocus(1); }
+    else if (e.key === 'Enter'){ e.preventDefault(); selectFocused(); }
+    else if (e.key === 'f' || e.key === 'F'){ document.getElementById('furigana').click(); }
+    else if (e.key === 'r' || e.key === 'R'){ document.getElementById('romaji').click(); }
+  } else if (activeTab === 'flashcards'){
+    if (e.key === ' '){ e.preventDefault(); document.getElementById('fcCard').click(); }
+    else if (e.key === '1') fcGrade('again');
+    else if (e.key === '2') fcGrade('hard');
+    else if (e.key === '3') fcGrade('good');
+    else if (e.key === '4') fcGrade('easy');
+  }
+
+  if (e.ctrlKey && e.key >= '1' && e.key <= '7'){
+    e.preventDefault();
+    const tabs = ['story','vocab','kanji','grammar','vocab5','kanji5','grammar5'];
+    const idx = +e.key - 1;
+    if (tabs[idx]) document.querySelector(`[data-tab="${tabs[idx]}"]`).click();
+  }
+});
+document.getElementById('kbdClose').addEventListener('click', () => document.getElementById('kbdHelp').classList.add('hidden'));
+document.getElementById('kbdHelp').addEventListener('click', e => { if (e.target.id === 'kbdHelp') e.target.classList.add('hidden'); });
+document.getElementById('kbdBtn').addEventListener('click', () => document.getElementById('kbdHelp').classList.remove('hidden'));
+
+// Mouse click sets keyboard focus origin
+function bindListClicks(tab, containerId, itemSelector){
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.addEventListener('click', e => {
+    const item = e.target.closest(itemSelector);
+    if (!item) return;
+    const items = getVisibleItems(tab);
+    const idx = Array.from(items).indexOf(item);
+    if (idx >= 0){
+      listFocus[tab] = idx;
+      items.forEach((el, i) => el.classList.toggle('focused', i === idx));
+    }
+  });
+}
+bindListClicks('vocab', 'vocabTable', 'tbody tr');
+bindListClicks('vocab5', 'vocab5Table', 'tbody tr');
+bindListClicks('kanji', 'kanjiGrid', '.kcard');
+bindListClicks('kanji5', 'kanji5Grid', '.kcard');
+bindListClicks('grammar', 'grammarList', '.gcard');
+bindListClicks('grammar5', 'grammar5List', '.gcard');
+bindListClicks('bookmarks', 'bmList', '.bm-item');
+
+// ===== List navigation for other tabs =====
+let listFocus = {vocab: -1, vocab5: -1, kanji: -1, kanji5: -1, grammar: -1, grammar5: -1, bookmarks: -1};
+
+function getVisibleItems(tab){
+  if (tab === 'vocab') return document.querySelectorAll('#vocabTable tbody tr');
+  if (tab === 'vocab5') return document.querySelectorAll('#vocab5Table tbody tr');
+  if (tab === 'kanji') return document.querySelectorAll('#kanjiGrid .kcard');
+  if (tab === 'kanji5') return document.querySelectorAll('#kanji5Grid .kcard');
+  if (tab === 'grammar') return document.querySelectorAll('#grammarList .gcard');
+  if (tab === 'grammar5') return document.querySelectorAll('#grammar5List .gcard');
+  if (tab === 'bookmarks') return document.querySelectorAll('#bmList .bm-item');
+  return [];
+}
+
+function moveListFocus(tab, dir){
+  const items = getVisibleItems(tab);
+  if (!items.length) return;
+
+  if (tab === 'kanji' || tab === 'kanji5'){
+    const grid = document.getElementById(tab === 'kanji' ? 'kanjiGrid' : 'kanji5Grid');
+    const cards = Array.from(grid.querySelectorAll('.kcard'));
+    if (!cards.length) return;
+    const cols = Math.max(1, Math.floor(grid.offsetWidth / (cards[0].offsetWidth + 12)));
+    let idx = listFocus[tab];
+    if (idx < 0) idx = 0;
+    if (dir === 'left') idx = Math.max(0, idx - 1);
+    else if (dir === 'right') idx = Math.min(cards.length - 1, idx + 1);
+    else if (dir === 'up') idx = Math.max(0, idx - cols);
+    else if (dir === 'down') idx = Math.min(cards.length - 1, idx + cols);
+    else idx = Math.max(0, Math.min(cards.length - 1, idx + dir));
+    listFocus[tab] = idx;
+    cards.forEach((el, i) => el.classList.toggle('focused', i === idx));
+    cards[idx].scrollIntoView({behavior:'smooth', block:'nearest'});
+    return;
+  }
+
+  listFocus[tab] = Math.max(0, Math.min(items.length - 1, listFocus[tab] + dir));
+  items.forEach((el, i) => el.classList.toggle('focused', i === listFocus[tab]));
+  items[listFocus[tab]].scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function selectListFocus(tab){
+  const items = getVisibleItems(tab);
+  if (!items.length || listFocus[tab] < 0) return;
+  const el = items[listFocus[tab]];
+  if (tab === 'vocab' || tab === 'vocab5'){
+    const w = el.querySelector('td').textContent;
+    document.querySelector('[data-tab="story"]').click();
+    showWord(w);
+  } else if (tab === 'kanji' || tab === 'kanji5'){
+    const k = el.dataset.k;
+    const v = (tab === 'kanji' ? D.kanji : D.kanji5)[k];
+    toast(`${k} — ${v.readings} — ${v.meaning}`);
+  } else if (tab === 'grammar' || tab === 'grammar5'){
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+  } else if (tab === 'bookmarks'){
+    el.click();
+  }
+}
+
+function deleteListFocus(tab){
+  if (tab !== 'bookmarks') return;
+  const items = getVisibleItems(tab);
+  if (!items.length || listFocus[tab] < 0) return;
+  const el = items[listFocus[tab]];
+  const del = el.querySelector('.bm-del');
+  if (del) del.click();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+  const activeTab = document.querySelector('.tab.active').dataset.tab;
+
+  if (['vocab','vocab5','kanji','kanji5','grammar','grammar5','bookmarks'].includes(activeTab)){
+    const isGrid = activeTab === 'kanji' || activeTab === 'kanji5';
+    if (e.key === 'j' || (e.key === 'ArrowDown' && !isGrid)){ e.preventDefault(); moveListFocus(activeTab, 1); }
+    else if (e.key === 'k' || (e.key === 'ArrowUp' && !isGrid)){ e.preventDefault(); moveListFocus(activeTab, -1); }
+    else if (e.key === 'ArrowDown' && isGrid){ e.preventDefault(); moveListFocus(activeTab, 'down'); }
+    else if (e.key === 'ArrowUp' && isGrid){ e.preventDefault(); moveListFocus(activeTab, 'up'); }
+    else if (e.key === 'ArrowLeft'){ e.preventDefault(); moveListFocus(activeTab, 'left'); }
+    else if (e.key === 'ArrowRight'){ e.preventDefault(); moveListFocus(activeTab, 'right'); }
+    else if (e.key === 'Enter'){ e.preventDefault(); selectListFocus(activeTab); }
+    else if ((e.key === 'Delete' || e.key === 'Backspace') && activeTab === 'bookmarks'){ e.preventDefault(); deleteListFocus(activeTab); }
+    else if (e.key === '/'){ e.preventDefault(); document.getElementById(activeTab + 'Search').focus(); }
+    return;
+  }
+});

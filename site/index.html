@@ -35,6 +35,7 @@
     <div class="story-toolbar">
       <label class="switch"><input type="checkbox" id="furigana" checked><span></span> Furigana</label>
       <label class="switch"><input type="checkbox" id="romaji"><span></span> Romaji</label>
+      <button id="kbdBtn" class="kbd-btn-inline">Keyboard shortcuts</button>
       <span class="hint">Click a sentence for its analysis (meaning · words · kanji · grammar) · In the analysis, click any word for its entry</span>
     </div>
     <div class="story-layout">
@@ -109,6 +110,25 @@
 </main>
 
 <div id="toast"></div>
+<div id="kbdHelp" class="kbd-help hidden">
+  <div class="kbd-panel">
+    <h2>Keyboard Shortcuts</h2>
+    <div class="kbd-row"><span>Navigate sentences</span><span><span class="kbd-key">←</span> <span class="kbd-key">→</span> or <span class="kbd-key">↑</span> <span class="kbd-key">↓</span></span></div>
+    <div class="kbd-row"><span>Select sentence</span><span class="kbd-key">Enter</span></div>
+    <div class="kbd-row"><span>Navigate lists (vocab/kanji/grammar/bookmarks)</span><span><span class="kbd-key">J</span> <span class="kbd-key">K</span> or <span class="kbd-key">↑</span> <span class="kbd-key">↓</span></span></div>
+    <div class="kbd-row"><span>Select list item</span><span class="kbd-key">Enter</span></div>
+    <div class="kbd-row"><span>Delete bookmark</span><span class="kbd-key">Delete</span></div>
+    <div class="kbd-row"><span>Focus search</span><span class="kbd-key">/</span></div>
+    <div class="kbd-row"><span>Flip flashcard</span><span class="kbd-key">Space</span></div>
+    <div class="kbd-row"><span>Grade flashcard</span><span><span class="kbd-key">1</span> Again <span class="kbd-key">2</span> Hard <span class="kbd-key">3</span> Good <span class="kbd-key">4</span> Easy</span></div>
+    <div class="kbd-row"><span>Toggle furigana</span><span class="kbd-key">F</span></div>
+    <div class="kbd-row"><span>Toggle romaji</span><span class="kbd-key">R</span></div>
+    <div class="kbd-row"><span>Switch tabs</span><span><span class="kbd-key">Ctrl</span>+<span class="kbd-key">1</span>–<span class="kbd-key">7</span></span></div>
+    <div class="kbd-row"><span>This help</span><span class="kbd-key">?</span></div>
+    <div class="kbd-row"><span>Close / deselect</span><span class="kbd-key">Esc</span></div>
+    <button class="kbd-close" id="kbdClose">Close</button>
+  </div>
+</div>
 <script src="data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/wanakana@5.3.0/wanakana.min.js"></script>
 <script src="app.js"></script>
