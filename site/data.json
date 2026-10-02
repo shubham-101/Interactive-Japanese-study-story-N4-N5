@@ -3516,512 +3516,858 @@
   {
    "pattern": "あまり～ない",
    "romaji": "amari~nai",
-   "meaning": "not very, not much"
+   "meaning": "not very, not much",
+   "example_jp": "今度の一件については、どうもあまり自信はない。",
+   "example_en": "I don't feel too sure about this whole affair.",
+   "example_rom": ""
   },
   {
    "pattern": "あとで",
    "romaji": "ato de",
-   "meaning": "after, later"
+   "meaning": "after, later",
+   "example_jp": "私は会社を辞めたあとで、彼からの連絡もめっきり減っていた。",
+   "example_en": "After I quit my job, I hadn't heard from him much.",
+   "example_rom": ""
   },
   {
    "pattern": "ば",
    "romaji": "ba",
-   "meaning": "if… then"
+   "meaning": "if… then",
+   "example_jp": "人は死ねば、皮膚しか身につけていない。",
+   "example_en": "When a man dies he has only his skin.",
+   "example_rom": ""
   },
   {
    "pattern": "場合は",
    "romaji": "baai wa",
-   "meaning": "in the event of"
+   "meaning": "in the event of",
+   "example_jp": "頭部の外傷の場合、最初の二十四時間は注意が必要です。",
+   "example_en": "Head trauma is delicate in the first twenty-four hours.",
+   "example_rom": ""
   },
   {
    "pattern": "だけで",
    "romaji": "dake de",
-   "meaning": "just by"
+   "meaning": "just by",
+   "example_jp": "安定した収入を得るだけでは満足できなかった。",
+   "example_en": "I wasn't satisfied just to earn a good living.",
+   "example_rom": ""
   },
   {
    "pattern": "だす",
    "romaji": "dasu",
-   "meaning": "to suddenly begin, to suddenly appear"
+   "meaning": "to suddenly begin, to suddenly appear",
+   "example_jp": "彼の話を聞いて、つい笑い出してしまった。",
+   "example_en": "I burst into laughing when I heard his story.",
+   "example_rom": ""
   },
   {
    "pattern": "でも",
    "romaji": "demo",
-   "meaning": "or something"
+   "meaning": "or something",
+   "example_jp": "何か暖かいものでも飲む？",
+   "example_en": "How about something hot to drink?",
+   "example_rom": ""
   },
   {
    "pattern": "でございます",
    "romaji": "de gozaimasu",
-   "meaning": "to be (honorific)"
+   "meaning": "to be (honorific)",
+   "example_jp": "ほんとに冬の間は、ここはおそろしいほど閑静なんでございますのよ。",
+   "example_en": "It's very quiet here in the winter.",
+   "example_rom": ""
   },
   {
    "pattern": "がる",
    "romaji": "garu",
-   "meaning": "to show signs of, to feel"
+   "meaning": "to show signs of, to feel",
+   "example_jp": "手に入れるのが難しいものほど、人は欲しがるのだ。",
+   "example_en": "The more unattainable something seems, the more people want it.",
+   "example_rom": ""
   },
   {
    "pattern": "がする",
    "romaji": "ga suru",
-   "meaning": "smell, hear, taste"
+   "meaning": "smell, hear, taste",
+   "example_jp": "背後で重厚なドアが閉じる音がした。",
+   "example_en": "The heavy door clicked shut behind me.",
+   "example_rom": ""
   },
   {
    "pattern": "ごろ",
    "romaji": "goro",
-   "meaning": "around, about"
+   "meaning": "around, about",
+   "example_jp": "オフィスには八時頃行き、電話をかけたり受けたりし始めます。",
+   "example_en": "I usually arrive at my office by eight, and I start getting on the phone.",
+   "example_rom": ""
   },
   {
    "pattern": "ございます",
    "romaji": "gozaimasu",
-   "meaning": "to be, to exist (honorific)"
+   "meaning": "to be, to exist (honorific)",
+   "example_jp": "ここに私の出生証明書がございます。",
+   "example_en": "Here is the register of my birth.",
+   "example_rom": ""
   },
   {
    "pattern": "始める",
    "romaji": "hajimeru",
-   "meaning": "to start, to begin to"
+   "meaning": "to start, to begin to",
+   "example_jp": "私はとても暑く感じ始めました。",
+   "example_en": "I started to feel very hot.",
+   "example_rom": ""
   },
   {
    "pattern": "はずだ",
    "romaji": "hazu da",
-   "meaning": "it must be, it should be"
+   "meaning": "it must be, it should be",
+   "example_jp": "容疑者に裁判を拒否することはできないはずです。",
+   "example_en": "A trial surely cannot be denied to one who is accused.",
+   "example_rom": ""
   },
   {
    "pattern": "はずがない",
    "romaji": "hazu ga nai",
-   "meaning": "cannot be"
+   "meaning": "cannot be",
+   "example_jp": "ご主人の悪口を奥さんに聞かせていいはずがないんだ。",
+   "example_en": "No one has a right to criticize a husband to a wife.",
+   "example_rom": ""
   },
   {
    "pattern": "必要がある",
    "romaji": "hitsuyou ga aru",
-   "meaning": "it is necessary to"
+   "meaning": "it is necessary to",
+   "example_jp": "もう一度お会いする必要があります。",
+   "example_en": "We need to meet again.",
+   "example_rom": ""
   },
   {
    "pattern": "欲しい",
    "romaji": "hoshii",
-   "meaning": "to want something, to be in need of"
+   "meaning": "to want something, to be in need of",
+   "example_jp": "イエスという答がほしい。あなたはこの仕事の最適任者だ。",
+   "example_en": "I want you to say yes. You're the best person for the job.",
+   "example_rom": ""
   },
   {
    "pattern": "いらっしゃる",
    "romaji": "irassharu",
-   "meaning": "to be, to come, to go (honorific)"
+   "meaning": "to be, to come, to go (honorific)",
+   "example_jp": "またいらっしゃってください。",
+   "example_en": "Please come visit again.",
+   "example_rom": ""
   },
   {
    "pattern": "いたす",
    "romaji": "itasu",
-   "meaning": "to do (honorific)"
+   "meaning": "to do (honorific)",
+   "example_jp": "お邪魔いたしまして申しわけございませんでした。",
+   "example_en": "I'm sorry for interrupting you.",
+   "example_rom": ""
   },
   {
    "pattern": "じゃないか",
    "romaji": "janai ka",
-   "meaning": "isn’t it"
+   "meaning": "isn’t it",
+   "example_jp": "隠れるところがないじゃないか！",
+   "example_en": "There's nowhere to hide!",
+   "example_rom": ""
   },
   {
    "pattern": "かどうか",
    "romaji": "ka dou ka",
-   "meaning": "whether or not"
+   "meaning": "whether or not",
+   "example_jp": "自分が本当に正しいことをしているのかどうか、確信がもてなくなることがある。",
+   "example_en": "Sometimes I'm not sure whether I'm doing the right thing or not.",
+   "example_rom": ""
   },
   {
    "pattern": "かい",
    "romaji": "kai",
-   "meaning": "[turns a sentence into a yes/no question]"
+   "meaning": "[turns a sentence into a yes/no question]",
+   "example_jp": "それで、学校はどうだった？友だちはできたかい？",
+   "example_en": "So, how did you like school? Have you made any friends?",
+   "example_rom": ""
   },
   {
    "pattern": "かもしれない",
    "romaji": "kamoshirenai",
-   "meaning": "might, maybe"
+   "meaning": "might, maybe",
+   "example_jp": "私は本当はあなたに会わなかったほうがよかったのかもしれない。",
+   "example_en": "Maybe I shouldn't have met you, after all.",
+   "example_rom": ""
   },
   {
    "pattern": "かな",
    "romaji": "kana",
-   "meaning": "I wonder"
+   "meaning": "I wonder",
+   "example_jp": "あなたはわたしといっしょに旅行するのはいやなのかな？",
+   "example_en": "You wouldn't like me to travel with you, would you?",
+   "example_rom": ""
   },
   {
    "pattern": "かた",
    "romaji": "kata",
-   "meaning": "how to"
+   "meaning": "how to",
+   "example_jp": "その初めて投票したときのやり方は、誇れるようなものではありません。",
+   "example_en": "I'm not proud of how I voted that first time.",
+   "example_rom": ""
   },
   {
    "pattern": "かしら",
    "romaji": "kashira",
-   "meaning": "I wonder"
+   "meaning": "I wonder",
+   "example_jp": "今度の土曜日に電話かけていいかしら？",
+   "example_en": "Can I call you on Saturday?",
+   "example_rom": ""
   },
   {
    "pattern": "こと",
    "romaji": "koto",
-   "meaning": "Verb nominalizer"
+   "meaning": "Verb nominalizer",
+   "example_jp": "彼は休息に多くの時間をあたえることになれていない。",
+   "example_en": "He's not accustomed to devote many hours to rest.",
+   "example_rom": ""
   },
   {
    "pattern": "ことができる",
    "romaji": "koto ga dekiru",
-   "meaning": "can, be able to"
+   "meaning": "can, be able to",
+   "example_jp": "彼女はどうかこうか字は読めたが、書くことができなかった。",
+   "example_en": "She barely knew how to read, and did not know how to write.",
+   "example_rom": ""
   },
   {
    "pattern": "までに",
    "romaji": "made ni",
-   "meaning": "by, by the time"
+   "meaning": "by, by the time",
+   "example_jp": "僕はこれまでに何度か彼女に嘘をついた。",
+   "example_en": "I've lied to her before.",
+   "example_rom": ""
   },
   {
    "pattern": "みたい",
    "romaji": "mitai",
-   "meaning": "like, sort of"
+   "meaning": "like, sort of",
+   "example_jp": "あまり頭のいい人物じゃなかったけど、かなり儲けているみたいだった。",
+   "example_en": "He wasn't that bright, but he seemed to be making a fortune.",
+   "example_rom": ""
   },
   {
    "pattern": "みたいに/みたいな",
    "romaji": "mitai ni/mitai na",
-   "meaning": "like, similar to"
+   "meaning": "like, similar to",
+   "example_jp": "彼女の心は氷みたいに冷たい。",
+   "example_en": "Her heart is as cold as ice.",
+   "example_rom": "kanojo no kokoro wa koori mitai ni tsumetai."
   },
   {
    "pattern": "など",
    "romaji": "nado",
-   "meaning": "such as, things like"
+   "meaning": "such as, things like",
+   "example_jp": "これ以上人生から学ぶことなどないと考えていた。",
+   "example_en": "I thought life could teach me no more.",
+   "example_rom": ""
   },
   {
    "pattern": "ながら",
    "romaji": "nagara",
-   "meaning": "while, during, as"
+   "meaning": "while, during, as",
+   "example_jp": "子どものころは誰もがバービー人形で遊びながら育ちますよね。",
+   "example_en": "Everyone grew up playing Barbie dolls, right?",
+   "example_rom": ""
   },
   {
    "pattern": "ないで",
    "romaji": "naide",
-   "meaning": "without doing, don’t"
+   "meaning": "without doing, don’t",
+   "example_jp": "僕たちは誰にも気付かれないで村を出てきたんだ。",
+   "example_en": "We left the village without anyone knowing.",
+   "example_rom": ""
   },
   {
    "pattern": "なければいけない/なければならない",
    "romaji": "nakereba ikenai/nakereba naranai",
-   "meaning": "must, have to"
+   "meaning": "must, have to",
+   "example_jp": "だが私は行かなければならない。私を引きとめようとしても無駄だからね。",
+   "example_en": "But I must go. It is no use your trying to keep me.",
+   "example_rom": ""
   },
   {
    "pattern": "なくてはいけない/なくてはならない",
    "romaji": "nakutewa ikenai/nakutewa naranai",
-   "meaning": "must, have to"
+   "meaning": "must, have to",
+   "example_jp": "報告書を書き直さなくてはならない。",
+   "example_en": "I have to do my report over.",
+   "example_rom": ""
   },
   {
    "pattern": "なくてもいい",
    "romaji": "nakute mo ii",
-   "meaning": "don’t have to"
+   "meaning": "don’t have to",
+   "example_jp": "もうこの問題については考えなくていい。",
+   "example_en": "You don't need to worry about this anymore.",
+   "example_rom": ""
   },
   {
    "pattern": "なら",
    "romaji": "nara",
-   "meaning": "if, in case, as for"
+   "meaning": "if, in case, as for",
+   "example_jp": "彼女を殺したいのなら、僕も殺しなさい！",
+   "example_en": "If you want to kill her, you'll have to kill me too!",
+   "example_rom": ""
   },
   {
    "pattern": "なさい",
    "romaji": "nasai",
-   "meaning": "command (order somebody to do something)"
+   "meaning": "command (order somebody to do something)",
+   "example_jp": "元気を出しなさい。来週には京都に連れていってやろう。",
+   "example_en": "Cheer up, and I'll take you to Kyoto next week.",
+   "example_rom": ""
   },
   {
    "pattern": "なさる",
    "romaji": "nasaru",
-   "meaning": "to do (honorific)"
+   "meaning": "to do (honorific)",
+   "example_jp": "あまり期待なさらないでくださいよ。",
+   "example_en": "Please do not expect too much.",
+   "example_rom": ""
   },
   {
    "pattern": "に気がつく",
    "romaji": "ni ki ga tsuku",
-   "meaning": "to notice, to realize"
+   "meaning": "to notice, to realize",
+   "example_jp": "そのとき彼は、彼女が泣いているのに気がついた。",
+   "example_en": "Then he noticed that she was crying.",
+   "example_rom": "sono toki kare wa, kanojo ga naite iru noni ki ga tsuita."
   },
   {
    "pattern": "にくい",
    "romaji": "nikui",
-   "meaning": "difficult, hard to"
+   "meaning": "difficult, hard to",
+   "example_jp": "悪い知らせって言いにくい。",
+   "example_en": "It's not easy to tell people bad news.",
+   "example_rom": ""
   },
   {
    "pattern": "に見える",
    "romaji": "ni mieru",
-   "meaning": "to look, to seem"
+   "meaning": "to look, to seem",
+   "example_jp": "私には、彼は少し腹を立てているように見えた。",
+   "example_en": "I could see he was a little upset.",
+   "example_rom": ""
   },
   {
    "pattern": "のなかで",
    "romaji": "no naka de",
-   "meaning": "in, among"
+   "meaning": "in, among",
+   "example_jp": "彼は俺に人生の中で一番の親友だ。",
+   "example_en": "He is the closest friend I ever had.",
+   "example_rom": ""
+  },
+  {
+   "pattern": "のに",
+   "romaji": "noni",
+   "meaning": "in order to",
+   "example_jp": "妹は顔を洗うのにすごく長い時間がかかります。",
+   "example_en": "It takes my sister a long time to wash her face.",
+   "example_rom": ""
+  },
+  {
+   "pattern": "のに",
+   "romaji": "noni",
+   "meaning": "although, in spite of",
+   "example_jp": "冬が近づいているのに、食糧がない。",
+   "example_en": "Winter is coming and there is no food.",
+   "example_rom": ""
   },
   {
    "pattern": "のように / のような",
    "romaji": "no you ni/no you na",
-   "meaning": "like, similar to"
+   "meaning": "like, similar to",
+   "example_jp": "彼の眼は錐のように、冷たく、そして鋭かった。",
+   "example_en": "His glance was like a drill, cold and piercing.",
+   "example_rom": ""
   },
   {
    "pattern": "お～ください",
    "romaji": "o~kudasai",
-   "meaning": "please do (honorific)"
+   "meaning": "please do (honorific)",
+   "example_jp": "ドアが閉まります。ご注意ください。",
+   "example_en": "The door is being closed. Please be careful.",
+   "example_rom": ""
   },
   {
    "pattern": "お～になる",
    "romaji": "o~ni naru",
-   "meaning": "to do (honorific)"
+   "meaning": "to do (honorific)",
+   "example_jp": "いつ招待状をお出しになりますか？",
+   "example_en": "When will you send your invitations?",
+   "example_rom": ""
   },
   {
    "pattern": "おきに",
    "romaji": "oki ni",
-   "meaning": "repeated at intervals, every"
+   "meaning": "repeated at intervals, every",
+   "example_jp": "彼は一週間おきに問題を起こす生徒だ。",
+   "example_en": "He's the kind of student who gets in trouble every other week.",
+   "example_rom": ""
   },
   {
    "pattern": "終わる",
    "romaji": "owaru",
-   "meaning": "to finish, to end"
+   "meaning": "to finish, to end",
+   "example_jp": "話し終わると、記者たちの質問が殺到した。",
+   "example_en": "After I finished, the reporters asked a million questions.",
+   "example_rom": ""
+  },
+  {
+   "pattern": "られる",
+   "romaji": "rareru",
+   "meaning": "to be able to do something",
+   "example_jp": "彼が酒に溺れて自殺するなんて信じられなかった。",
+   "example_en": "I couldn't believe that he had drowned himself in alcohol and committed suicide.",
+   "example_rom": ""
   },
   {
    "pattern": "らしい",
    "romaji": "rashii",
-   "meaning": "seems like"
+   "meaning": "seems like",
+   "example_jp": "どうも最近、物覚えがわるくなっているらしい。",
+   "example_en": "I suppose my memory is getting faulty.",
+   "example_rom": ""
   },
   {
    "pattern": "さ",
    "romaji": "sa",
-   "meaning": "[nominalizer for adjectives]"
+   "meaning": "[nominalizer for adjectives]",
+   "example_jp": "あなたの強さは、どこから来ているのでしょうか？",
+   "example_en": "Where's your strength coming from, I wonder?",
+   "example_rom": ""
   },
   {
    "pattern": "させる",
    "romaji": "saseru",
-   "meaning": "to make/let somebody do something"
+   "meaning": "to make/let somebody do something",
+   "example_jp": "なぜかその人たちは、わたしを不安な気持にさせた。",
+   "example_en": "I didn't know why, but those people made me uneasy.",
+   "example_rom": ""
   },
   {
    "pattern": "させられる",
    "romaji": "saserareru",
-   "meaning": "to be made to do something"
+   "meaning": "to be made to do something",
+   "example_jp": "母は家計を支えるために高校をやめさせられた。",
+   "example_en": "My mother was pulled out of school to help support her family.",
+   "example_rom": ""
   },
   {
    "pattern": "さすが",
    "romaji": "sasuga",
-   "meaning": "as one would expect"
+   "meaning": "as one would expect",
+   "example_jp": "さすがにこういうところには住みたくないな…",
+   "example_en": "Just as I thought, I wouldn't wanna live in a place like this...",
+   "example_rom": ""
   },
   {
    "pattern": "し～し",
    "romaji": "shi~shi",
-   "meaning": "and"
+   "meaning": "and",
+   "example_jp": "彼は勉強も運動もできるし背も高いし…",
+   "example_en": "He's good at studying and sports, and he's tall.",
+   "example_rom": ""
   },
   {
    "pattern": "しか～ない",
    "romaji": "shika~nai",
-   "meaning": "only, nothing but"
+   "meaning": "only, nothing but",
+   "example_jp": "正しくやれるチャンスは１回しかないんだ。",
+   "example_en": "You only have one chance to do things right.",
+   "example_rom": ""
   },
   {
    "pattern": "そんなに",
    "romaji": "sonna ni",
-   "meaning": "so, so much, like that"
+   "meaning": "so, so much, like that",
+   "example_jp": "わたしのことがそんなに大切？",
+   "example_en": "Do I mean so much to you?",
+   "example_rom": ""
   },
   {
    "pattern": "それでも",
    "romaji": "sore demo",
-   "meaning": "but still, and yet"
+   "meaning": "but still, and yet",
+   "example_jp": "彼女は食べることに集中しようとした。それでも手は震え、顔は怒りで火照りはじめた。",
+   "example_en": "She tried to concentrate on her food, but her hands shook and her face was starting to burn with anger.",
+   "example_rom": ""
   },
   {
    "pattern": "そうに/そうな",
    "romaji": "sou ni/sou na",
-   "meaning": "seem, look like"
+   "meaning": "seem, look like",
+   "example_jp": "ヒカルだけがかなり快活そうな様子をしていました。",
+   "example_en": "Hikaru alone seemed fairly cheerful.",
+   "example_rom": ""
+  },
+  {
+   "pattern": "そうだ",
+   "romaji": "sou da",
+   "meaning": "I heard that, it is said that",
+   "example_jp": "うわさでは、橋本がついに職を得たそうだ。",
+   "example_en": "Rumor has it that Hashimoto finally got the job.",
+   "example_rom": ""
+  },
+  {
+   "pattern": "そうだ",
+   "romaji": "sou da",
+   "meaning": "look like, seem",
+   "example_jp": "彼はいまにも涙をこぼしそうだった。",
+   "example_en": "He looked as though he was on the verge of tears.",
+   "example_rom": ""
   },
   {
    "pattern": "たばかり",
    "romaji": "ta bakari",
-   "meaning": "just did, something just happened"
+   "meaning": "just did, something just happened",
+   "example_jp": "その話を聞いていたら、うちの娘が生まれたばかりのころを思い出した。",
+   "example_en": "That story reminded me of when my daughter was just born.",
+   "example_rom": ""
   },
   {
    "pattern": "たがる",
    "romaji": "tagaru",
-   "meaning": "to want to"
+   "meaning": "to want to",
+   "example_jp": "三浦さんは私の演説に目を通したがっていた。",
+   "example_en": "Miura wanted to see my speech.",
+   "example_rom": ""
   },
   {
    "pattern": "たら",
    "romaji": "tara",
-   "meaning": "if, after, when"
+   "meaning": "if, after, when",
+   "example_jp": "もしあなたがお亡くなりになったら、私も死にます。",
+   "example_en": "If you were to die, I would die too.",
+   "example_rom": ""
   },
   {
    "pattern": "たらどう",
    "romaji": "tara dou",
-   "meaning": "why don’t you?"
+   "meaning": "why don’t you?",
+   "example_jp": "それはネットで調べたらどう？",
+   "example_en": "Why don't you look it up on the Internet?",
+   "example_rom": ""
   },
   {
    "pattern": "たり～たり",
    "romaji": "tari~tari",
-   "meaning": "do such things like"
+   "meaning": "do such things like",
+   "example_jp": "友達と一緒にご飯を食べたり話したりするのが楽しかったです。",
+   "example_en": "It was fun eating and chatting with my friends.",
+   "example_rom": ""
   },
   {
    "pattern": "たところ",
    "romaji": "ta tokoro",
-   "meaning": "just finished doing, was just doing"
+   "meaning": "just finished doing, was just doing",
+   "example_jp": "高木が、書斎のガラス戸から庭へ出たところだ。",
+   "example_en": "Takagi just stepped out from his study window into the garden.",
+   "example_rom": ""
   },
   {
    "pattern": "てあげる",
    "romaji": "te ageru",
-   "meaning": "to do something for someone"
+   "meaning": "to do something for someone",
+   "example_jp": "タクシーを拾ってあげようか？",
+   "example_en": "Shall I call you a cab?",
+   "example_rom": ""
   },
   {
    "pattern": "てある",
    "romaji": "te aru",
-   "meaning": "something is/has been done"
+   "meaning": "something is/has been done",
+   "example_jp": "何かが骨のなかに差し込んである。",
+   "example_en": "There's something inserted inside this bone.",
+   "example_rom": ""
   },
   {
    "pattern": "てほしい",
    "romaji": "te hoshii",
-   "meaning": "I need you to"
+   "meaning": "I need you to",
+   "example_jp": "向こうで待っていてほしい。あとから私も行く。",
+   "example_en": "Wait for me there, and I will soon join you.",
+   "example_rom": ""
   },
   {
    "pattern": "ていく",
    "romaji": "te iku",
-   "meaning": "to go on, to start"
+   "meaning": "to go on, to start",
+   "example_jp": "彼はもう一度詫びを述べて、別のドアから出て行った。",
+   "example_en": "He apologized again and left by another door.",
+   "example_rom": ""
   },
   {
    "pattern": "ているところ",
    "romaji": "teiru tokoro",
-   "meaning": "in the process of doing"
+   "meaning": "in the process of doing",
+   "example_jp": "どうぞお楽に、ちょうどお茶を淹れているところです。",
+   "example_en": "Please make yourself comfortable. I'm just steeping some tea.",
+   "example_rom": ""
   },
   {
    "pattern": "ていた",
    "romaji": "te ita",
-   "meaning": "was doing something"
+   "meaning": "was doing something",
+   "example_jp": "真純の眼はじっと地面を見つめていた。",
+   "example_en": "Masumi's eyes remained fixed on the earth.",
+   "example_rom": ""
   },
   {
    "pattern": "ていただけませんか",
    "romaji": "te itadakemasen ka",
-   "meaning": "could you please"
+   "meaning": "could you please",
+   "example_jp": "手紙ではとても説明できません。どうかお帰りになっていただけませんか？",
+   "example_en": "I can't explain in a letter. Won't you come back?",
+   "example_rom": ""
   },
   {
    "pattern": "てくれる",
    "romaji": "te kureru",
-   "meaning": "to do something for me or somebody's sake"
+   "meaning": "to do something for me or somebody's sake",
+   "example_jp": "僕たちのためにいろいろ助けてくれたことは忘れない。",
+   "example_en": "We'll never forget all the things you did for us.",
+   "example_rom": ""
   },
   {
    "pattern": "てくる",
    "romaji": "te kuru",
-   "meaning": "to come to, to become, to continue"
+   "meaning": "to come to, to become, to continue",
+   "example_jp": "喉が渇いたから飲み物を買ってくる。",
+   "example_en": "I'm thirsty so I'll go buy something to drink.",
+   "example_rom": ""
   },
   {
    "pattern": "てみる",
    "romaji": "te miru",
-   "meaning": "to try to"
+   "meaning": "to try to",
+   "example_jp": "ロック・クライミングにも挑戦してみたいです。",
+   "example_en": "I want to try rock climbing too.",
+   "example_rom": ""
   },
   {
    "pattern": "ても",
    "romaji": "temo",
-   "meaning": "even if, even though"
+   "meaning": "even if, even though",
+   "example_jp": "自分が疲れていても、ひもじくても、わたしを看護して、食べさせてくれたわ。",
+   "example_en": "She nursed and fed me, even if she was tired and even if she went hungry.",
+   "example_rom": ""
   },
   {
    "pattern": "てもらう",
    "romaji": "te morau",
-   "meaning": "to get somebody to do something"
+   "meaning": "to get somebody to do something",
+   "example_jp": "あなたに認めてもらいたいんです。わたしとエミリーとの結婚を。",
+   "example_en": "I just wanted your approval to my marrying Emily.",
+   "example_rom": ""
   },
   {
    "pattern": "ておく",
    "romaji": "te oku",
-   "meaning": "to do something in advance"
+   "meaning": "to do something in advance",
+   "example_jp": "この恐ろしい秘密は、われわれ二人の胸中深く秘めておこう。",
+   "example_en": "Let us bury this terrible secret in the deepest recesses of our hearts.",
+   "example_rom": ""
   },
   {
    "pattern": "てしまう",
    "romaji": "te shimau",
-   "meaning": "to do something by accident, to finish completely"
+   "meaning": "to do something by accident, to finish completely",
+   "example_jp": "いったい誰がこの致命的な秘密をあの子に知らせてしまったのか、私どもにはわかりませ",
+   "example_en": "We never knew who had revealed this fatal secret to that child.",
+   "example_rom": ""
   },
   {
    "pattern": "てすみません",
    "romaji": "te sumimasen",
-   "meaning": "I’m sorry for"
+   "meaning": "I’m sorry for",
+   "example_jp": "この件についてだまっていてすみません。",
+   "example_en": "I'm sorry for not mentioning this earlier.",
+   "example_rom": ""
   },
   {
    "pattern": "てよかった",
    "romaji": "te yokatta",
-   "meaning": "I’m glad that"
+   "meaning": "I’m glad that",
+   "example_jp": "あなたが早めに席を予約してくれてよかった。",
+   "example_en": "I'm glad you booked our seats early.",
+   "example_rom": ""
   },
   {
    "pattern": "と",
    "romaji": "to",
-   "meaning": "if, when"
+   "meaning": "if, when",
+   "example_jp": "この手紙を朗読すると、詩的に聞こえませんか？",
+   "example_en": "When you read this letter out loud, doesn't it sound poetic?",
+   "example_rom": ""
   },
   {
    "pattern": "と～と、どちらが",
    "romaji": "to~to, dochira ga",
-   "meaning": "which one"
+   "meaning": "which one",
+   "example_jp": "日本語と英語とどちらが難しいですか。",
+   "example_en": "Which language is more difficult, Japanese or English?",
+   "example_rom": ""
   },
   {
    "pattern": "ということ",
    "romaji": "to iu koto",
-   "meaning": "[changes a sentence or phrase into a Noun]"
+   "meaning": "[changes a sentence or phrase into a Noun]",
+   "example_jp": "彼が金持だということが一般に知れ渡る。",
+   "example_en": "He is known to be rich.",
+   "example_rom": ""
   },
   {
    "pattern": "と言ってもいい",
    "romaji": "to itte mo ii",
-   "meaning": "you could say, you might say"
+   "meaning": "you could say, you might say",
+   "example_jp": "そんな事は、ほとんど不可能といってもいいが…",
+   "example_en": "I should say it was almost impossible.",
+   "example_rom": ""
   },
   {
    "pattern": "と言われている",
    "romaji": "to iwarete iru",
-   "meaning": "it is said that…"
+   "meaning": "it is said that…",
+   "example_jp": "ベーカー通りにあるその古い屋敷には、よく幽霊が出ると言われている。",
+   "example_en": "People say the old house on Baker Street is haunted.",
+   "example_rom": ""
   },
   {
    "pattern": "とか～とか",
    "romaji": "toka ~ toka",
-   "meaning": "among other things, such as"
+   "meaning": "among other things, such as",
+   "example_jp": "右とか左とかっていうのはよくわからなくなるもんですよ。",
+   "example_en": "Left and right are always puzzling.",
+   "example_rom": ""
   },
   {
    "pattern": "とき",
    "romaji": "toki",
-   "meaning": "when, at the time"
+   "meaning": "when, at the time",
+   "example_jp": "じつは私もここに初めて入ったときには、同じことを考えましたよ。",
+   "example_en": "Actually, the same idea came across me the first time I came here.",
+   "example_rom": ""
   },
   {
    "pattern": "と聞いた",
    "romaji": "to kiita",
-   "meaning": "I heard that"
+   "meaning": "I heard that",
+   "example_jp": "たしかあなたはずっと独身だと聞きましたが…",
+   "example_en": "I always understood you were a bachelor.",
+   "example_rom": ""
   },
   {
    "pattern": "ところ",
    "romaji": "tokoro",
-   "meaning": "about to, on the verge of"
+   "meaning": "about to, on the verge of",
+   "example_jp": "私たちはもうすぐ到着するところです。",
+   "example_en": "We are just arriving.",
+   "example_rom": ""
   },
   {
    "pattern": "と見える",
    "romaji": "to mieru",
-   "meaning": "it seems that"
+   "meaning": "it seems that",
+   "example_jp": "彼女のひどい仕打ちは、よっぽど深い印象をあなたの心にあたえたとみえるわ！",
+   "example_en": "What a singularly deep impression her injustice seems to have made on your heart!",
+   "example_rom": ""
   },
   {
    "pattern": "と思う",
    "romaji": "to omou",
-   "meaning": "to think"
+   "meaning": "to think",
+   "example_jp": "オリンピックの後、いろんなことがぐんとよくなったと思う。",
+   "example_en": "I think things really improved after the Olympics.",
+   "example_rom": ""
   },
   {
    "pattern": "続ける",
    "romaji": "tsuzukeru",
-   "meaning": "to continue"
+   "meaning": "to continue",
+   "example_jp": "銃弾が重いドアノブをなおもたたきつづけている。",
+   "example_en": "Bullets continue to slam against the heavy doorknob.",
+   "example_rom": ""
   },
   {
    "pattern": "やすい",
    "romaji": "yasui",
-   "meaning": "easy to, likely to"
+   "meaning": "easy to, likely to",
+   "example_jp": "お互いへの信頼があれば、取引はずっと進めやすくなる。",
+   "example_en": "Mutual trust makes it much easier to do business.",
+   "example_rom": ""
   },
   {
    "pattern": "より",
    "romaji": "yori",
-   "meaning": "more than"
+   "meaning": "more than",
+   "example_jp": "とても内気だったけど、芯はわたしよりずっと強い人だった。",
+   "example_en": "He was very shy, but deep down he was stronger than me.",
+   "example_rom": ""
   },
   {
    "pattern": "予定だ",
    "romaji": "yotei da",
-   "meaning": "plan to, intend to"
+   "meaning": "plan to, intend to",
+   "example_jp": "今日、午前八時に飛行機で長野を出発する予定だ。",
+   "example_en": "I am to leave Kyoto by plane at eight a.m. today.",
+   "example_rom": ""
   },
   {
    "pattern": "ようだ",
    "romaji": "you da",
-   "meaning": "it seems that, it appears that"
+   "meaning": "it seems that, it appears that",
+   "example_jp": "いまの彼は審判を待つ罪人のようだ。",
+   "example_en": "He looks so like a criminal waiting judgment.",
+   "example_rom": ""
   },
   {
    "pattern": "ように/ような",
    "romaji": "you ni/you na",
-   "meaning": "as, like"
+   "meaning": "as, like",
+   "example_jp": "栄介は逃げるようにして町を出ていった。",
+   "example_en": "Eisuke left the town as though he was fleeing from it.",
+   "example_rom": ""
   },
   {
    "pattern": "ようになる",
    "romaji": "you ni naru",
-   "meaning": "to reach the point that"
+   "meaning": "to reach the point that",
+   "example_jp": "最近では、不愉快な思いはうまく頭から締め出せるようになった。",
+   "example_en": "I've become adept at putting unpleasant thoughts out of my mind these days.",
+   "example_rom": ""
   },
   {
    "pattern": "ようにする",
    "romaji": "you ni suru",
-   "meaning": "to try to, to make sure that"
+   "meaning": "to try to, to make sure that",
+   "example_jp": "このプロジェクト、私に担当させてください。期待に沿うようにします。",
+   "example_en": "Let me take charge of this project. I won't let you down.",
+   "example_rom": ""
   },
   {
    "pattern": "ようと思う",
    "romaji": "you to omou",
-   "meaning": "I think I will… (I’m thinking of doing…)"
+   "meaning": "I think I will… (I’m thinking of doing…)",
+   "example_jp": "明日、ランチのあとで天文学の本を買おうと思う。",
+   "example_en": "I'll buy a book on astronomy tomorrow right after lunch.",
+   "example_rom": ""
   },
   {
    "pattern": "全然",
    "romaji": "zenzen",
-   "meaning": "(not) at all"
+   "meaning": "(not) at all",
+   "example_jp": "ちょっと待ってくれ、ぼくには、そんなことはぜんぜん理解できないよ。",
+   "example_en": "Excuse me, but I’m absolutely unable to comprehend how.",
+   "example_rom": ""
   }
  ],
  "vocab5": {
@@ -8197,252 +8543,402 @@
   {
    "pattern": "だ / です",
    "romaji": "da / desu",
-   "meaning": "to be"
+   "meaning": "to be",
+   "example_jp": "それは非常に面白いコメントですね。",
+   "example_en": "That's a very interesting comment.",
+   "example_rom": ""
   },
   {
    "pattern": "だけ",
    "romaji": "dake",
-   "meaning": "only, just"
+   "meaning": "only, just",
+   "example_jp": "私はただ臆測しただけです。",
+   "example_en": "I only guessed.",
+   "example_rom": ""
   },
   {
    "pattern": "だろう",
    "romaji": "darou",
-   "meaning": "don’t you agree?, probably"
+   "meaning": "don’t you agree?, probably",
+   "example_jp": "あなたはそれいじょう、お金はいらないだろう。",
+   "example_en": "You don't need more money than that.",
+   "example_rom": ""
   },
   {
    "pattern": "で",
    "romaji": "de",
-   "meaning": "in, at, on"
+   "meaning": "in, at, on",
+   "example_jp": "ここでサッカーをしないでください。",
+   "example_en": "Please don't play soccer here.",
+   "example_rom": ""
   },
   {
    "pattern": "で",
    "romaji": "de",
-   "meaning": "by, with"
+   "meaning": "by, with",
+   "example_jp": "震える指で、彼女は封筒を開けた。",
+   "example_en": "She opened the envelope with her trembling fingers.",
+   "example_rom": ""
   },
   {
    "pattern": "でしょう",
    "romaji": "deshou",
-   "meaning": "I think, probably"
+   "meaning": "I think, probably",
+   "example_jp": "宿題は後でできるでしょう。",
+   "example_en": "You can do your homework later, right?",
+   "example_rom": ""
   },
   {
    "pattern": "が",
    "romaji": "ga",
-   "meaning": "subject marker"
+   "meaning": "subject marker",
+   "example_jp": "夏が過ぎ、冬がふたたびやって来た。",
+   "example_en": "The summer passed, and winter came again.",
+   "example_rom": ""
   },
   {
    "pattern": "が",
    "romaji": "ga",
-   "meaning": "but, however, still"
+   "meaning": "but, however, still",
+   "example_jp": "通路は広かったが真暗だった。",
+   "example_en": "The path was wide, but dark.",
+   "example_rom": ""
   },
   {
    "pattern": "がある",
    "romaji": "ga aru",
-   "meaning": "to be, to exist (inanimate objects)"
+   "meaning": "to be, to exist (inanimate objects)",
+   "example_jp": "言いたいことがありますか？",
+   "example_en": "Is there anything you want to say?",
+   "example_rom": ""
   },
   {
    "pattern": "がいる",
    "romaji": "gairu",
-   "meaning": "to be, to exist (living objects)"
+   "meaning": "to be, to exist (living objects)",
+   "example_jp": "図書館に人がいっぱいいる。",
+   "example_en": "There are many people at the library.",
+   "example_rom": ""
   },
   {
    "pattern": "ほうがいい",
    "romaji": "hou ga ii",
-   "meaning": "had better, should"
+   "meaning": "had better, should",
+   "example_jp": "英会話をもっと練習したほうがいい。",
+   "example_en": "You should practice speaking English more.",
+   "example_rom": ""
   },
   {
    "pattern": "ほうがいい",
    "romaji": "hou ga ii",
-   "meaning": "it’d be better to not"
+   "meaning": "it’d be better to not",
+   "example_jp": "約束を忘れないほうがいい。",
+   "example_en": "You'd better not forget your promise.",
+   "example_rom": ""
   },
   {
    "pattern": "いちばん",
    "romaji": "ichiban",
-   "meaning": "the most, the best"
+   "meaning": "the most, the best",
+   "example_jp": "一番嫌いな男性のタイプは何ですか？",
+   "example_en": "What's the type of man you hate the most?",
+   "example_rom": ""
   },
   {
    "pattern": "か",
    "romaji": "ka",
-   "meaning": "question particle"
+   "meaning": "question particle",
+   "example_jp": "あなたがだれなのか、どうやってここへ来たのか、誰にもわからない。",
+   "example_en": "Nobody had any idea who you were or how you got here.",
+   "example_rom": ""
   },
   {
    "pattern": "か",
    "romaji": "ka",
-   "meaning": "or"
+   "meaning": "or",
+   "example_jp": "あの男たちは、佐々木か私を探しているのだ。",
+   "example_en": "Those men are looking for Sasaki or for me.",
+   "example_rom": ""
   },
   {
    "pattern": "から",
    "romaji": "kara",
-   "meaning": "since, because"
+   "meaning": "since, because",
+   "example_jp": "財布を忘れたから、電車の切符を買えなかった。",
+   "example_en": "I forgot my wallet so I couldn’t buy the train ticket.",
+   "example_rom": ""
   },
   {
    "pattern": "から",
    "romaji": "kara",
-   "meaning": "from, since"
+   "meaning": "from, since",
+   "example_jp": "彼はやっと地獄から逃げ出した。",
+   "example_en": "He finally escaped from hell.",
+   "example_rom": ""
   },
   {
    "pattern": "けど / けれども",
    "romaji": "kedo / keredomo",
-   "meaning": "but, however, although"
+   "meaning": "but, however, although",
+   "example_jp": "千葉君は顔は汚いけど、心はとっても清いんです。",
+   "example_en": "Chiba might look ugly, but he has a pure heart.",
+   "example_rom": ""
   },
   {
    "pattern": "くらい / ぐらい",
    "romaji": "kurai / gurai",
-   "meaning": "about, approximately, at the very least"
+   "meaning": "about, approximately, at the very least",
+   "example_jp": "自分の服ぐらい自分で洗ってよ。",
+   "example_en": "Wash your own clothes.",
+   "example_rom": ""
   },
   {
    "pattern": "まだ",
    "romaji": "mada",
-   "meaning": "still, not yet"
+   "meaning": "still, not yet",
+   "example_jp": "わたしはまだ結婚していません。",
+   "example_en": "I'm still single.",
+   "example_rom": ""
   },
   {
    "pattern": "まで",
    "romaji": "made",
-   "meaning": "until, till, as far as, to (an extent)"
+   "meaning": "until, till, as far as, to (an extent)",
+   "example_jp": "この話に結着がつくまでお待ちになってください。",
+   "example_en": "Please at least wait until the story has a conclusion.",
+   "example_rom": ""
   },
   {
    "pattern": "まえに",
    "romaji": "mae ni",
-   "meaning": "before, in front of"
+   "meaning": "before, in front of",
+   "example_jp": "食事の前に手を洗ってください。",
+   "example_en": "Wash your hands before eating.",
+   "example_rom": ""
   },
   {
    "pattern": "ませんか",
    "romaji": "masen ka",
-   "meaning": "let’s, won’t you"
+   "meaning": "let’s, won’t you",
+   "example_jp": "私のパーティーに参加しませんか？",
+   "example_en": "Won't you join my party?",
+   "example_rom": ""
   },
   {
    "pattern": "ましょう",
    "romaji": "mashou",
-   "meaning": "let’s, shall we"
+   "meaning": "let’s, shall we",
+   "example_jp": "テストを始めましょうか？",
+   "example_en": "Shall we begin the test?",
+   "example_rom": ""
   },
   {
    "pattern": "も",
    "romaji": "mo",
-   "meaning": "also, too, as well"
+   "meaning": "also, too, as well",
+   "example_jp": "僕も昨日徹夜で勉強しました。",
+   "example_en": "I was also up all night studying.",
+   "example_rom": ""
   },
   {
    "pattern": "もう",
    "romaji": "mou",
-   "meaning": "already, anymore"
+   "meaning": "already, anymore",
+   "example_jp": "もう我慢できない。",
+   "example_en": "I can't take it anymore.",
+   "example_rom": ""
   },
   {
    "pattern": "な",
    "romaji": "na",
-   "meaning": "don’t do (command)"
+   "meaning": "don’t do (command)",
+   "example_jp": "銃を使うな！",
+   "example_en": "Don't use the gun!",
+   "example_rom": ""
   },
   {
    "pattern": "ないでください",
    "romaji": "naide kudasai",
-   "meaning": "please don’t"
+   "meaning": "please don’t",
+   "example_jp": "宿題をするのを忘れないでください。",
+   "example_en": "Please don't forget to do your homework.",
+   "example_rom": "shukudai o suru no o wasurenaide kudasai."
   },
   {
    "pattern": "なる",
    "romaji": "naru",
-   "meaning": "to become"
+   "meaning": "to become",
+   "example_jp": "彼女が美しくなりましたね。",
+   "example_en": "She has become so beautiful.",
+   "example_rom": ""
   },
   {
    "pattern": "に",
    "romaji": "ni",
-   "meaning": "in, at, on"
+   "meaning": "in, at, on",
+   "example_jp": "ここに名前を書いてください。",
+   "example_en": "Please write your name here.",
+   "example_rom": ""
   },
   {
    "pattern": "に/へ",
    "romaji": "ni/e",
-   "meaning": "to"
+   "meaning": "to",
+   "example_jp": "ベッドに戻りたい。",
+   "example_en": "I want to go back to bed.",
+   "example_rom": ""
   },
   {
    "pattern": "にいく",
    "romaji": "ni iku",
-   "meaning": "to go in order to do something"
+   "meaning": "to go in order to do something",
+   "example_jp": "薪を集めに行こう!",
+   "example_en": "Let's go pick up firewood!",
+   "example_rom": ""
   },
   {
    "pattern": "にする",
    "romaji": "ni suru",
-   "meaning": "to decide on"
+   "meaning": "to decide on",
+   "example_jp": "田舎へは行かないことにしましょうよ。",
+   "example_en": "Let's not go to the countryside.",
+   "example_rom": ""
   },
   {
    "pattern": "の",
    "romaji": "no",
-   "meaning": "of (indicates possessive)"
+   "meaning": "of (indicates possessive)",
+   "example_jp": "予定の計画にはなんら変更はありません。",
+   "example_en": "There is no change in our original plans.",
+   "example_rom": ""
   },
   {
    "pattern": "ので",
    "romaji": "node",
-   "meaning": "because of, the reason is that"
+   "meaning": "because of, the reason is that",
+   "example_jp": "少し仮眠を取りますので、状況が変化したら起こしてください。",
+   "example_en": "I'm going to take a nap for a while, so please wake me up if there is any change.",
+   "example_rom": ""
   },
   {
    "pattern": "のがじょうず",
    "romaji": "no ga jouzu",
-   "meaning": "to be good at"
+   "meaning": "to be good at",
+   "example_jp": "教えるのが上手な人は、どんな人？",
+   "example_en": "What kind of people are good at teaching?",
+   "example_rom": ""
   },
   {
    "pattern": "のがへた",
    "romaji": "no ga heta",
-   "meaning": "to be bad at"
+   "meaning": "to be bad at",
+   "example_jp": "お酒を飲むのが下手なのです。",
+   "example_en": "I'm not good at drinking.",
+   "example_rom": ""
   },
   {
    "pattern": "のがすき",
    "romaji": "no ga suki",
-   "meaning": "to love doing something"
+   "meaning": "to love doing something",
+   "example_jp": "妻は不平を言うのが好き。",
+   "example_en": "My wife loves complaining.",
+   "example_rom": ""
   },
   {
    "pattern": "すぎる",
    "romaji": "sugiru",
-   "meaning": "too much"
+   "meaning": "too much",
+   "example_jp": "この子達にギャンブルは早すぎる。",
+   "example_en": "It's too early for these kids to gamble.",
+   "example_rom": ""
   },
   {
    "pattern": "たい",
    "romaji": "tai",
-   "meaning": "want to"
+   "meaning": "want to",
+   "example_jp": "あなたの言うことを聞きたくない。",
+   "example_en": "I don't want to listen to what you say.",
+   "example_rom": ""
   },
   {
    "pattern": "たことがある",
    "romaji": "ta koto ga aru",
-   "meaning": "have done something before"
+   "meaning": "have done something before",
+   "example_jp": "あの人は誰？何度も見たことがあるよ。",
+   "example_en": "Who's that person? I've seen him many times before.",
+   "example_rom": ""
   },
   {
    "pattern": "ている",
    "romaji": "te iru",
-   "meaning": "to be doing something"
+   "meaning": "to be doing something",
+   "example_jp": "何を考えていますか？",
+   "example_en": "What are you thinking?",
+   "example_rom": ""
   },
   {
    "pattern": "てください",
    "romaji": "te kudasai",
-   "meaning": "please do"
+   "meaning": "please do",
+   "example_jp": "ドアをしめてください。",
+   "example_en": "Please close the door.",
+   "example_rom": ""
   },
   {
    "pattern": "てもいい",
    "romaji": "te mo ii",
-   "meaning": "it’s okay to, can, may"
+   "meaning": "it’s okay to, can, may",
+   "example_jp": "それじゃ、わたし、行ってもいいですか？",
+   "example_en": "Well then, May I go now?",
+   "example_rom": ""
   },
   {
    "pattern": "てから",
    "romaji": "te kara",
-   "meaning": "after doing something, since"
+   "meaning": "after doing something, since",
+   "example_jp": "このクラブを出てから兄は行方不明になったんだ！",
+   "example_en": "It was on leaving this club that my brother disappeared.",
+   "example_rom": ""
   },
   {
    "pattern": "てはいけない",
    "romaji": "te wa ikenai",
-   "meaning": "may not, must not"
+   "meaning": "may not, must not",
+   "example_jp": "あの男には逆らってはいけないと思う。",
+   "example_en": "I think we should not oppose that man.",
+   "example_rom": ""
   },
   {
    "pattern": "と",
    "romaji": "to",
-   "meaning": "and, with"
+   "meaning": "and, with",
+   "example_jp": "若い二人は目と目を見交わした。",
+   "example_en": "The two young persons exchanged looks.",
+   "example_rom": ""
   },
   {
    "pattern": "つもり",
    "romaji": "tsumori",
-   "meaning": "plan on doing something"
+   "meaning": "plan on doing something",
+   "example_jp": "国へ帰ったら、会社をつくるつもりだ。",
+   "example_en": "When I return to my country, I plan to start a company.",
+   "example_rom": ""
   },
   {
    "pattern": "や",
    "romaji": "ya",
-   "meaning": "and"
+   "meaning": "and",
+   "example_jp": "私はずっと、レジャーや観光や旅行にとても関心がありました。",
+   "example_en": "I've always been really interested in leisure and tourism and travel.",
+   "example_rom": ""
   },
   {
    "pattern": "より~ほうが ~",
    "romaji": "yori~ hou ga",
-   "meaning": "more than"
+   "meaning": "more than",
+   "example_jp": "女より男のほうが飽きやすいものだ。",
+   "example_en": "Men tire more easily than women.",
+   "example_rom": ""
   }
  ]
 }

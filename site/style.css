@@ -56,6 +56,9 @@ th{color:#c99900;font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .gcard b{font-size:17px;color:#d1567f;font-family:'Noto Serif JP',serif}
 .gcard .rom{color:#7aa2f7;font-size:12px;margin-left:8px}
 .gcard p{color:var(--muted);font-size:13px;margin-top:4px}
+.gexample{margin-top:8px;padding:8px 10px;background:#FFF5C3;border-radius:8px;border-left:3px solid #FFB3D1}
+.gex-jp{display:block;font-family:'Noto Serif JP',serif;font-size:14px;color:#33302e}
+.gex-en{display:block;font-size:12px;color:var(--muted);margin-top:2px;font-style:italic}
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#33302e;color:#FFF5C3;padding:10px 20px;border-radius:999px;font-size:13px;transition:.3s;z-index:50}
 .del{background:none;border:none;color:#d1567f;cursor:pointer;font-size:14px}
 .del:hover{color:#a03060}

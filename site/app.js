@@ -359,10 +359,12 @@ kg.addEventListener('click', e => {
 // Grammar tab
 const gl = document.getElementById('grammarList');
 function renderGrammar(f=''){
-  const f2 = f.toLowerCase();
+  const f2=f.toLowerCase();
   gl.innerHTML = D.grammar
     .filter(g => g.pattern.includes(f) || g.meaning.toLowerCase().includes(f2) || g.romaji.toLowerCase().includes(f2))
-    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p></div>`).join('');
+    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
+      ${g.example_jp ? `<div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}
+    </div>`).join('');
 }
 document.getElementById('grammarSearch').addEventListener('input', e => renderGrammar(e.target.value));
 
@@ -397,7 +399,9 @@ function renderGrammar5(f=''){
   const f2=f.toLowerCase();
   gl5.innerHTML = D.grammar5
     .filter(g => g.pattern.includes(f) || g.meaning.toLowerCase().includes(f2) || g.romaji.toLowerCase().includes(f2))
-    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p></div>`).join('');
+    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
+      ${g.example_jp ? `<div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}
+    </div>`).join('');
 }
 document.getElementById('grammar5Search').addEventListener('input', e => renderGrammar5(e.target.value));
 renderVocab5(); renderKanji5(); renderGrammar5();
