@@ -180,7 +180,7 @@ function renderStory(){
   root.innerHTML = '';
   window.CHAPTERS.forEach((ch, ci) => {
     const h = document.createElement('h3');
-    h.className = 'chapter'; h.textContent = ch.title;
+    h.className = 'chapter'; h.textContent = ch.title; h.dataset.ci = ci;
     root.appendChild(h);
     const sents = ch.sentences && ch.sentences.length ? ch.sentences : splitSentences(ch.jp).map(s => ({jp:s, en:''}));
     sents.forEach((s, si) => {
@@ -723,6 +723,16 @@ document.addEventListener('keydown', e => {
 document.getElementById('kbdClose').addEventListener('click', () => document.getElementById('kbdHelp').classList.add('hidden'));
 document.getElementById('kbdHelp').addEventListener('click', e => { if (e.target.id === 'kbdHelp') e.target.classList.add('hidden'); });
 document.getElementById('kbdBtn').addEventListener('click', () => document.getElementById('kbdHelp').classList.remove('hidden'));
+
+// ===== Chapter jump menu =====
+(function(){
+  const sel = document.getElementById('chapterJump');
+  sel.innerHTML = window.CHAPTERS.map((c,i) => `<option value="${i}">${c.title}</option>`).join('');
+  sel.addEventListener('change', () => {
+    const h = document.querySelector(`#storyText h3[data-ci="${sel.value}"]`);
+    if (h) h.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
 
 // Mouse click sets keyboard focus origin
 function bindListClicks(tab, containerId, itemSelector){
