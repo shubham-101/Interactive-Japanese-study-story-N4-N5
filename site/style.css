@@ -118,6 +118,8 @@ th{color:#c99900;font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .kbd-key{background:#FFF5C3;border:1px solid #E3D6A6;border-radius:6px;padding:2px 10px;font-family:monospace;font-size:12px;color:#33302e}
 .kbd-close{margin-top:16px;width:100%;background:linear-gradient(135deg,#FFB3D1,#FFC1CC);border:none;border-radius:10px;padding:10px;cursor:pointer;font-weight:700}
 .story p.sent.focused{border-left-color:#7aa2f7;box-shadow:0 0 0 2px rgba(122,162,247,.2)}
+.story .w{cursor:pointer;border-bottom:1px dotted #FFB3D1;transition:.15s}
+.story .w:hover{background:#FFF5C3;border-bottom-color:#d1567f}
 #vocabTable tbody tr.focused,#vocab5Table tbody tr.focused{background:#FFF5C3;outline:2px solid #7aa2f7;outline-offset:-2px}
 .kcard.focused{outline:2px solid #7aa2f7;outline-offset:2px}
 .gcard.focused{outline:2px solid #7aa2f7;outline-offset:2px}

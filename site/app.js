@@ -175,6 +175,25 @@ function splitSentences(text){
   return out;
 }
 
+function buildSegmentedHtml(raw){
+  const plain = stripReadings(raw);
+  const segs = segment(plain);
+  let pos = 0, html = '';
+  for (const s of segs){
+    let need = s.t.length, j = pos, rawChunk = '';
+    while (j < raw.length && need > 0){
+      const ch = raw[j];
+      if (ch === '（'){ const end = raw.indexOf('）', j); rawChunk += raw.slice(j, end + 1); j = end + 1; continue; }
+      rawChunk += ch; need--; j++;
+    }
+    pos = j;
+    const chunkHtml = rawChunk.replace(/([一-龯々〇ヶ]{1,6})（([^）]+)）/g, '<ruby>$1<rt>$2</rt></ruby>');
+    if (s.word) html += `<span class="w" data-w="${s.t}">${chunkHtml}</span>`;
+    else html += chunkHtml;
+  }
+  return html;
+}
+
 function renderStory(){
   const root = document.getElementById('storyText');
   root.innerHTML = '';
@@ -187,7 +206,7 @@ function renderStory(){
       const p = document.createElement('p');
       p.className = 'sent';
       p.dataset.ch = ci; p.dataset.si = si;
-      p.innerHTML = rawToHtml(s.jp);
+      p.innerHTML = buildSegmentedHtml(s.jp);
       const star = document.createElement('button');
       star.className = 'star' + (bmIsSentence(ci, si) ? ' on' : '');
       star.textContent = bmIsSentence(ci, si) ? '★' : '☆';
@@ -198,6 +217,19 @@ function renderStory(){
       root.appendChild(p);
     });
   });
+  root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
+    e.stopPropagation();
+    openWordPopup(sp.dataset.w);
+  }));
+}
+
+function openWordPopup(w){
+  const v = lookupWord(w);
+  const ks2 = kanjisIn(w);
+  showPopup(`<h2>${w}</h2>
+    <p class="sent-en">${v?v.reading:''}${v&&v.pos?' <span class="pos">'+v.pos+'</span>':''}</p>
+    <p>${v?v.meaning:'—'}</p>
+    ${ks2.length ? `<h3>Kanji</h3>` + ks2.map(k => { const v2 = D.kanji[k]; return `<p style="font-size:15px"><b style="font-family:'Noto Serif JP',serif;font-size:20px">${k}</b> — ${v2.readings} — ${v2.meaning}</p>`; }).join('') : ''}`);
 }
 
 function showSentence(ci, sent, el){
@@ -225,14 +257,7 @@ function showSentence(ci, sent, el){
     ks.map(k=>{const v=D.kanji[k];return `<tr><td style="font-family:'Noto Serif JP',serif;font-size:18px;cursor:pointer" class="klink" data-k="${k}">${k}</td><td class="meaning">${v.readings}</td><td class="meaning">${v.meaning}</td><td><button class="star ${bmIsKanji(k)?'on':''}" data-bmk="${k}" title="Bookmark kanji">${bmIsKanji(k)?'★':'☆'}</button></td><td><button class="del" data-delk="${k}" title="Remove">✕</button></td></tr>`}).join('') + `</tbody></table>`;
   html += `<div class="addrow"><input id="addK" placeholder="kanji"><input id="addKR" placeholder="readings"><input id="addKM" placeholder="meaning"><button id="addKb">Add</button></div>`;
   document.getElementById('detail').innerHTML = html;
-  document.querySelectorAll('#detail .wlink').forEach(a => a.addEventListener('click', () => {
-    const v = lookupWord(a.dataset.w);
-    const ks2 = kanjisIn(a.dataset.w);
-    showPopup(`<h2>${a.dataset.w}</h2>
-      <p class="sent-en">${v?v.reading:''}${v&&v.pos?' <span class="pos">'+v.pos+'</span>':''}</p>
-      <p>${v?v.meaning:'—'}</p>
-      ${ks2.length ? `<h3>Kanji</h3>` + ks2.map(k => { const v2 = D.kanji[k]; return `<p style="font-size:15px"><b style="font-family:'Noto Serif JP',serif;font-size:20px">${k}</b> — ${v2.readings} — ${v2.meaning}</p>`; }).join('') : ''}`);
-  }));
+  document.querySelectorAll('#detail .wlink').forEach(a => a.addEventListener('click', () => openWordPopup(a.dataset.w)));
   document.querySelectorAll('#detail [data-gp]').forEach(c => c.addEventListener('click', () => {
     const g = D.grammar.find(x => x.pattern === c.dataset.gp);
     if (!g) return;
