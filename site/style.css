@@ -35,8 +35,10 @@ main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 .story p.sent:hover{background:#FFF5C3}
 .story p.sent.sel{background:#FFF5C3;border-left-color:#FF9EBA}
 .chapter{font-family:'Noto Serif JP',serif;color:#d1567f;font-size:20px;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid #FFB3D1}
-.wlink{color:#c99900;cursor:pointer;text-decoration:none;border-bottom:1px dashed #E3D6A6}
-.wlink:hover{background:#FFF5C3}
+.wlink{color:#c99900;cursor:pointer;text-decoration:none;border-bottom:1px dashed #E3D6A6;transition:.15s}
+.wlink:hover{background:#FFF5C3;border-bottom-color:#c99900}
+.klink{cursor:pointer;transition:.15s}
+.klink:hover{color:#d1567f;background:#FFF5C3}
 ruby rt{font-size:.55em;color:var(--muted);font-family:'Noto Sans JP',sans-serif}
 .no-ruby rt{display:none}
 .detail{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;position:sticky;top:90px;align-self:start;max-height:80vh;overflow:auto}
@@ -128,7 +130,8 @@ th{color:#c99900;font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .sent-jp{font-family:'Noto Serif JP',serif;font-size:20px;line-height:1.9}
 .sent-en{color:var(--muted);margin:6px 0 10px;font-size:14px;font-style:italic}
 .chip{display:inline-block;background:#e9f7e3;border:1px solid #9CD6A3;border-radius:999px;padding:3px 12px;margin:2px 4px 2px 0;font-size:12px}
-.chip.gold{border-color:#FFD700;color:#a67c00;background:#FFF5C3}
+.chip.gold{border-color:#FFD700;color:#a67c00;background:#FFF5C3;cursor:pointer;transition:.15s}
+.chip.gold:hover{background:#FFD700;color:#33302e}
 .kcard:hover{border-color:#FF9EBA;transform:translateY(-3px)}
 .kcard .k{font-family:'Noto Serif JP',serif;font-size:34px;color:#FF9EBA}
 .kcard .r{font-size:11px;color:#7aa2f7;margin-top:4px}

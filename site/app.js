@@ -216,16 +216,31 @@ function showSentence(ci, sent, el){
     <p class="sent-jp">${rawToHtml(raw)}</p>
     ${romajiOn ? `<p class="romaji-line">${window.wanakana ? wanakana.toRomaji(plain) : ''}</p>` : ''}
     <p class="sent-en" id="sentEn">${transText} <button class="editbtn" id="editTrans" title="Edit translation">✎</button></p>`;
-  if (gs.length) html += `<h3>Grammar used</h3>` + gs.map(g=>`<span class="chip gold" title="${g.meaning}">${g.pattern}</span>`).join('');
+  if (gs.length) html += `<h3>Grammar used</h3>` + gs.map(g=>`<span class="chip gold" data-gp="${g.pattern}" style="cursor:pointer">${g.pattern}</span>`).join('');
   if (ch.focus) html += `<h3>Grammar focus (chapter)</h3><p class="meaning" style="font-size:12px">${ch.focus}</p>`;
   html += `<h3>Words (${words.length}) <span style="font-weight:400;color:var(--muted);font-size:11px">— click a word</span></h3><table><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th><th></th></tr></thead><tbody>` +
     words.map(w=>{const v=lookupWord(w);return `<tr><td><a class="wlink" data-w="${w}">${w}</a></td><td>${v?v.reading:''}</td><td class="meaning">${v?v.meaning:''}</td><td><span class="pos">${v&&v.pos?v.pos:''}</span></td><td><button class="star ${bmIsWord(w)?'on':''}" data-bmw="${w}" title="Bookmark word">${bmIsWord(w)?'★':'☆'}</button></td><td><button class="del" data-delw="${w}" title="Remove">✕</button></td></tr>`}).join('') + `</tbody></table>
     <div class="addrow"><input id="addW" placeholder="word"><input id="addWR" placeholder="reading"><input id="addWM" placeholder="meaning"><button id="addWb">Add</button></div>`;
   if (ks.length) html += `<h3>Kanji (${ks.length})</h3><table><thead><tr><th>Kanji</th><th>Readings</th><th>Meaning</th><th></th><th></th></tr></thead><tbody>` +
-    ks.map(k=>{const v=D.kanji[k];return `<tr><td style="font-family:'Noto Serif JP',serif;font-size:18px">${k}</td><td class="meaning">${v.readings}</td><td class="meaning">${v.meaning}</td><td><button class="star ${bmIsKanji(k)?'on':''}" data-bmk="${k}" title="Bookmark kanji">${bmIsKanji(k)?'★':'☆'}</button></td><td><button class="del" data-delk="${k}" title="Remove">✕</button></td></tr>`}).join('') + `</tbody></table>`;
+    ks.map(k=>{const v=D.kanji[k];return `<tr><td style="font-family:'Noto Serif JP',serif;font-size:18px;cursor:pointer" class="klink" data-k="${k}">${k}</td><td class="meaning">${v.readings}</td><td class="meaning">${v.meaning}</td><td><button class="star ${bmIsKanji(k)?'on':''}" data-bmk="${k}" title="Bookmark kanji">${bmIsKanji(k)?'★':'☆'}</button></td><td><button class="del" data-delk="${k}" title="Remove">✕</button></td></tr>`}).join('') + `</tbody></table>`;
   html += `<div class="addrow"><input id="addK" placeholder="kanji"><input id="addKR" placeholder="readings"><input id="addKM" placeholder="meaning"><button id="addKb">Add</button></div>`;
   document.getElementById('detail').innerHTML = html;
-  document.querySelectorAll('#detail .wlink').forEach(a => a.addEventListener('click', () => showWord(a.dataset.w)));
+  document.querySelectorAll('#detail .wlink').forEach(a => a.addEventListener('click', () => {
+    const v = lookupWord(a.dataset.w);
+    const ks2 = kanjisIn(a.dataset.w);
+    showPopup(`<h2>${a.dataset.w}</h2>
+      <p class="sent-en">${v?v.reading:''}${v&&v.pos?' <span class="pos">'+v.pos+'</span>':''}</p>
+      <p>${v?v.meaning:'—'}</p>
+      ${ks2.length ? `<h3>Kanji</h3>` + ks2.map(k => { const v2 = D.kanji[k]; return `<p style="font-size:15px"><b style="font-family:'Noto Serif JP',serif;font-size:20px">${k}</b> — ${v2.readings} — ${v2.meaning}</p>`; }).join('') : ''}`);
+  }));
+  document.querySelectorAll('#detail [data-gp]').forEach(c => c.addEventListener('click', () => {
+    const g = D.grammar.find(x => x.pattern === c.dataset.gp);
+    if (!g) return;
+    showPopup(`<h2>${g.pattern}</h2>
+      <p class="sent-en">${g.romaji}</p>
+      <p>${g.meaning}</p>
+      ${g.example_jp ? `<h3>Example</h3><div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}`);
+  }));
   document.querySelectorAll('#detail [data-delw]').forEach(b => b.addEventListener('click', () => {
     const w = b.dataset.delw;
     EDITS.removedWords.push(w); delete EDITS.addedWords[w]; delete VOCAB[w]; saveEdits(); rebuildWords(); showSentence(ci, sent, el);
@@ -259,6 +274,12 @@ function showSentence(ci, sent, el){
   document.querySelectorAll('#detail [data-bmk]').forEach(b => b.addEventListener('click', () => {
     bmToggleKanji(b.dataset.bmk);
     showSentence(ci, sent, el);
+  }));
+  document.querySelectorAll('#detail .klink').forEach(td => td.addEventListener('click', () => {
+    const v = D.kanji[td.dataset.k];
+    showPopup(`<h2 style="font-family:'Noto Serif JP',serif;font-size:36px">${td.dataset.k}</h2>
+      <p class="sent-en">${v.readings}</p><p>${v.meaning}</p>
+      ${v.strokes ? `<p class="meaning" style="margin-top:8px">Strokes: ${v.strokes}</p>` : ''}`);
   }));
 
   const editBtn = document.getElementById('editTrans');
@@ -625,6 +646,14 @@ renderBms();
 
 // ===== Init (must be last — all sections defined) =====
 renderStory(); renderVocab(); renderKanji(); renderGrammar();
+
+// ===== Popup for grammar/kanji/vocab details =====
+function showPopup(html){
+  document.getElementById('popupPanel').innerHTML = html + '<button class="kbd-close" id="popupClose">Close</button>';
+  document.getElementById('popup').classList.remove('hidden');
+  document.getElementById('popupClose').addEventListener('click', () => document.getElementById('popup').classList.add('hidden'));
+}
+document.getElementById('popup').addEventListener('click', e => { if (e.target.id === 'popup') e.target.classList.add('hidden'); });
 
 // ===== Keyboard shortcuts =====
 let focusedSent = null;
