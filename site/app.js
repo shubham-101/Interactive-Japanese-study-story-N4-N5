@@ -86,12 +86,20 @@ for (const [k,v] of Object.entries(EDITS.addedKanji)) D.kanji[k] = v;
 let SORTED_WORDS = Object.keys(VOCAB).sort((a,b)=>b.length-a.length);
 function rebuildWords(){ SORTED_WORDS = Object.keys(VOCAB).sort((a,b)=>b.length-a.length); }
 
+let SEG = {};
+try { SEG = JSON.parse(localStorage.getItem('n4segs') || '{}'); } catch(e){ SEG = {}; }
+function saveSegs(){ localStorage.setItem('n4segs', JSON.stringify(SEG)); }
+
 function lookupWord(w){
   if (VOCAB[w]) return VOCAB[w];
   if (D.kanji[w]) return {reading: D.kanji[w].readings, meaning: D.kanji[w].meaning};
   return null;
 }
 function segment(sentence){
+  const custom = SEG[sentence];
+  if (custom && custom.length){
+    return custom.map(t => ({t, word: !!lookupWord(t)}));
+  }
   const out = []; let i = 0;
   while (i < sentence.length){
     let hit = null;
@@ -252,7 +260,7 @@ function showSentence(ci, sent, el){
     <p class="sent-en" id="sentEn">${transText} <button class="editbtn" id="editTrans" title="Edit translation">✎</button></p>`;
   if (gs.length) html += `<h3>Grammar used</h3>` + gs.map(g=>`<span class="chip gold" data-gp="${g.pattern}" style="cursor:pointer">${g.pattern}</span>`).join('');
   if (ch.focus) html += `<h3>Grammar focus (chapter)</h3><p class="meaning" style="font-size:12px">${ch.focus}</p>`;
-  html += `<h3>Words (${words.length}) <span style="font-weight:400;color:var(--muted);font-size:11px">— click a word</span></h3><table><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th><th></th></tr></thead><tbody>` +
+  html += `<h3>Words (${words.length}) <span style="font-weight:400;color:var(--muted);font-size:11px">— click a word</span> <button id="editSeg" style="float:right;background:none;border:1px solid var(--line);border-radius:8px;padding:2px 10px;cursor:pointer;font-size:11px;color:var(--muted)">Edit split</button></h3><table><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th><th></th></tr></thead><tbody>` +
     words.map(w=>{const v=lookupWord(w);return `<tr><td><a class="wlink" data-w="${w}">${w}</a></td><td>${v?v.reading:''}</td><td class="meaning">${v?v.meaning:''}</td><td><span class="pos">${v&&v.pos?v.pos:''}</span></td><td><button class="star ${bmIsWord(w)?'on':''}" data-bmw="${w}" title="Bookmark word">${bmIsWord(w)?'★':'☆'}</button></td><td><button class="del" data-delw="${w}" title="Remove">✕</button></td></tr>`}).join('') + `</tbody></table>
     <div class="addrow"><input id="addW" placeholder="word"><input id="addWR" placeholder="reading"><input id="addWM" placeholder="meaning"><button id="addWb">Add</button></div>`;
   if (ks.length) html += `<h3>Kanji (${ks.length})</h3><table><thead><tr><th>Kanji</th><th>Readings</th><th>Meaning</th><th></th><th></th></tr></thead><tbody>` +
@@ -325,6 +333,26 @@ function showSentence(ci, sent, el){
       trans[plain] = val;
       saveTrans();
       showSentence(ci, sent, el);
+    });
+  });
+
+  const segBtn = document.getElementById('editSeg');
+  if (segBtn) segBtn.addEventListener('click', () => {
+    const tokens = segment(plain).map(s => s.t).join(' | ');
+    const area = document.createElement('div');
+    area.innerHTML = `<p class="meaning" style="font-size:12px;margin:8px 0">Separate words with | (pipe):</p>
+      <input id="segInput" value="${tokens.replace(/"/g,'&quot;')}" style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:'Noto Serif JP',serif;background:#fff;color:var(--text)">
+      <div style="margin-top:8px;display:flex;gap:6px">
+        <button id="segSave" style="background:#AEDD94;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700">Save</button>
+        <button id="segCancel" style="background:#FFC1CC;border:none;border-radius:8px;padding:6px 14px;cursor:pointer">Cancel</button>
+        <button id="segReset" style="background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer">Auto</button>
+      </div>`;
+    segBtn.closest('h3').after(area);
+    document.getElementById('segCancel').addEventListener('click', () => area.remove());
+    document.getElementById('segReset').addEventListener('click', () => { delete SEG[plain]; saveSegs(); renderStory(); showSentence(ci, sent, el); });
+    document.getElementById('segSave').addEventListener('click', () => {
+      const parts = document.getElementById('segInput').value.split('|').map(s => s.trim()).filter(Boolean);
+      SEG[plain] = parts; saveSegs(); renderStory(); showSentence(ci, sent, el);
     });
   });
 }
