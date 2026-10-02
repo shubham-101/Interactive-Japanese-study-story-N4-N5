@@ -376,12 +376,23 @@ function showWord(w){
 }
 
 // Tabs
-document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active');
-  document.getElementById(t.dataset.tab).classList.add('active');
+document.querySelectorAll('.tab').forEach(t => {
+  if (t.classList.contains('menu-btn')) return;
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+    document.querySelectorAll('.menu').forEach(m=>m.classList.remove('open'));
+  });
+});
+document.querySelectorAll('.menu-btn').forEach(b => b.addEventListener('click', e => {
+  e.stopPropagation();
+  const m = b.closest('.menu');
+  document.querySelectorAll('.menu').forEach(x => { if (x !== m) x.classList.remove('open'); });
+  m.classList.toggle('open');
 }));
+document.addEventListener('click', () => document.querySelectorAll('.menu').forEach(m=>m.classList.remove('open')));
 
 // Furigana toggle
 document.getElementById('furigana').addEventListener('change', e => {

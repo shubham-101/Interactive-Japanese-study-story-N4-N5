@@ -34,7 +34,11 @@ header{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:s
 .logo{font-family:'Noto Serif JP',serif;font-weight:700;font-size:30px;color:#33302e;background:linear-gradient(135deg,#FFD700,#FF9EBA);padding:8px 14px;border-radius:12px;box-shadow:0 6px 24px rgba(255,158,186,.45)}
 h1{font-size:18px;letter-spacing:.5px}
 header p{color:var(--muted);font-size:12px}
-nav{display:flex;gap:8px;flex-wrap:wrap}
+nav{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
+.menu{position:relative}
+.menu-list{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:20;min-width:160px}
+.menu.open .menu-list{display:flex;flex-direction:column;gap:4px}
+.menu-list .tab{text-align:left;white-space:nowrap}
 .tab{background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;font-size:13px;font-family:inherit;transition:.2s}
 .tab:hover{color:var(--text);border-color:var(--accent)}
 .tab.active{background:linear-gradient(135deg,#FF9EBA,#D6B5E2);color:#33302e;font-weight:700;border:none}
