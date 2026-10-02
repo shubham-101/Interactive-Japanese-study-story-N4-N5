@@ -4027,3027 +4027,3783 @@
  "vocab5": {
   "浴びる": {
    "reading": "あびる",
-   "meaning": "to take (a shower)"
+   "meaning": "to take (a shower)",
+   "pos": "v."
   },
   "危ない": {
    "reading": "あぶない",
-   "meaning": "dangerous"
+   "meaning": "dangerous",
+   "pos": "i-adj."
   },
   "あちら": {
    "reading": "あちら",
-   "meaning": "over there (polite)"
+   "meaning": "over there (polite)",
+   "pos": "pron."
   },
   "上げる": {
    "reading": "あげる",
-   "meaning": "to give; to raise"
+   "meaning": "to give; to raise",
+   "pos": "v."
   },
   "間": {
    "reading": "あいだ",
-   "meaning": "between; during"
+   "meaning": "between; during",
+   "pos": "n."
   },
   "挨拶": {
    "reading": "あいさつ",
-   "meaning": "greeting"
+   "meaning": "greeting",
+   "pos": "n."
   },
   "相手": {
    "reading": "あいて",
-   "meaning": "partner; opponent"
+   "meaning": "partner; opponent",
+   "pos": "n."
   },
   "味": {
    "reading": "あじ",
-   "meaning": "taste; flavor"
+   "meaning": "taste; flavor",
+   "pos": "n."
   },
   "赤ちゃん": {
    "reading": "あかちゃん",
-   "meaning": "baby"
+   "meaning": "baby",
+   "pos": "n."
   },
   "赤い": {
    "reading": "あかい",
-   "meaning": "red"
+   "meaning": "red",
+   "pos": "i-adj."
   },
   "明るい": {
    "reading": "あかるい",
-   "meaning": "bright"
+   "meaning": "bright",
+   "pos": "i-adj."
   },
   "開ける": {
    "reading": "あける",
-   "meaning": "to open"
+   "meaning": "to open",
+   "pos": "v."
   },
   "秋": {
    "reading": "あき",
-   "meaning": "autumn; fall"
+   "meaning": "autumn; fall",
+   "pos": "n."
   },
   "開く": {
    "reading": "あく",
-   "meaning": "to open (intransitive)"
+   "meaning": "to open (intransitive)",
+   "pos": "v."
   },
   "甘い": {
    "reading": "あまい",
-   "meaning": "sweet"
+   "meaning": "sweet",
+   "pos": "i-adj."
   },
   "あまり": {
    "reading": "あまり",
-   "meaning": "not very (with negative)"
+   "meaning": "not very (with negative)",
+   "pos": "adv."
   },
   "雨": {
    "reading": "あめ",
-   "meaning": "rain"
+   "meaning": "rain",
+   "pos": "n."
   },
   "あなた": {
    "reading": "あなた",
-   "meaning": "you"
+   "meaning": "you",
+   "pos": "n."
   },
   "姉": {
    "reading": "あね",
-   "meaning": "older sister (own)"
+   "meaning": "older sister (own)",
+   "pos": "n."
   },
   "兄": {
    "reading": "あに",
-   "meaning": "older brother (own)"
+   "meaning": "older brother (own)",
+   "pos": "n."
   },
   "あの": {
    "reading": "あの",
-   "meaning": "that over there (before noun)"
+   "meaning": "that over there (before noun)",
+   "pos": "pron."
   },
   "安全": {
    "reading": "あんぜん",
-   "meaning": "safe; safety"
+   "meaning": "safe; safety",
+   "pos": "na-adj."
   },
   "青い": {
    "reading": "あおい",
-   "meaning": "blue; green"
+   "meaning": "blue; green",
+   "pos": "i-adj."
   },
   "洗う": {
    "reading": "あらう",
-   "meaning": "to wash"
+   "meaning": "to wash",
+   "pos": "v."
   },
   "あれ": {
    "reading": "あれ",
-   "meaning": "that over there"
+   "meaning": "that over there",
+   "pos": "pron."
   },
   "ありがとうございます": {
    "reading": "ありがとうございます",
-   "meaning": "thank you (polite)"
+   "meaning": "thank you (polite)",
+   "pos": "phras"
   },
   "ある": {
    "reading": "ある",
-   "meaning": "to exist (inanimate)"
+   "meaning": "to exist (inanimate)",
+   "pos": "v."
   },
   "アルバイト": {
    "reading": "arubaito",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "29"
   },
   "朝": {
    "reading": "あさ",
-   "meaning": "morning"
+   "meaning": "morning",
+   "pos": "n."
   },
   "朝ご飯": {
    "reading": "あさごはん",
-   "meaning": "breakfast"
+   "meaning": "breakfast",
+   "pos": "n."
   },
   "明後日": {
    "reading": "あさって",
-   "meaning": "day after tomorrow"
+   "meaning": "day after tomorrow",
+   "pos": "n."
   },
   "足": {
    "reading": "あし",
-   "meaning": "foot; leg"
+   "meaning": "foot; leg",
+   "pos": "n."
   },
   "明日": {
    "reading": "あした",
-   "meaning": "tomorrow"
+   "meaning": "tomorrow",
+   "pos": "n."
   },
   "遊ぶ": {
    "reading": "あそぶ",
-   "meaning": "to play; to hang out"
+   "meaning": "to play; to hang out",
+   "pos": "v."
   },
   "あそこ": {
    "reading": "あそこ",
-   "meaning": "over there"
+   "meaning": "over there",
+   "pos": "pron."
   },
   "頭": {
    "reading": "あたま",
-   "meaning": "head"
+   "meaning": "head",
+   "pos": "n."
   },
   "新しい": {
    "reading": "あたらしい",
-   "meaning": "new"
+   "meaning": "new",
+   "pos": "i-adj."
   },
   "暖かい": {
    "reading": "あたたかい",
-   "meaning": "warm"
+   "meaning": "warm",
+   "pos": "i-adj."
   },
   "暑い": {
    "reading": "あつい",
-   "meaning": "hot (weather)"
+   "meaning": "hot (weather)",
+   "pos": "i-adj."
   },
   "熱い": {
    "reading": "あつい",
-   "meaning": "hot (to touch)"
+   "meaning": "hot (to touch)",
+   "pos": "i-adj."
   },
   "会う": {
    "reading": "あう",
-   "meaning": "to meet"
+   "meaning": "to meet",
+   "pos": "v."
   },
   "晩": {
    "reading": "ばん",
-   "meaning": "evening; night"
+   "meaning": "evening; night",
+   "pos": "n."
   },
   "番": {
    "reading": "ばん",
-   "meaning": "number; turn"
+   "meaning": "number; turn",
+   "pos": "ctr."
   },
   "バナナ": {
    "reading": "banana",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "46"
   },
   "番号": {
    "reading": "ばんごう",
-   "meaning": "number"
+   "meaning": "number",
+   "pos": "n."
   },
   "番組": {
    "reading": "ばんぐみ",
-   "meaning": "TV program"
+   "meaning": "TV program",
+   "pos": "n."
   },
   "場所": {
    "reading": "ばしょ",
-   "meaning": "place; location"
+   "meaning": "place; location",
+   "pos": "n."
   },
   "バス": {
    "reading": "basu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "JLPTLord.com — Free JLPT Study Resources"
   },
   "ベッド": {
    "reading": "beddo",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "52"
   },
   "便利": {
    "reading": "べんり",
-   "meaning": "convenient"
+   "meaning": "convenient",
+   "pos": "na-adj."
   },
   "ボタン": {
    "reading": "botan",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "55"
   },
   "文": {
    "reading": "ぶん",
-   "meaning": "sentence"
+   "meaning": "sentence",
+   "pos": "n."
   },
   "文化": {
    "reading": "ぶんか",
-   "meaning": "culture"
+   "meaning": "culture",
+   "pos": "n."
   },
   "文法": {
    "reading": "ぶんぽう",
-   "meaning": "grammar"
+   "meaning": "grammar",
+   "pos": "n."
   },
   "豚": {
    "reading": "ぶた",
-   "meaning": "pig"
+   "meaning": "pig",
+   "pos": "n."
   },
   "豚肉": {
    "reading": "ぶたにく",
-   "meaning": "pork"
+   "meaning": "pork",
+   "pos": "n."
   },
   "病院": {
    "reading": "びょういん",
-   "meaning": "hospital"
+   "meaning": "hospital",
+   "pos": "n."
   },
   "病気": {
    "reading": "びょうき",
-   "meaning": "illness; sickness"
+   "meaning": "illness; sickness",
+   "pos": "n."
   },
   "茶色い": {
    "reading": "ちゃいろい",
-   "meaning": "brown"
+   "meaning": "brown",
+   "pos": "i-adj."
   },
   "茶碗": {
    "reading": "ちゃわん",
-   "meaning": "rice bowl; teacup"
+   "meaning": "rice bowl; teacup",
+   "pos": "n."
   },
   "父": {
    "reading": "ちち",
-   "meaning": "father (own)"
+   "meaning": "father (own)",
+   "pos": "n."
   },
   "違い": {
    "reading": "ちがい",
-   "meaning": "difference"
+   "meaning": "difference",
+   "pos": "n."
   },
   "違う": {
    "reading": "ちがう",
-   "meaning": "to differ; to be wrong"
+   "meaning": "to differ; to be wrong",
+   "pos": "v."
   },
   "小さい": {
    "reading": "ちいさい",
-   "meaning": "small; little"
+   "meaning": "small; little",
+   "pos": "i-adj."
   },
   "近い": {
    "reading": "ちかい",
-   "meaning": "near; close"
+   "meaning": "near; close",
+   "pos": "i-adj."
   },
   "近く": {
    "reading": "ちかく",
-   "meaning": "nearby"
+   "meaning": "nearby",
+   "pos": "n."
   },
   "力": {
    "reading": "ちから",
-   "meaning": "power; strength"
+   "meaning": "power; strength",
+   "pos": "n."
   },
   "地下鉄": {
    "reading": "ちかてつ",
-   "meaning": "subway"
+   "meaning": "subway",
+   "pos": "n."
   },
   "地図": {
    "reading": "ちず",
-   "meaning": "map"
+   "meaning": "map",
+   "pos": "n."
   },
   "ちょっと": {
    "reading": "ちょっと",
-   "meaning": "a bit; slightly"
+   "meaning": "a bit; slightly",
+   "pos": "adv."
   },
   "ちょっと待ってください": {
    "reading": "ちょっと待ってください",
-   "meaning": "please wait a moment"
+   "meaning": "please wait a moment",
+   "pos": "phras"
   },
   "注意": {
    "reading": "ちゅうい",
-   "meaning": "attention; caution"
+   "meaning": "attention; caution",
+   "pos": "n."
   },
   "台": {
    "reading": "だい",
-   "meaning": "counter for machines"
+   "meaning": "counter for machines",
+   "pos": "ctr."
   },
   "台所": {
    "reading": "だいどころ",
-   "meaning": "kitchen"
+   "meaning": "kitchen",
+   "pos": "n."
   },
   "大学": {
    "reading": "だいがく",
-   "meaning": "university"
+   "meaning": "university",
+   "pos": "n."
   },
   "大丈夫": {
    "reading": "だいじょうぶ",
-   "meaning": "all right; OK"
+   "meaning": "all right; OK",
+   "pos": "na-adj."
   },
   "大体": {
    "reading": "だいたい",
-   "meaning": "mostly; approximately"
+   "meaning": "mostly; approximately",
+   "pos": "adv."
   },
   "だから": {
    "reading": "だから",
-   "meaning": "so; therefore"
+   "meaning": "so; therefore",
+   "pos": "conj."
   },
   "だけ": {
    "reading": "だけ",
-   "meaning": "only; just"
+   "meaning": "only; just",
+   "pos": "part."
   },
   "だんだん": {
    "reading": "だんだん",
-   "meaning": "gradually"
+   "meaning": "gradually",
+   "pos": "adv."
   },
   "誰": {
    "reading": "だれ",
-   "meaning": "who"
+   "meaning": "who",
+   "pos": "pron."
   },
   "出す": {
    "reading": "だす",
-   "meaning": "to take out; to submit"
+   "meaning": "to take out; to submit",
+   "pos": "v."
   },
   "で": {
    "reading": "で",
-   "meaning": "place of action; means particle"
+   "meaning": "place of action; means particle",
+   "pos": "part."
   },
   "出口": {
    "reading": "でぐち",
-   "meaning": "exit"
+   "meaning": "exit",
+   "pos": "n."
   },
   "出かける": {
    "reading": "でかける",
-   "meaning": "to go out"
+   "meaning": "to go out",
+   "pos": "v."
   },
   "出来る": {
    "reading": "できる",
-   "meaning": "can do; to be able"
+   "meaning": "can do; to be able",
+   "pos": "v."
   },
   "でも": {
    "reading": "でも",
-   "meaning": "but; however"
+   "meaning": "but; however",
+   "pos": "conj."
   },
   "電池": {
    "reading": "でんち",
-   "meaning": "battery"
+   "meaning": "battery",
+   "pos": "n."
   },
   "電気": {
    "reading": "でんき",
-   "meaning": "electricity; light"
+   "meaning": "electricity; light",
+   "pos": "n."
   },
   "電車": {
    "reading": "でんしゃ",
-   "meaning": "train"
+   "meaning": "train",
+   "pos": "n."
   },
   "電子レンジ": {
    "reading": "でんしレンジ",
-   "meaning": "microwave"
+   "meaning": "microwave",
+   "pos": "n."
   },
   "電話": {
    "reading": "でんわ",
-   "meaning": "telephone"
+   "meaning": "telephone",
+   "pos": "n."
   },
   "電話番号": {
    "reading": "でんわばんごう",
-   "meaning": "phone number"
+   "meaning": "phone number",
+   "pos": "n."
   },
   "電話する": {
    "reading": "でんわする",
-   "meaning": "to make a phone call"
+   "meaning": "to make a phone call",
+   "pos": "v."
   },
   "デパート": {
    "reading": "depaato",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "100"
   },
   "ドア": {
    "reading": "doa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "102"
   },
   "どんな": {
    "reading": "どんな",
-   "meaning": "what kind of"
+   "meaning": "what kind of",
+   "pos": "pron."
   },
   "どの": {
    "reading": "どの",
-   "meaning": "which (before noun)"
+   "meaning": "which (before noun)",
+   "pos": "pron."
   },
   "どれ": {
    "reading": "どれ",
-   "meaning": "which one"
+   "meaning": "which one",
+   "pos": "pron."
   },
   "どう": {
    "reading": "どう",
-   "meaning": "how"
+   "meaning": "how",
+   "pos": "adv."
   },
   "動物": {
    "reading": "どうぶつ",
-   "meaning": "animal"
+   "meaning": "animal",
+   "pos": "n."
   },
   "動物園": {
    "reading": "どうぶつえん",
-   "meaning": "zoo"
+   "meaning": "zoo",
+   "pos": "n."
   },
   "どうも": {
    "reading": "どうも",
-   "meaning": "thanks (casual)"
+   "meaning": "thanks (casual)",
+   "pos": "phras"
   },
   "どうぞ": {
    "reading": "どうぞ",
-   "meaning": "please; go ahead"
+   "meaning": "please; go ahead",
+   "pos": "phras"
   },
   "土曜日": {
    "reading": "どようび",
-   "meaning": "Saturday"
+   "meaning": "Saturday",
+   "pos": "n."
   },
   "絵": {
    "reading": "え",
-   "meaning": "picture; painting"
+   "meaning": "picture; painting",
+   "pos": "n."
   },
   "へ": {
    "reading": "へ",
-   "meaning": "direction particle"
+   "meaning": "direction particle",
+   "pos": "part."
   },
   "エアコン": {
    "reading": "eakon",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "115"
   },
   "映画館": {
    "reading": "えいがかん",
-   "meaning": "movie theater"
+   "meaning": "movie theater",
+   "pos": "n."
   },
   "英語": {
    "reading": "えいご",
-   "meaning": "English language"
+   "meaning": "English language",
+   "pos": "n."
   },
   "駅": {
    "reading": "えき",
-   "meaning": "station"
+   "meaning": "station",
+   "pos": "n."
   },
   "円": {
    "reading": "えん",
-   "meaning": "yen (currency)"
+   "meaning": "yen (currency)",
+   "pos": "ctr."
   },
   "鉛筆": {
    "reading": "えんぴつ",
-   "meaning": "pencil"
+   "meaning": "pencil",
+   "pos": "n."
   },
   "選ぶ": {
    "reading": "えらぶ",
-   "meaning": "to choose"
+   "meaning": "to choose",
+   "pos": "v."
   },
   "エレベーター": {
    "reading": "erebeetaa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "123"
   },
   "不便": {
    "reading": "ふべん",
-   "meaning": "inconvenient"
+   "meaning": "inconvenient",
+   "pos": "na-adj."
   },
   "吹く": {
    "reading": "ふく",
-   "meaning": "to blow"
+   "meaning": "to blow",
+   "pos": "v."
   },
   "服": {
    "reading": "ふく",
-   "meaning": "clothes"
+   "meaning": "clothes",
+   "pos": "n."
   },
   "船": {
    "reading": "ふね",
-   "meaning": "ship; boat"
+   "meaning": "ship; boat",
+   "pos": "n."
   },
   "降る": {
    "reading": "ふる",
-   "meaning": "to fall (rain/snow)"
+   "meaning": "to fall (rain/snow)",
+   "pos": "v."
   },
   "古い": {
    "reading": "ふるい",
-   "meaning": "old (things)"
+   "meaning": "old (things)",
+   "pos": "i-adj."
   },
   "不思議": {
    "reading": "ふしぎ",
-   "meaning": "mysterious; strange"
+   "meaning": "mysterious; strange",
+   "pos": "na-adj."
   },
   "二人": {
    "reading": "ふたり",
-   "meaning": "two people"
+   "meaning": "two people",
+   "pos": "ctr."
   },
   "二つ": {
    "reading": "ふたつ",
-   "meaning": "two (things)"
+   "meaning": "two (things)",
+   "pos": "ctr."
   },
   "太い": {
    "reading": "ふとい",
-   "meaning": "thick; fat"
+   "meaning": "thick; fat",
+   "pos": "i-adj."
   },
   "布団": {
    "reading": "ふとん",
-   "meaning": "futon; bedding"
+   "meaning": "futon; bedding",
+   "pos": "n."
   },
   "太る": {
    "reading": "ふとる",
-   "meaning": "to gain weight"
+   "meaning": "to gain weight",
+   "pos": "v."
   },
   "普通": {
    "reading": "ふつう",
-   "meaning": "ordinary; normal"
+   "meaning": "ordinary; normal",
+   "pos": "na-adj."
   },
   "封筒": {
    "reading": "ふうとう",
-   "meaning": "envelope"
+   "meaning": "envelope",
+   "pos": "n."
   },
   "冬": {
    "reading": "ふゆ",
-   "meaning": "winter"
+   "meaning": "winter",
+   "pos": "n."
   },
   "が": {
    "reading": "が",
-   "meaning": "subject marker particle"
+   "meaning": "subject marker particle",
+   "pos": "part."
   },
   "外国": {
    "reading": "がいこく",
-   "meaning": "foreign country"
+   "meaning": "foreign country",
+   "pos": "n."
   },
   "外国人": {
    "reading": "がいこくじん",
-   "meaning": "foreigner"
+   "meaning": "foreigner",
+   "pos": "n."
   },
   "学校": {
    "reading": "がっこう",
-   "meaning": "school"
+   "meaning": "school",
+   "pos": "n."
   },
   "学生": {
    "reading": "がくせい",
-   "meaning": "student"
+   "meaning": "student",
+   "pos": "n."
   },
   "玄関": {
    "reading": "げんかん",
-   "meaning": "entrance; front door"
+   "meaning": "entrance; front door",
+   "pos": "n."
   },
   "元気": {
    "reading": "げんき",
-   "meaning": "healthy; energetic"
+   "meaning": "healthy; energetic",
+   "pos": "na-adj."
   },
   "月曜日": {
    "reading": "げつようび",
-   "meaning": "Monday"
+   "meaning": "Monday",
+   "pos": "n."
   },
   "銀行": {
    "reading": "ぎんこう",
-   "meaning": "bank"
+   "meaning": "bank",
+   "pos": "n."
   },
   "ギター": {
    "reading": "gitaa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "149"
   },
   "午後": {
    "reading": "ごご",
-   "meaning": "afternoon; PM"
+   "meaning": "afternoon; PM",
+   "pos": "n."
   },
   "ご飯": {
    "reading": "ごはん",
-   "meaning": "rice; meal"
+   "meaning": "rice; meal",
+   "pos": "n."
   },
   "ごめんなさい": {
    "reading": "ごめんなさい",
-   "meaning": "I'm sorry"
+   "meaning": "I'm sorry",
+   "pos": "phras"
   },
   "五人": {
    "reading": "ごにん",
-   "meaning": "five people"
+   "meaning": "five people",
+   "pos": "ctr."
   },
   "ごろ": {
    "reading": "ごろ",
-   "meaning": "around (time)"
+   "meaning": "around (time)",
+   "pos": "part."
   },
   "ご主人": {
    "reading": "ごしゅじん",
-   "meaning": "husband (someone else's)"
+   "meaning": "husband (someone else's)",
+   "pos": "n."
   },
   "午前": {
    "reading": "ごぜん",
-   "meaning": "morning; AM"
+   "meaning": "morning; AM",
+   "pos": "n."
   },
   "ぐらい": {
    "reading": "ぐらい",
-   "meaning": "about; approximately"
+   "meaning": "about; approximately",
+   "pos": "part."
   },
   "牛肉": {
    "reading": "ぎゅうにく",
-   "meaning": "beef"
+   "meaning": "beef",
+   "pos": "n."
   },
   "牛乳": {
    "reading": "ぎゅうにゅう",
-   "meaning": "milk"
+   "meaning": "milk",
+   "pos": "n."
   },
   "歯": {
    "reading": "は",
-   "meaning": "tooth"
+   "meaning": "tooth",
+   "pos": "n."
   },
   "葉書": {
    "reading": "はがき",
-   "meaning": "postcard"
+   "meaning": "postcard",
+   "pos": "n."
   },
   "母": {
    "reading": "はは",
-   "meaning": "mother (own)"
+   "meaning": "mother (own)",
+   "pos": "n."
   },
   "杯": {
    "reading": "はい",
-   "meaning": "counter for cups/glasses"
+   "meaning": "counter for cups/glasses",
+   "pos": "ctr."
   },
   "入る": {
    "reading": "はいる",
-   "meaning": "to enter"
+   "meaning": "to enter",
+   "pos": "v."
   },
   "始まる": {
    "reading": "はじまる",
-   "meaning": "to begin (intransitive)"
+   "meaning": "to begin (intransitive)",
+   "pos": "v."
   },
   "はじめまして": {
    "reading": "はじめまして",
-   "meaning": "nice to meet you"
+   "meaning": "nice to meet you",
+   "pos": "phras"
   },
   "初めて": {
    "reading": "はじめて",
-   "meaning": "for the first time"
+   "meaning": "for the first time",
+   "pos": "adv."
   },
   "箱": {
    "reading": "はこ",
-   "meaning": "box"
+   "meaning": "box",
+   "pos": "n."
   },
   "半": {
    "reading": "はん",
-   "meaning": "half"
+   "meaning": "half",
+   "pos": "n."
   },
   "花": {
    "reading": "はな",
-   "meaning": "flower"
+   "meaning": "flower",
+   "pos": "n."
   },
   "鼻": {
    "reading": "はな",
-   "meaning": "nose"
+   "meaning": "nose",
+   "pos": "n."
   },
   "話": {
    "reading": "はなし",
-   "meaning": "story; talk"
+   "meaning": "story; talk",
+   "pos": "n."
   },
   "話す": {
    "reading": "はなす",
-   "meaning": "to speak; to talk"
+   "meaning": "to speak; to talk",
+   "pos": "v."
   },
   "半分": {
    "reading": "はんぶん",
-   "meaning": "half"
+   "meaning": "half",
+   "pos": "n."
   },
   "ハンカチ": {
    "reading": "hankachi",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "JLPTLord.com — Free JLPT Study Resources"
   },
   "反対": {
    "reading": "はんたい",
-   "meaning": "opposite; against"
+   "meaning": "opposite; against",
+   "pos": "n."
   },
   "払う": {
    "reading": "はらう",
-   "meaning": "to pay"
+   "meaning": "to pay",
+   "pos": "v."
   },
   "晴れる": {
    "reading": "はれる",
-   "meaning": "to clear up (weather)"
+   "meaning": "to clear up (weather)",
+   "pos": "v."
   },
   "春": {
    "reading": "はる",
-   "meaning": "spring"
+   "meaning": "spring",
+   "pos": "n."
   },
   "橋": {
    "reading": "はし",
-   "meaning": "bridge"
+   "meaning": "bridge",
+   "pos": "n."
   },
   "箸": {
    "reading": "はし",
-   "meaning": "chopsticks"
+   "meaning": "chopsticks",
+   "pos": "n."
   },
   "走る": {
    "reading": "はしる",
-   "meaning": "to run"
+   "meaning": "to run",
+   "pos": "v."
   },
   "働く": {
    "reading": "はたらく",
-   "meaning": "to work"
+   "meaning": "to work",
+   "pos": "v."
   },
   "発音": {
    "reading": "はつおん",
-   "meaning": "pronunciation"
+   "meaning": "pronunciation",
+   "pos": "n."
   },
   "速い": {
    "reading": "はやい",
-   "meaning": "fast; quick"
+   "meaning": "fast; quick",
+   "pos": "i-adj."
   },
   "早い": {
    "reading": "はやい",
-   "meaning": "early"
+   "meaning": "early",
+   "pos": "i-adj."
   },
   "林": {
    "reading": "はやし",
-   "meaning": "woods; grove"
+   "meaning": "woods; grove",
+   "pos": "n."
   },
   "恥ずかしい": {
    "reading": "はずかしい",
-   "meaning": "embarrassing; shy"
+   "meaning": "embarrassing; shy",
+   "pos": "i-adj."
   },
   "返事": {
    "reading": "へんじ",
-   "meaning": "reply; answer"
+   "meaning": "reply; answer",
+   "pos": "n."
   },
   "下手": {
    "reading": "へた",
-   "meaning": "unskilled; bad at"
+   "meaning": "unskilled; bad at",
+   "pos": "na-adj."
   },
   "部屋": {
    "reading": "へや",
-   "meaning": "room"
+   "meaning": "room",
+   "pos": "n."
   },
   "日": {
    "reading": "ひ",
-   "meaning": "day; sun"
+   "meaning": "day; sun",
+   "pos": "n."
   },
   "左": {
    "reading": "ひだり",
-   "meaning": "left"
+   "meaning": "left",
+   "pos": "n."
   },
   "光": {
    "reading": "ひかり",
-   "meaning": "light"
+   "meaning": "light",
+   "pos": "n."
   },
   "匹": {
    "reading": "ひき",
-   "meaning": "counter for small animals"
+   "meaning": "counter for small animals",
+   "pos": "ctr."
   },
   "引き出し": {
    "reading": "ひきだし",
-   "meaning": "drawer"
+   "meaning": "drawer",
+   "pos": "n."
   },
   "飛行機": {
    "reading": "ひこうき",
-   "meaning": "airplane"
+   "meaning": "airplane",
+   "pos": "n."
   },
   "弾く": {
    "reading": "ひく",
-   "meaning": "to play (instrument)"
+   "meaning": "to play (instrument)",
+   "pos": "v."
   },
   "引く": {
    "reading": "ひく",
-   "meaning": "to pull; to draw"
+   "meaning": "to pull; to draw",
+   "pos": "v."
   },
   "低い": {
    "reading": "ひくい",
-   "meaning": "low; short (height)"
+   "meaning": "low; short (height)",
+   "pos": "i-adj."
   },
   "暇": {
    "reading": "ひま",
-   "meaning": "free (time)"
+   "meaning": "free (time)",
+   "pos": "na-adj."
   },
   "広い": {
    "reading": "ひろい",
-   "meaning": "wide; spacious"
+   "meaning": "wide; spacious",
+   "pos": "i-adj."
   },
   "昼": {
    "reading": "ひる",
-   "meaning": "noon; daytime"
+   "meaning": "noon; daytime",
+   "pos": "n."
   },
   "昼ご飯": {
    "reading": "ひるごはん",
-   "meaning": "lunch"
+   "meaning": "lunch",
+   "pos": "n."
   },
   "久しぶり": {
    "reading": "ひさしぶり",
-   "meaning": "long time no see"
+   "meaning": "long time no see",
+   "pos": "phras"
   },
   "人": {
    "reading": "ひと",
-   "meaning": "person"
+   "meaning": "person",
+   "pos": "n."
   },
   "一人": {
    "reading": "ひとり",
-   "meaning": "one person; alone"
+   "meaning": "one person; alone",
+   "pos": "ctr."
   },
   "一つ": {
    "reading": "ひとつ",
-   "meaning": "one (thing)"
+   "meaning": "one (thing)",
+   "pos": "ctr."
   },
   "必要": {
    "reading": "ひつよう",
-   "meaning": "necessary"
+   "meaning": "necessary",
+   "pos": "na-adj."
   },
   "本": {
    "reading": "ほん",
-   "meaning": "counter for long things"
+   "meaning": "counter for long things",
+   "pos": "ctr."
   },
   "本当に": {
    "reading": "ほんとうに",
-   "meaning": "really; truly"
+   "meaning": "really; truly",
+   "pos": "adv."
   },
   "星": {
    "reading": "ほし",
-   "meaning": "star"
+   "meaning": "star",
+   "pos": "n."
   },
   "欲しい": {
    "reading": "ほしい",
-   "meaning": "wanted; desired"
+   "meaning": "wanted; desired",
+   "pos": "i-adj."
   },
   "細い": {
    "reading": "ほそい",
-   "meaning": "thin; slender"
+   "meaning": "thin; slender",
+   "pos": "i-adj."
   },
   "ホテル": {
    "reading": "hoteru",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "217"
   },
   "百": {
    "reading": "ひゃく",
-   "meaning": "hundred"
+   "meaning": "hundred",
+   "pos": "n."
   },
   "一番": {
    "reading": "いちばん",
-   "meaning": "number one; most"
+   "meaning": "number one; most",
+   "pos": "adv."
   },
   "家": {
    "reading": "いえ",
-   "meaning": "house; home"
+   "meaning": "house; home",
+   "pos": "n."
   },
   "良い": {
    "reading": "いい",
-   "meaning": "good"
+   "meaning": "good",
+   "pos": "i-adj."
   },
   "以上": {
    "reading": "いじょう",
-   "meaning": "more than; above"
+   "meaning": "more than; above",
+   "pos": "n."
   },
   "以下": {
    "reading": "いか",
-   "meaning": "less than; below"
+   "meaning": "less than; below",
+   "pos": "n."
   },
   "池": {
    "reading": "いけ",
-   "meaning": "pond"
+   "meaning": "pond",
+   "pos": "n."
   },
   "意見": {
    "reading": "いけん",
-   "meaning": "opinion"
+   "meaning": "opinion",
+   "pos": "n."
   },
   "行く": {
    "reading": "いく",
-   "meaning": "to go"
+   "meaning": "to go",
+   "pos": "v."
   },
   "いくら": {
    "reading": "いくら",
-   "meaning": "how much"
+   "meaning": "how much",
+   "pos": "pron."
   },
   "いくつ": {
    "reading": "いくつ",
-   "meaning": "how many; how old"
+   "meaning": "how many; how old",
+   "pos": "pron."
   },
   "今": {
    "reading": "いま",
-   "meaning": "now"
+   "meaning": "now",
+   "pos": "n."
   },
   "意味": {
    "reading": "いみ",
-   "meaning": "meaning"
+   "meaning": "meaning",
+   "pos": "n."
   },
   "妹": {
    "reading": "いもうと",
-   "meaning": "younger sister"
+   "meaning": "younger sister",
+   "pos": "n."
   },
   "犬": {
    "reading": "いぬ",
-   "meaning": "dog"
+   "meaning": "dog",
+   "pos": "n."
   },
   "入れる": {
    "reading": "いれる",
-   "meaning": "to put in; to insert"
+   "meaning": "to put in; to insert",
+   "pos": "v."
   },
   "入口": {
    "reading": "いりぐち",
-   "meaning": "entrance"
+   "meaning": "entrance",
+   "pos": "n."
   },
   "色": {
    "reading": "いろ",
-   "meaning": "color"
+   "meaning": "color",
+   "pos": "n."
   },
   "色々": {
    "reading": "いろいろ",
-   "meaning": "various"
+   "meaning": "various",
+   "pos": "na-adj."
   },
   "要る": {
    "reading": "いる",
-   "meaning": "to need"
+   "meaning": "to need",
+   "pos": "v."
   },
   "いる": {
    "reading": "いる",
-   "meaning": "to exist (animate)"
+   "meaning": "to exist (animate)",
+   "pos": "v."
   },
   "医者": {
    "reading": "いしゃ",
-   "meaning": "doctor"
+   "meaning": "doctor",
+   "pos": "n."
   },
   "石": {
    "reading": "いし",
-   "meaning": "stone; rock"
+   "meaning": "stone; rock",
+   "pos": "n."
   },
   "忙しい": {
    "reading": "いそがしい",
-   "meaning": "busy"
+   "meaning": "busy",
+   "pos": "i-adj."
   },
   "急ぐ": {
    "reading": "いそぐ",
-   "meaning": "to hurry"
+   "meaning": "to hurry",
+   "pos": "v."
   },
   "一緒に": {
    "reading": "いっしょに",
-   "meaning": "together"
+   "meaning": "together",
+   "pos": "adv."
   },
   "椅子": {
    "reading": "いす",
-   "meaning": "chair"
+   "meaning": "chair",
+   "pos": "n."
   },
   "いただきます": {
    "reading": "いただきます",
-   "meaning": "bon appetit (before eating)"
+   "meaning": "bon appetit (before eating)",
+   "pos": "phras"
   },
   "痛い": {
    "reading": "いたい",
-   "meaning": "painful"
+   "meaning": "painful",
+   "pos": "i-adj."
   },
   "いつ": {
    "reading": "いつ",
-   "meaning": "when"
+   "meaning": "when",
+   "pos": "pron."
   },
   "いつも": {
    "reading": "いつも",
-   "meaning": "always"
+   "meaning": "always",
+   "pos": "adv."
   },
   "五つ": {
    "reading": "いつつ",
-   "meaning": "five (things)"
+   "meaning": "five (things)",
+   "pos": "ctr."
   },
   "いってきます": {
    "reading": "いってきます",
-   "meaning": "I'm leaving (home)"
+   "meaning": "I'm leaving (home)",
+   "pos": "phras"
   },
   "いってらっしゃい": {
    "reading": "いってらっしゃい",
-   "meaning": "have a good day"
+   "meaning": "have a good day",
+   "pos": "phras"
   },
   "言う": {
    "reading": "いう",
-   "meaning": "to say"
+   "meaning": "to say",
+   "pos": "v."
   },
   "字": {
    "reading": "じ",
-   "meaning": "character; letter"
+   "meaning": "character; letter",
+   "pos": "n."
   },
   "自分": {
    "reading": "じぶん",
-   "meaning": "oneself"
+   "meaning": "oneself",
+   "pos": "n."
   },
   "時間": {
    "reading": "じかん",
-   "meaning": "time; hour"
+   "meaning": "time; hour",
+   "pos": "n."
   },
   "事故": {
    "reading": "じこ",
-   "meaning": "accident"
+   "meaning": "accident",
+   "pos": "n."
   },
   "事務所": {
    "reading": "じむしょ",
-   "meaning": "office"
+   "meaning": "office",
+   "pos": "n."
   },
   "神社": {
    "reading": "じんじゃ",
-   "meaning": "shrine"
+   "meaning": "shrine",
+   "pos": "n."
   },
   "地震": {
    "reading": "じしん",
-   "meaning": "earthquake"
+   "meaning": "earthquake",
+   "pos": "n."
   },
   "辞書": {
    "reading": "じしょ",
-   "meaning": "dictionary"
+   "meaning": "dictionary",
+   "pos": "n."
   },
   "自転車": {
    "reading": "じてんしゃ",
-   "meaning": "bicycle"
+   "meaning": "bicycle",
+   "pos": "n."
   },
   "丈夫": {
    "reading": "じょうぶ",
-   "meaning": "durable; strong"
+   "meaning": "durable; strong",
+   "pos": "na-adj."
   },
   "上手": {
    "reading": "じょうず",
-   "meaning": "skilled; good at"
+   "meaning": "skilled; good at",
+   "pos": "na-adj."
   },
   "授業": {
    "reading": "じゅぎょう",
-   "meaning": "class; lesson"
+   "meaning": "class; lesson",
+   "pos": "n."
   },
   "準備": {
    "reading": "じゅんび",
-   "meaning": "preparation"
+   "meaning": "preparation",
+   "pos": "n."
   },
   "住所": {
    "reading": "じゅうしょ",
-   "meaning": "address"
+   "meaning": "address",
+   "pos": "n."
   },
   "ジュース": {
    "reading": "juusu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "268"
   },
   "かばん": {
    "reading": "かばん",
-   "meaning": "bag"
+   "meaning": "bag",
+   "pos": "n."
   },
   "壁": {
    "reading": "かべ",
-   "meaning": "wall"
+   "meaning": "wall",
+   "pos": "n."
   },
   "角": {
    "reading": "かど",
-   "meaning": "corner"
+   "meaning": "corner",
+   "pos": "n."
   },
   "帰る": {
    "reading": "かえる",
-   "meaning": "to return; to go home"
+   "meaning": "to return; to go home",
+   "pos": "v."
   },
   "返す": {
    "reading": "かえす",
-   "meaning": "to return (something)"
+   "meaning": "to return (something)",
+   "pos": "v."
   },
   "鏡": {
    "reading": "かがみ",
-   "meaning": "mirror"
+   "meaning": "mirror",
+   "pos": "n."
   },
   "鍵": {
    "reading": "かぎ",
-   "meaning": "key"
+   "meaning": "key",
+   "pos": "n."
   },
   "階": {
    "reading": "かい",
-   "meaning": "counter for floors"
+   "meaning": "counter for floors",
+   "pos": "ctr."
   },
   "階段": {
    "reading": "かいだん",
-   "meaning": "stairs"
+   "meaning": "stairs",
+   "pos": "n."
   },
   "買い物": {
    "reading": "かいもの",
-   "meaning": "shopping"
+   "meaning": "shopping",
+   "pos": "n."
   },
   "買い物する": {
    "reading": "かいものする",
-   "meaning": "to shop"
+   "meaning": "to shop",
+   "pos": "v."
   },
   "会社": {
    "reading": "かいしゃ",
-   "meaning": "company"
+   "meaning": "company",
+   "pos": "n."
   },
   "会社員": {
    "reading": "かいしゃいん",
-   "meaning": "company employee"
+   "meaning": "company employee",
+   "pos": "n."
   },
   "会話": {
    "reading": "かいわ",
-   "meaning": "conversation"
+   "meaning": "conversation",
+   "pos": "n."
   },
   "火事": {
    "reading": "かじ",
-   "meaning": "fire (disaster)"
+   "meaning": "fire (disaster)",
+   "pos": "n."
   },
   "かかる": {
    "reading": "かかる",
-   "meaning": "to take (time/money)"
+   "meaning": "to take (time/money)",
+   "pos": "v."
   },
   "掛ける": {
    "reading": "かける",
-   "meaning": "to hang; to make (a call)"
+   "meaning": "to hang; to make (a call)",
+   "pos": "v."
   },
   "書く": {
    "reading": "かく",
-   "meaning": "to write"
+   "meaning": "to write",
+   "pos": "v."
   },
   "カメラ": {
    "reading": "kamera",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "288"
   },
   "髪": {
    "reading": "かみ",
-   "meaning": "hair"
+   "meaning": "hair",
+   "pos": "n."
   },
   "悲しい": {
    "reading": "かなしい",
-   "meaning": "sad"
+   "meaning": "sad",
+   "pos": "i-adj."
   },
   "漢字": {
    "reading": "かんじ",
-   "meaning": "Chinese characters"
+   "meaning": "Chinese characters",
+   "pos": "n."
   },
   "関係": {
    "reading": "かんけい",
-   "meaning": "relationship; connection"
+   "meaning": "relationship; connection",
+   "pos": "n."
   },
   "彼女": {
    "reading": "かのじょ",
-   "meaning": "she; girlfriend"
+   "meaning": "she; girlfriend",
+   "pos": "n."
   },
   "簡単": {
    "reading": "かんたん",
-   "meaning": "easy; simple"
+   "meaning": "easy; simple",
+   "pos": "na-adj."
   },
   "顔": {
    "reading": "かお",
-   "meaning": "face"
+   "meaning": "face",
+   "pos": "n."
   },
   "から": {
    "reading": "から",
-   "meaning": "from; because particle"
+   "meaning": "from; because particle",
+   "pos": "part."
   },
   "体": {
    "reading": "からだ",
-   "meaning": "body"
+   "meaning": "body",
+   "pos": "n."
   },
   "辛い": {
    "reading": "からい",
-   "meaning": "spicy; hot"
+   "meaning": "spicy; hot",
+   "pos": "i-adj."
   },
   "彼": {
    "reading": "かれ",
-   "meaning": "he; boyfriend"
+   "meaning": "he; boyfriend",
+   "pos": "n."
   },
   "カレー": {
    "reading": "karee",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "JLPTLord.com — Free JLPT Study Resources"
   },
   "彼ら": {
    "reading": "かれら",
-   "meaning": "they (male)"
+   "meaning": "they (male)",
+   "pos": "n."
   },
   "借りる": {
    "reading": "かりる",
-   "meaning": "to borrow"
+   "meaning": "to borrow",
+   "pos": "v."
   },
   "軽い": {
    "reading": "かるい",
-   "meaning": "light (weight)"
+   "meaning": "light (weight)",
+   "pos": "i-adj."
   },
   "傘": {
    "reading": "かさ",
-   "meaning": "umbrella"
+   "meaning": "umbrella",
+   "pos": "n."
   },
   "貸す": {
    "reading": "かす",
-   "meaning": "to lend"
+   "meaning": "to lend",
+   "pos": "v."
   },
   "方": {
    "reading": "かた",
-   "meaning": "person (polite); way"
+   "meaning": "person (polite); way",
+   "pos": "n."
   },
   "形": {
    "reading": "かたち",
-   "meaning": "shape; form"
+   "meaning": "shape; form",
+   "pos": "n."
   },
   "硬い": {
    "reading": "かたい",
-   "meaning": "hard; tough"
+   "meaning": "hard; tough",
+   "pos": "i-adj."
   },
   "買う": {
    "reading": "かう",
-   "meaning": "to buy"
+   "meaning": "to buy",
+   "pos": "v."
   },
   "川": {
    "reading": "かわ",
-   "meaning": "river"
+   "meaning": "river",
+   "pos": "n."
   },
   "代わりに": {
    "reading": "かわりに",
-   "meaning": "instead of"
+   "meaning": "instead of",
+   "pos": "phras"
   },
   "変わる": {
    "reading": "かわる",
-   "meaning": "to change (intransitive)"
+   "meaning": "to change (intransitive)",
+   "pos": "v."
   },
   "火曜日": {
    "reading": "かようび",
-   "meaning": "Tuesday"
+   "meaning": "Tuesday",
+   "pos": "n."
   },
   "風": {
    "reading": "かぜ",
-   "meaning": "wind"
+   "meaning": "wind",
+   "pos": "n."
   },
   "風邪": {
    "reading": "かぜ",
-   "meaning": "cold (illness)"
+   "meaning": "cold (illness)",
+   "pos": "n."
   },
   "家族": {
    "reading": "かぞく",
-   "meaning": "family"
+   "meaning": "family",
+   "pos": "n."
   },
   "けど": {
    "reading": "けど",
-   "meaning": "but; however"
+   "meaning": "but; however",
+   "pos": "conj."
   },
   "ケーキ": {
    "reading": "keeki",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "319"
   },
   "経験": {
    "reading": "けいけん",
-   "meaning": "experience"
+   "meaning": "experience",
+   "pos": "n."
   },
   "結果": {
    "reading": "けっか",
-   "meaning": "result"
+   "meaning": "result",
+   "pos": "n."
   },
   "結婚する": {
    "reading": "けっこんする",
-   "meaning": "to marry"
+   "meaning": "to marry",
+   "pos": "v."
   },
   "今朝": {
    "reading": "けさ",
-   "meaning": "this morning"
+   "meaning": "this morning",
+   "pos": "n."
   },
   "消しゴム": {
    "reading": "けしゴム",
-   "meaning": "eraser"
+   "meaning": "eraser",
+   "pos": "n."
   },
   "消す": {
    "reading": "けす",
-   "meaning": "to turn off; to erase"
+   "meaning": "to turn off; to erase",
+   "pos": "v."
   },
   "木": {
    "reading": "き",
-   "meaning": "tree; wood"
+   "meaning": "tree; wood",
+   "pos": "n."
   },
   "消える": {
    "reading": "きえる",
-   "meaning": "to disappear; to go out"
+   "meaning": "to disappear; to go out",
+   "pos": "v."
   },
   "黄色い": {
    "reading": "きいろい",
-   "meaning": "yellow"
+   "meaning": "yellow",
+   "pos": "i-adj."
   },
   "聞こえる": {
    "reading": "きこえる",
-   "meaning": "to be audible; can hear"
+   "meaning": "to be audible; can hear",
+   "pos": "v."
   },
   "聞く": {
    "reading": "きく",
-   "meaning": "to listen; to ask"
+   "meaning": "to listen; to ask",
+   "pos": "v."
   },
   "気持ち": {
    "reading": "きもち",
-   "meaning": "feeling"
+   "meaning": "feeling",
+   "pos": "n."
   },
   "昨日": {
    "reading": "きのう",
-   "meaning": "yesterday"
+   "meaning": "yesterday",
+   "pos": "n."
   },
   "金曜日": {
    "reading": "きんようび",
-   "meaning": "Friday"
+   "meaning": "Friday",
+   "pos": "n."
   },
   "切符": {
    "reading": "きっぷ",
-   "meaning": "ticket"
+   "meaning": "ticket",
+   "pos": "n."
   },
   "嫌い": {
    "reading": "きらい",
-   "meaning": "to dislike; to hate"
+   "meaning": "to dislike; to hate",
+   "pos": "na-adj."
   },
   "きれい": {
    "reading": "きれい",
-   "meaning": "beautiful; clean"
+   "meaning": "beautiful; clean",
+   "pos": "na-adj."
   },
   "着る": {
    "reading": "きる",
-   "meaning": "to wear (upper body)"
+   "meaning": "to wear (upper body)",
+   "pos": "v."
   },
   "切る": {
    "reading": "きる",
-   "meaning": "to cut"
+   "meaning": "to cut",
+   "pos": "v."
   },
   "喫茶店": {
    "reading": "きっさてん",
-   "meaning": "coffee shop"
+   "meaning": "coffee shop",
+   "pos": "n."
   },
   "汚い": {
    "reading": "きたない",
-   "meaning": "dirty"
+   "meaning": "dirty",
+   "pos": "i-adj."
   },
   "切手": {
    "reading": "きって",
-   "meaning": "stamp"
+   "meaning": "stamp",
+   "pos": "n."
   },
   "こちら": {
    "reading": "こちら",
-   "meaning": "this way (polite)"
+   "meaning": "this way (polite)",
+   "pos": "pron."
   },
   "子供": {
    "reading": "こども",
-   "meaning": "child"
+   "meaning": "child",
+   "pos": "n."
   },
   "声": {
    "reading": "こえ",
-   "meaning": "voice"
+   "meaning": "voice",
+   "pos": "n."
   },
   "ここ": {
    "reading": "ここ",
-   "meaning": "here"
+   "meaning": "here",
+   "pos": "pron."
   },
   "九つ": {
    "reading": "ここのつ",
-   "meaning": "nine (things)"
+   "meaning": "nine (things)",
+   "pos": "ctr."
   },
   "心": {
    "reading": "こころ",
-   "meaning": "heart; mind"
+   "meaning": "heart; mind",
+   "pos": "n."
   },
   "黒板": {
    "reading": "こくばん",
-   "meaning": "blackboard"
+   "meaning": "blackboard",
+   "pos": "n."
   },
   "困る": {
    "reading": "こまる",
-   "meaning": "to be troubled"
+   "meaning": "to be troubled",
+   "pos": "v."
   },
   "込む": {
    "reading": "こむ",
-   "meaning": "to be crowded"
+   "meaning": "to be crowded",
+   "pos": "v."
   },
   "今晩": {
    "reading": "こんばん",
-   "meaning": "this evening"
+   "meaning": "this evening",
+   "pos": "n."
   },
   "こんばんは": {
    "reading": "こんばんは",
-   "meaning": "good evening"
+   "meaning": "good evening",
+   "pos": "phras"
   },
   "今度": {
    "reading": "こんど",
-   "meaning": "next time; this time"
+   "meaning": "next time; this time",
+   "pos": "n."
   },
   "今月": {
    "reading": "こんげつ",
-   "meaning": "this month"
+   "meaning": "this month",
+   "pos": "n."
   },
   "こんにちは": {
    "reading": "こんにちは",
-   "meaning": "good afternoon; hello"
+   "meaning": "good afternoon; hello",
+   "pos": "phras"
   },
   "この": {
    "reading": "この",
-   "meaning": "this (before noun)"
+   "meaning": "this (before noun)",
+   "pos": "pron."
   },
   "今週": {
    "reading": "こんしゅう",
-   "meaning": "this week"
+   "meaning": "this week",
+   "pos": "n."
   },
   "コーヒー": {
    "reading": "koohii",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "359"
   },
   "コート": {
    "reading": "kooto",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "361"
   },
   "これ": {
    "reading": "これ",
-   "meaning": "this (thing)"
+   "meaning": "this (thing)",
+   "pos": "pron."
   },
   "転ぶ": {
    "reading": "ころぶ",
-   "meaning": "to fall down"
+   "meaning": "to fall down",
+   "pos": "v."
   },
   "答え": {
    "reading": "こたえ",
-   "meaning": "answer"
+   "meaning": "answer",
+   "pos": "n."
   },
   "答える": {
    "reading": "こたえる",
-   "meaning": "to answer"
+   "meaning": "to answer",
+   "pos": "v."
   },
   "言葉": {
    "reading": "ことば",
-   "meaning": "word; language"
+   "meaning": "word; language",
+   "pos": "n."
   },
   "今年": {
    "reading": "ことし",
-   "meaning": "this year"
+   "meaning": "this year",
+   "pos": "n."
   },
   "交番": {
    "reading": "こうばん",
-   "meaning": "police box"
+   "meaning": "police box",
+   "pos": "n."
   },
   "公園": {
    "reading": "こうえん",
-   "meaning": "park"
+   "meaning": "park",
+   "pos": "n."
   },
   "交差点": {
    "reading": "こうさてん",
-   "meaning": "intersection"
+   "meaning": "intersection",
+   "pos": "n."
   },
   "怖い": {
    "reading": "こわい",
-   "meaning": "scary"
+   "meaning": "scary",
+   "pos": "i-adj."
   },
   "壊れる": {
    "reading": "こわれる",
-   "meaning": "to break (intransitive)"
+   "meaning": "to break (intransitive)",
+   "pos": "v."
   },
   "口": {
    "reading": "くち",
-   "meaning": "mouth"
+   "meaning": "mouth",
+   "pos": "n."
   },
   "果物": {
    "reading": "くだもの",
-   "meaning": "fruit"
+   "meaning": "fruit",
+   "pos": "n."
   },
   "雲": {
    "reading": "くも",
-   "meaning": "cloud"
+   "meaning": "cloud",
+   "pos": "n."
   },
   "曇る": {
    "reading": "くもる",
-   "meaning": "to become cloudy"
+   "meaning": "to become cloudy",
+   "pos": "v."
   },
   "国": {
    "reading": "くに",
-   "meaning": "country"
+   "meaning": "country",
+   "pos": "n."
   },
   "暗い": {
    "reading": "くらい",
-   "meaning": "dark"
+   "meaning": "dark",
+   "pos": "i-adj."
   },
   "くれる": {
    "reading": "くれる",
-   "meaning": "to give (to me)"
+   "meaning": "to give (to me)",
+   "pos": "v."
   },
   "黒い": {
    "reading": "くろい",
-   "meaning": "black"
+   "meaning": "black",
+   "pos": "i-adj."
   },
   "来る": {
    "reading": "くる",
-   "meaning": "to come"
+   "meaning": "to come",
+   "pos": "v."
   },
   "車": {
    "reading": "くるま",
-   "meaning": "car"
+   "meaning": "car",
+   "pos": "n."
   },
   "薬": {
    "reading": "くすり",
-   "meaning": "medicine"
+   "meaning": "medicine",
+   "pos": "n."
   },
   "靴": {
    "reading": "くつ",
-   "meaning": "shoes"
+   "meaning": "shoes",
+   "pos": "n."
   },
   "靴下": {
    "reading": "くつした",
-   "meaning": "socks"
+   "meaning": "socks",
+   "pos": "n."
   },
   "空港": {
    "reading": "くうこう",
-   "meaning": "airport"
+   "meaning": "airport",
+   "pos": "n."
   },
   "去年": {
    "reading": "きょねん",
-   "meaning": "last year"
+   "meaning": "last year",
+   "pos": "n."
   },
   "今日": {
    "reading": "きょう",
-   "meaning": "today"
+   "meaning": "today",
+   "pos": "n."
   },
   "兄弟": {
    "reading": "きょうだい",
-   "meaning": "siblings"
+   "meaning": "siblings",
+   "pos": "n."
   },
   "教科書": {
    "reading": "きょうかしょ",
-   "meaning": "textbook"
+   "meaning": "textbook",
+   "pos": "n."
   },
   "教室": {
    "reading": "きょうしつ",
-   "meaning": "classroom"
+   "meaning": "classroom",
+   "pos": "n."
   },
   "給料": {
    "reading": "きゅうりょう",
-   "meaning": "salary"
+   "meaning": "salary",
+   "pos": "n."
   },
   "町": {
    "reading": "まち",
-   "meaning": "town; city"
+   "meaning": "town; city",
+   "pos": "n."
   },
   "まだ": {
    "reading": "まだ",
-   "meaning": "still; not yet"
+   "meaning": "still; not yet",
+   "pos": "adv."
   },
   "まで": {
    "reading": "まで",
-   "meaning": "until; to particle"
+   "meaning": "until; to particle",
+   "pos": "part."
   },
   "窓": {
    "reading": "まど",
-   "meaning": "window"
+   "meaning": "window",
+   "pos": "n."
   },
   "窓口": {
    "reading": "まどぐち",
-   "meaning": "counter; window (service)"
+   "meaning": "counter; window (service)",
+   "pos": "n."
   },
   "前": {
    "reading": "まえ",
-   "meaning": "front; before"
+   "meaning": "front; before",
+   "pos": "n."
   },
   "曲がる": {
    "reading": "まがる",
-   "meaning": "to turn; to bend"
+   "meaning": "to turn; to bend",
+   "pos": "v."
   },
   "枚": {
    "reading": "まい",
-   "meaning": "counter for flat things"
+   "meaning": "counter for flat things",
+   "pos": "ctr."
   },
   "毎朝": {
    "reading": "まいあさ",
-   "meaning": "every morning"
+   "meaning": "every morning",
+   "pos": "n."
   },
   "毎晩": {
    "reading": "まいばん",
-   "meaning": "every night"
+   "meaning": "every night",
+   "pos": "n."
   },
   "毎日": {
    "reading": "まいにち",
-   "meaning": "every day"
+   "meaning": "every day",
+   "pos": "n."
   },
   "毎週": {
    "reading": "まいしゅう",
-   "meaning": "every week"
+   "meaning": "every week",
+   "pos": "n."
   },
   "毎年": {
    "reading": "まいとし",
-   "meaning": "every year"
+   "meaning": "every year",
+   "pos": "n."
   },
   "毎月": {
    "reading": "まいつき",
-   "meaning": "every month"
+   "meaning": "every month",
+   "pos": "n."
   },
   "万": {
    "reading": "まん",
-   "meaning": "ten thousand"
+   "meaning": "ten thousand",
+   "pos": "n."
   },
   "間に合う": {
    "reading": "まにあう",
-   "meaning": "to be in time"
+   "meaning": "to be in time",
+   "pos": "v."
   },
   "真ん中": {
    "reading": "まんなか",
-   "meaning": "center; middle"
+   "meaning": "center; middle",
+   "pos": "n."
   },
   "丸い": {
    "reading": "まるい",
-   "meaning": "round; circular"
+   "meaning": "round; circular",
+   "pos": "i-adj."
   },
   "まっすぐ": {
    "reading": "まっすぐ",
-   "meaning": "straight ahead"
+   "meaning": "straight ahead",
+   "pos": "adv."
   },
   "また": {
    "reading": "また",
-   "meaning": "again; also"
+   "meaning": "again; also",
+   "pos": "adv."
   },
   "待つ": {
    "reading": "まつ",
-   "meaning": "to wait"
+   "meaning": "to wait",
+   "pos": "v."
   },
   "周り": {
    "reading": "まわり",
-   "meaning": "surroundings; around"
+   "meaning": "surroundings; around",
+   "pos": "n."
   },
   "まずい": {
    "reading": "まずい",
-   "meaning": "bad-tasting"
+   "meaning": "bad-tasting",
+   "pos": "i-adj."
   },
   "目": {
    "reading": "め",
-   "meaning": "eye"
+   "meaning": "eye",
+   "pos": "n."
   },
   "眼鏡": {
    "reading": "めがね",
-   "meaning": "glasses"
+   "meaning": "glasses",
+   "pos": "n."
   },
   "珍しい": {
    "reading": "めずらしい",
-   "meaning": "rare; unusual"
+   "meaning": "rare; unusual",
+   "pos": "i-adj."
   },
   "道": {
    "reading": "みち",
-   "meaning": "road; way"
+   "meaning": "road; way",
+   "pos": "n."
   },
   "見える": {
    "reading": "みえる",
-   "meaning": "to be visible; can see"
+   "meaning": "to be visible; can see",
+   "pos": "v."
   },
   "磨く": {
    "reading": "みがく",
-   "meaning": "to brush; to polish"
+   "meaning": "to brush; to polish",
+   "pos": "v."
   },
   "右": {
    "reading": "みぎ",
-   "meaning": "right"
+   "meaning": "right",
+   "pos": "n."
   },
   "短い": {
    "reading": "みじかい",
-   "meaning": "short"
+   "meaning": "short",
+   "pos": "i-adj."
   },
   "みかん": {
    "reading": "みかん",
-   "meaning": "mandarin orange"
+   "meaning": "mandarin orange",
+   "pos": "n."
   },
   "耳": {
    "reading": "みみ",
-   "meaning": "ear"
+   "meaning": "ear",
+   "pos": "n."
   },
   "皆さん": {
    "reading": "みなさん",
-   "meaning": "everyone"
+   "meaning": "everyone",
+   "pos": "n."
   },
   "みんな": {
    "reading": "みんな",
-   "meaning": "everyone; all"
+   "meaning": "everyone; all",
+   "pos": "n."
   },
   "見る": {
    "reading": "みる",
-   "meaning": "to see; to watch"
+   "meaning": "to see; to watch",
+   "pos": "v."
   },
   "店": {
    "reading": "みせ",
-   "meaning": "shop; store"
+   "meaning": "shop; store",
+   "pos": "n."
   },
   "見せる": {
    "reading": "みせる",
-   "meaning": "to show"
+   "meaning": "to show",
+   "pos": "v."
   },
   "味噌汁": {
    "reading": "みそしる",
-   "meaning": "miso soup"
+   "meaning": "miso soup",
+   "pos": "n."
   },
   "三つ": {
    "reading": "みっつ",
-   "meaning": "three (things)"
+   "meaning": "three (things)",
+   "pos": "ctr."
   },
   "水": {
    "reading": "みず",
-   "meaning": "water"
+   "meaning": "water",
+   "pos": "n."
   },
   "も": {
    "reading": "も",
-   "meaning": "also; too particle"
+   "meaning": "also; too particle",
+   "pos": "part."
   },
   "目的": {
    "reading": "もくてき",
-   "meaning": "purpose; goal"
+   "meaning": "purpose; goal",
+   "pos": "n."
   },
   "木曜日": {
    "reading": "もくようび",
-   "meaning": "Thursday"
+   "meaning": "Thursday",
+   "pos": "n."
   },
   "門": {
    "reading": "もん",
-   "meaning": "gate"
+   "meaning": "gate",
+   "pos": "n."
   },
   "問題": {
    "reading": "もんだい",
-   "meaning": "problem; question"
+   "meaning": "problem; question",
+   "pos": "n."
   },
   "物": {
    "reading": "もの",
-   "meaning": "thing; object"
+   "meaning": "thing; object",
+   "pos": "n."
   },
   "もらう": {
    "reading": "もらう",
-   "meaning": "to receive"
+   "meaning": "to receive",
+   "pos": "v."
   },
   "森": {
    "reading": "もり",
-   "meaning": "forest"
+   "meaning": "forest",
+   "pos": "n."
   },
   "持つ": {
    "reading": "もつ",
-   "meaning": "to hold; to have"
+   "meaning": "to hold; to have",
+   "pos": "v."
   },
   "もっと": {
    "reading": "もっと",
-   "meaning": "more"
+   "meaning": "more",
+   "pos": "adv."
   },
   "もう": {
    "reading": "もう",
-   "meaning": "already; soon"
+   "meaning": "already; soon",
+   "pos": "adv."
   },
   "もう一度": {
    "reading": "もう一度",
-   "meaning": "one more time"
+   "meaning": "one more time",
+   "pos": "adv."
   },
   "昔": {
    "reading": "むかし",
-   "meaning": "long ago; old times"
+   "meaning": "long ago; old times",
+   "pos": "n."
   },
   "向こう": {
    "reading": "むこう",
-   "meaning": "over there; opposite side"
+   "meaning": "over there; opposite side",
+   "pos": "n."
   },
   "虫": {
    "reading": "むし",
-   "meaning": "insect; bug"
+   "meaning": "insect; bug",
+   "pos": "n."
   },
   "息子": {
    "reading": "むすこ",
-   "meaning": "son"
+   "meaning": "son",
+   "pos": "n."
   },
   "娘": {
    "reading": "むすめ",
-   "meaning": "daughter"
+   "meaning": "daughter",
+   "pos": "n."
   },
   "六つ": {
    "reading": "むっつ",
-   "meaning": "six (things)"
+   "meaning": "six (things)",
+   "pos": "ctr."
   },
   "難しい": {
    "reading": "むずかしい",
-   "meaning": "difficult"
+   "meaning": "difficult",
+   "pos": "i-adj."
   },
   "など": {
    "reading": "など",
-   "meaning": "etc.; and so on"
+   "meaning": "etc.; and so on",
+   "pos": "part."
   },
   "長い": {
    "reading": "ながい",
-   "meaning": "long"
+   "meaning": "long",
+   "pos": "i-adj."
   },
   "ナイフ": {
    "reading": "naifu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "456"
   },
   "鳴く": {
    "reading": "なく",
-   "meaning": "to cry (animal); to chirp"
+   "meaning": "to cry (animal); to chirp",
+   "pos": "v."
   },
   "泣く": {
    "reading": "なく",
-   "meaning": "to cry"
+   "meaning": "to cry",
+   "pos": "v."
   },
   "無くす": {
    "reading": "なくす",
-   "meaning": "to lose (something)"
+   "meaning": "to lose (something)",
+   "pos": "v."
   },
   "名前": {
    "reading": "なまえ",
-   "meaning": "name"
+   "meaning": "name",
+   "pos": "n."
   },
   "七つ": {
    "reading": "ななつ",
-   "meaning": "seven (things)"
+   "meaning": "seven (things)",
+   "pos": "ctr."
   },
   "何": {
    "reading": "なに",
-   "meaning": "what"
+   "meaning": "what",
+   "pos": "pron."
   },
   "直す": {
    "reading": "なおす",
-   "meaning": "to fix; to repair"
+   "meaning": "to fix; to repair",
+   "pos": "v."
   },
   "並べる": {
    "reading": "ならべる",
-   "meaning": "to line up; to arrange"
+   "meaning": "to line up; to arrange",
+   "pos": "v."
   },
   "並ぶ": {
    "reading": "ならぶ",
-   "meaning": "to line up"
+   "meaning": "to line up",
+   "pos": "v."
   },
   "習う": {
    "reading": "ならう",
-   "meaning": "to learn"
+   "meaning": "to learn",
+   "pos": "v."
   },
   "なる": {
    "reading": "なる",
-   "meaning": "to become"
+   "meaning": "to become",
+   "pos": "v."
   },
   "夏": {
    "reading": "なつ",
-   "meaning": "summer"
+   "meaning": "summer",
+   "pos": "n."
   },
   "夏休み": {
    "reading": "なつやすみ",
-   "meaning": "summer vacation"
+   "meaning": "summer vacation",
+   "pos": "n."
   },
   "ね": {
    "reading": "ね",
-   "meaning": "agreement particle"
+   "meaning": "agreement particle",
+   "pos": "part."
   },
   "猫": {
    "reading": "ねこ",
-   "meaning": "cat"
+   "meaning": "cat",
+   "pos": "n."
   },
   "ネクタイ": {
    "reading": "nekutai",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "473"
   },
   "寝る": {
    "reading": "ねる",
-   "meaning": "to sleep; to go to bed"
+   "meaning": "to sleep; to go to bed",
+   "pos": "v."
   },
   "に": {
    "reading": "に",
-   "meaning": "direction; time; location particle"
+   "meaning": "direction; time; location particle",
+   "pos": "part."
   },
   "日曜日": {
    "reading": "にちようび",
-   "meaning": "Sunday"
+   "meaning": "Sunday",
+   "pos": "n."
   },
   "苦い": {
    "reading": "にがい",
-   "meaning": "bitter"
+   "meaning": "bitter",
+   "pos": "i-adj."
   },
   "賑やか": {
    "reading": "にぎやか",
-   "meaning": "lively; bustling"
+   "meaning": "lively; bustling",
+   "pos": "na-adj."
   },
   "日本": {
    "reading": "にほん",
-   "meaning": "Japan"
+   "meaning": "Japan",
+   "pos": "n."
   },
   "日本語": {
    "reading": "にほんご",
-   "meaning": "Japanese language"
+   "meaning": "Japanese language",
+   "pos": "n."
   },
   "肉": {
    "reading": "にく",
-   "meaning": "meat"
+   "meaning": "meat",
+   "pos": "n."
   },
   "荷物": {
    "reading": "にもつ",
-   "meaning": "baggage; package"
+   "meaning": "baggage; package",
+   "pos": "n."
   },
   "匂い": {
    "reading": "におい",
-   "meaning": "smell; scent"
+   "meaning": "smell; scent",
+   "pos": "n."
   },
   "庭": {
    "reading": "にわ",
-   "meaning": "garden; yard"
+   "meaning": "garden; yard",
+   "pos": "n."
   },
   "の": {
    "reading": "の",
-   "meaning": "possessive particle"
+   "meaning": "possessive particle",
+   "pos": "part."
   },
   "登る": {
    "reading": "のぼる",
-   "meaning": "to climb"
+   "meaning": "to climb",
+   "pos": "v."
   },
   "飲み物": {
    "reading": "のみもの",
-   "meaning": "drink; beverage"
+   "meaning": "drink; beverage",
+   "pos": "n."
   },
   "飲む": {
    "reading": "のむ",
-   "meaning": "to drink"
+   "meaning": "to drink",
+   "pos": "v."
   },
   "ノート": {
    "reading": "nooto",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "491"
   },
   "脱ぐ": {
    "reading": "ぬぐ",
-   "meaning": "to take off (clothes)"
+   "meaning": "to take off (clothes)",
+   "pos": "v."
   },
   "ニュース": {
    "reading": "nyuusu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "494"
   },
   "おばあさん": {
    "reading": "おばあさん",
-   "meaning": "grandmother (polite)"
+   "meaning": "grandmother (polite)",
+   "pos": "n."
   },
   "おばさん": {
    "reading": "おばさん",
-   "meaning": "aunt; middle-aged woman"
+   "meaning": "aunt; middle-aged woman",
+   "pos": "n."
   },
   "お弁当": {
    "reading": "おべんとう",
-   "meaning": "boxed lunch"
+   "meaning": "boxed lunch",
+   "pos": "n."
   },
   "覚える": {
    "reading": "おぼえる",
-   "meaning": "to remember; to memorize"
+   "meaning": "to remember; to memorize",
+   "pos": "v."
   },
   "お茶": {
    "reading": "おちゃ",
-   "meaning": "tea"
+   "meaning": "tea",
+   "pos": "n."
   },
   "お花見": {
    "reading": "おはなみ",
-   "meaning": "cherry blossom viewing"
+   "meaning": "cherry blossom viewing",
+   "pos": "n."
   },
   "おはようございます": {
    "reading": "おはようございます",
-   "meaning": "good morning"
+   "meaning": "good morning",
+   "pos": "phras"
   },
   "美味しい": {
    "reading": "おいしい",
-   "meaning": "delicious"
+   "meaning": "delicious",
+   "pos": "i-adj."
   },
   "おじいさん": {
    "reading": "おじいさん",
-   "meaning": "grandfather (polite)"
+   "meaning": "grandfather (polite)",
+   "pos": "n."
   },
   "おじさん": {
    "reading": "おじさん",
-   "meaning": "uncle; middle-aged man"
+   "meaning": "uncle; middle-aged man",
+   "pos": "n."
   },
   "お母さん": {
    "reading": "おかあさん",
-   "meaning": "mother (polite)"
+   "meaning": "mother (polite)",
+   "pos": "n."
   },
   "おかえりなさい": {
    "reading": "おかえりなさい",
-   "meaning": "welcome home"
+   "meaning": "welcome home",
+   "pos": "phras"
   },
   "お金": {
    "reading": "おかね",
-   "meaning": "money"
+   "meaning": "money",
+   "pos": "n."
   },
   "お菓子": {
    "reading": "おかし",
-   "meaning": "snack; sweets"
+   "meaning": "snack; sweets",
+   "pos": "n."
   },
   "起きる": {
    "reading": "おきる",
-   "meaning": "to wake up; to get up"
+   "meaning": "to wake up; to get up",
+   "pos": "v."
   },
   "怒る": {
    "reading": "おこる",
-   "meaning": "to get angry"
+   "meaning": "to get angry",
+   "pos": "v."
   },
   "置く": {
    "reading": "おく",
-   "meaning": "to put; to place"
+   "meaning": "to put; to place",
+   "pos": "v."
   },
   "遅れる": {
    "reading": "おくれる",
-   "meaning": "to be late"
+   "meaning": "to be late",
+   "pos": "v."
   },
   "送る": {
    "reading": "おくる",
-   "meaning": "to send"
+   "meaning": "to send",
+   "pos": "v."
   },
   "奥さん": {
    "reading": "おくさん",
-   "meaning": "wife (someone else's)"
+   "meaning": "wife (someone else's)",
+   "pos": "n."
   },
   "お祭り": {
    "reading": "おまつり",
-   "meaning": "festival"
+   "meaning": "festival",
+   "pos": "n."
   },
   "お土産": {
    "reading": "omiyage",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "517"
   },
   "面白い": {
    "reading": "おもしろい",
-   "meaning": "interesting; funny"
+   "meaning": "interesting; funny",
+   "pos": "i-adj."
   },
   "思う": {
    "reading": "おもう",
-   "meaning": "to think"
+   "meaning": "to think",
+   "pos": "v."
   },
   "お腹": {
    "reading": "おなか",
-   "meaning": "stomach; belly"
+   "meaning": "stomach; belly",
+   "pos": "n."
   },
   "お姉さん": {
    "reading": "おねえさん",
-   "meaning": "older sister (polite)"
+   "meaning": "older sister (polite)",
+   "pos": "n."
   },
   "お願いします": {
    "reading": "お願いします",
-   "meaning": "please (requesting)"
+   "meaning": "please (requesting)",
+   "pos": "phras"
   },
   "音楽": {
    "reading": "おんがく",
-   "meaning": "music"
+   "meaning": "music",
+   "pos": "n."
   },
   "お兄さん": {
    "reading": "おにいさん",
-   "meaning": "older brother (polite)"
+   "meaning": "older brother (polite)",
+   "pos": "n."
   },
   "女の人": {
    "reading": "おんなのひと",
-   "meaning": "woman"
+   "meaning": "woman",
+   "pos": "n."
   },
   "女の子": {
    "reading": "おんなのこ",
-   "meaning": "girl"
+   "meaning": "girl",
+   "pos": "n."
   },
   "多い": {
    "reading": "おおい",
-   "meaning": "many; much"
+   "meaning": "many; much",
+   "pos": "i-adj."
   },
   "大きい": {
    "reading": "おおきい",
-   "meaning": "big; large"
+   "meaning": "big; large",
+   "pos": "i-adj."
   },
   "降りる": {
    "reading": "おりる",
-   "meaning": "to get off; to descend"
+   "meaning": "to get off; to descend",
+   "pos": "v."
   },
   "お酒": {
    "reading": "おさけ",
-   "meaning": "alcohol; sake"
+   "meaning": "alcohol; sake",
+   "pos": "n."
   },
   "教える": {
    "reading": "おしえる",
-   "meaning": "to teach; to tell"
+   "meaning": "to teach; to tell",
+   "pos": "v."
   },
   "押入れ": {
    "reading": "おしいれ",
-   "meaning": "closet (Japanese)"
+   "meaning": "closet (Japanese)",
+   "pos": "n."
   },
   "お正月": {
    "reading": "おしょうがつ",
-   "meaning": "New Year"
+   "meaning": "New Year",
+   "pos": "n."
   },
   "遅い": {
    "reading": "おそい",
-   "meaning": "slow; late"
+   "meaning": "slow; late",
+   "pos": "i-adj."
   },
   "押す": {
    "reading": "おす",
-   "meaning": "to push; to press"
+   "meaning": "to push; to press",
+   "pos": "v."
   },
   "お手洗い": {
    "reading": "おてあらい",
-   "meaning": "restroom"
+   "meaning": "restroom",
+   "pos": "n."
   },
   "音": {
    "reading": "おと",
-   "meaning": "sound; noise"
+   "meaning": "sound; noise",
+   "pos": "n."
   },
   "男の人": {
    "reading": "おとこのひと",
-   "meaning": "man"
+   "meaning": "man",
+   "pos": "n."
   },
   "男の子": {
    "reading": "おとこのこ",
-   "meaning": "boy"
+   "meaning": "boy",
+   "pos": "n."
   },
   "大人": {
    "reading": "おとな",
-   "meaning": "adult"
+   "meaning": "adult",
+   "pos": "n."
   },
   "一昨日": {
    "reading": "おととい",
-   "meaning": "day before yesterday"
+   "meaning": "day before yesterday",
+   "pos": "n."
   },
   "お父さん": {
    "reading": "おとうさん",
-   "meaning": "father (polite)"
+   "meaning": "father (polite)",
+   "pos": "n."
   },
   "弟": {
    "reading": "おとうと",
-   "meaning": "younger brother"
+   "meaning": "younger brother",
+   "pos": "n."
   },
   "終わる": {
    "reading": "おわる",
-   "meaning": "to end; to finish"
+   "meaning": "to end; to finish",
+   "pos": "v."
   },
   "おやすみなさい": {
    "reading": "おやすみなさい",
-   "meaning": "good night"
+   "meaning": "good night",
+   "pos": "phras"
   },
   "泳ぐ": {
    "reading": "およぐ",
-   "meaning": "to swim"
+   "meaning": "to swim",
+   "pos": "v."
   },
   "お湯": {
    "reading": "おゆ",
-   "meaning": "hot water"
+   "meaning": "hot water",
+   "pos": "n."
   },
   "パン": {
    "reading": "pan",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "549"
   },
   "ペン": {
    "reading": "pen",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "JLPTLord.com — Free JLPT Study Resources"
   },
   "ピアノ": {
    "reading": "piano",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "552"
   },
   "プレゼント": {
    "reading": "purezento",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "554"
   },
   "ラーメン": {
    "reading": "raamen",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "556"
   },
   "来年": {
    "reading": "らいねん",
-   "meaning": "next year"
+   "meaning": "next year",
+   "pos": "n."
   },
   "来週": {
    "reading": "らいしゅう",
-   "meaning": "next week"
+   "meaning": "next week",
+   "pos": "n."
   },
   "ラジオ": {
    "reading": "rajio",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "560"
   },
   "冷蔵庫": {
    "reading": "れいぞうこ",
-   "meaning": "refrigerator"
+   "meaning": "refrigerator",
+   "pos": "n."
   },
   "連絡": {
    "reading": "れんらく",
-   "meaning": "contact; communication"
+   "meaning": "contact; communication",
+   "pos": "n."
   },
   "練習": {
    "reading": "れんしゅう",
-   "meaning": "practice"
+   "meaning": "practice",
+   "pos": "n."
   },
   "練習する": {
    "reading": "れんしゅうする",
-   "meaning": "to practice"
+   "meaning": "to practice",
+   "pos": "v."
   },
   "レストラン": {
    "reading": "resutoran",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "566"
   },
   "立派": {
    "reading": "りっぱ",
-   "meaning": "splendid; fine"
+   "meaning": "splendid; fine",
+   "pos": "na-adj."
   },
   "理由": {
    "reading": "りゆう",
-   "meaning": "reason"
+   "meaning": "reason",
+   "pos": "n."
   },
   "旅行": {
    "reading": "りょこう",
-   "meaning": "travel; trip"
+   "meaning": "travel; trip",
+   "pos": "n."
   },
   "旅行する": {
    "reading": "りょこうする",
-   "meaning": "to travel"
+   "meaning": "to travel",
+   "pos": "v."
   },
   "料理": {
    "reading": "りょうり",
-   "meaning": "cooking; cuisine"
+   "meaning": "cooking; cuisine",
+   "pos": "n."
   },
   "料理する": {
    "reading": "りょうりする",
-   "meaning": "to cook"
+   "meaning": "to cook",
+   "pos": "v."
   },
   "両親": {
    "reading": "りょうしん",
-   "meaning": "parents"
+   "meaning": "parents",
+   "pos": "n."
   },
   "留学生": {
    "reading": "りゅうがくせい",
-   "meaning": "exchange student"
+   "meaning": "exchange student",
+   "pos": "n."
   },
   "寂しい": {
    "reading": "さびしい",
-   "meaning": "lonely"
+   "meaning": "lonely",
+   "pos": "i-adj."
   },
   "財布": {
    "reading": "さいふ",
-   "meaning": "wallet"
+   "meaning": "wallet",
+   "pos": "n."
   },
   "最後": {
    "reading": "さいご",
-   "meaning": "last; end"
+   "meaning": "last; end",
+   "pos": "n."
   },
   "最近": {
    "reading": "さいきん",
-   "meaning": "recently"
+   "meaning": "recently",
+   "pos": "adv."
   },
   "最初": {
    "reading": "さいしょ",
-   "meaning": "first; beginning"
+   "meaning": "first; beginning",
+   "pos": "n."
   },
   "魚": {
    "reading": "さかな",
-   "meaning": "fish"
+   "meaning": "fish",
+   "pos": "n."
   },
   "サッカー": {
    "reading": "sakkaa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "582"
   },
   "作文": {
    "reading": "さくぶん",
-   "meaning": "composition; essay"
+   "meaning": "composition; essay",
+   "pos": "n."
   },
   "寒い": {
    "reading": "さむい",
-   "meaning": "cold (weather)"
+   "meaning": "cold (weather)",
+   "pos": "i-adj."
   },
   "サンドイッチ": {
    "reading": "sandoicchi",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "586"
   },
   "散歩": {
    "reading": "さんぽ",
-   "meaning": "walk; stroll"
+   "meaning": "walk; stroll",
+   "pos": "n."
   },
   "散歩する": {
    "reading": "さんぽする",
-   "meaning": "to take a walk"
+   "meaning": "to take a walk",
+   "pos": "v."
   },
   "皿": {
    "reading": "さら",
-   "meaning": "plate; dish"
+   "meaning": "plate; dish",
+   "pos": "n."
   },
   "砂糖": {
    "reading": "さとう",
-   "meaning": "sugar"
+   "meaning": "sugar",
+   "pos": "n."
   },
   "冊": {
    "reading": "さつ",
-   "meaning": "counter for books"
+   "meaning": "counter for books",
+   "pos": "ctr."
   },
   "触る": {
    "reading": "さわる",
-   "meaning": "to touch"
+   "meaning": "to touch",
+   "pos": "v."
   },
   "さようなら": {
    "reading": "さようなら",
-   "meaning": "goodbye"
+   "meaning": "goodbye",
+   "pos": "phras"
   },
   "背": {
    "reading": "せ",
-   "meaning": "height; back"
+   "meaning": "height; back",
+   "pos": "n."
   },
   "セーター": {
    "reading": "seetaa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "596"
   },
   "世界": {
    "reading": "せかい",
-   "meaning": "world"
+   "meaning": "world",
+   "pos": "n."
   },
   "席": {
    "reading": "せき",
-   "meaning": "seat"
+   "meaning": "seat",
+   "pos": "n."
   },
   "石鹸": {
    "reading": "せっけん",
-   "meaning": "soap"
+   "meaning": "soap",
+   "pos": "n."
   },
   "狭い": {
    "reading": "せまい",
-   "meaning": "narrow; small (space)"
+   "meaning": "narrow; small (space)",
+   "pos": "i-adj."
   },
   "千": {
    "reading": "せん",
-   "meaning": "thousand"
+   "meaning": "thousand",
+   "pos": "n."
   },
   "先月": {
    "reading": "せんげつ",
-   "meaning": "last month"
+   "meaning": "last month",
+   "pos": "n."
   },
   "先生": {
    "reading": "せんせい",
-   "meaning": "teacher"
+   "meaning": "teacher",
+   "pos": "n."
   },
   "先週": {
    "reading": "せんしゅう",
-   "meaning": "last week"
+   "meaning": "last week",
+   "pos": "n."
   },
   "洗濯する": {
    "reading": "せんたくする",
-   "meaning": "to do laundry"
+   "meaning": "to do laundry",
+   "pos": "v."
   },
   "洗濯機": {
    "reading": "せんたくき",
-   "meaning": "washing machine"
+   "meaning": "washing machine",
+   "pos": "n."
   },
   "説明": {
    "reading": "せつめい",
-   "meaning": "explanation"
+   "meaning": "explanation",
+   "pos": "n."
   },
   "社会": {
    "reading": "しゃかい",
-   "meaning": "society"
+   "meaning": "society",
+   "pos": "n."
   },
   "写真": {
    "reading": "しゃしん",
-   "meaning": "photograph"
+   "meaning": "photograph",
+   "pos": "n."
   },
   "シャツ": {
    "reading": "shatsu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "611"
   },
   "仕事": {
    "reading": "しごと",
-   "meaning": "work; job"
+   "meaning": "work; job",
+   "pos": "n."
   },
   "しか": {
    "reading": "しか",
-   "meaning": "only (with negative)"
+   "meaning": "only (with negative)",
+   "pos": "part."
   },
   "しかし": {
    "reading": "しかし",
-   "meaning": "however; but"
+   "meaning": "however; but",
+   "pos": "conj."
   },
   "試験": {
    "reading": "しけん",
-   "meaning": "exam; test"
+   "meaning": "exam; test",
+   "pos": "n."
   },
   "島": {
    "reading": "しま",
-   "meaning": "island"
+   "meaning": "island",
+   "pos": "n."
   },
   "閉まる": {
    "reading": "しまる",
-   "meaning": "to close (intransitive)"
+   "meaning": "to close (intransitive)",
+   "pos": "v."
   },
   "閉める": {
    "reading": "しめる",
-   "meaning": "to close"
+   "meaning": "to close",
+   "pos": "v."
   },
   "新聞": {
    "reading": "しんぶん",
-   "meaning": "newspaper"
+   "meaning": "newspaper",
+   "pos": "n."
   },
   "信号": {
    "reading": "しんごう",
-   "meaning": "traffic light"
+   "meaning": "traffic light",
+   "pos": "n."
   },
   "親切": {
    "reading": "しんせつ",
-   "meaning": "kind; friendly"
+   "meaning": "kind; friendly",
+   "pos": "na-adj."
   },
   "死ぬ": {
    "reading": "しぬ",
-   "meaning": "to die"
+   "meaning": "to die",
+   "pos": "v."
   },
   "塩": {
    "reading": "しお",
-   "meaning": "salt"
+   "meaning": "salt",
+   "pos": "n."
   },
   "白い": {
    "reading": "しろい",
-   "meaning": "white"
+   "meaning": "white",
+   "pos": "i-adj."
   },
   "知る": {
    "reading": "しる",
-   "meaning": "to know"
+   "meaning": "to know",
+   "pos": "v."
   },
   "下": {
    "reading": "した",
-   "meaning": "below; under"
+   "meaning": "below; under",
+   "pos": "n."
   },
   "質問する": {
    "reading": "しつもんする",
-   "meaning": "to ask a question"
+   "meaning": "to ask a question",
+   "pos": "v."
   },
   "静か": {
    "reading": "しずか",
-   "meaning": "quiet"
+   "meaning": "quiet",
+   "pos": "na-adj."
   },
   "食堂": {
    "reading": "しょくどう",
-   "meaning": "cafeteria; dining hall"
+   "meaning": "cafeteria; dining hall",
+   "pos": "n."
   },
   "紹介": {
    "reading": "しょうかい",
-   "meaning": "introduction"
+   "meaning": "introduction",
+   "pos": "n."
   },
   "将来": {
    "reading": "しょうらい",
-   "meaning": "future"
+   "meaning": "future",
+   "pos": "n."
   },
   "醤油": {
    "reading": "しょうゆ",
-   "meaning": "soy sauce"
+   "meaning": "soy sauce",
+   "pos": "n."
   },
   "主人": {
    "reading": "しゅじん",
-   "meaning": "husband (own)"
+   "meaning": "husband (own)",
+   "pos": "n."
   },
   "宿題": {
    "reading": "しゅくだい",
-   "meaning": "homework"
+   "meaning": "homework",
+   "pos": "n."
   },
   "趣味": {
    "reading": "しゅみ",
-   "meaning": "hobby"
+   "meaning": "hobby",
+   "pos": "n."
   },
   "週": {
    "reading": "しゅう",
-   "meaning": "week"
+   "meaning": "week",
+   "pos": "n."
   },
   "側": {
    "reading": "そば",
-   "meaning": "nearby; beside"
+   "meaning": "nearby; beside",
+   "pos": "n."
   },
   "そば": {
    "reading": "そば",
-   "meaning": "soba noodles"
+   "meaning": "soba noodles",
+   "pos": "n."
   },
   "祖母": {
    "reading": "そぼ",
-   "meaning": "grandmother (own)"
+   "meaning": "grandmother (own)",
+   "pos": "n."
   },
   "そちら": {
    "reading": "そちら",
-   "meaning": "that way (polite)"
+   "meaning": "that way (polite)",
+   "pos": "pron."
   },
   "祖父": {
    "reading": "そふ",
-   "meaning": "grandfather (own)"
+   "meaning": "grandfather (own)",
+   "pos": "n."
   },
   "そこ": {
    "reading": "そこ",
-   "meaning": "there"
+   "meaning": "there",
+   "pos": "pron."
   },
   "速度": {
    "reading": "そくど",
-   "meaning": "speed"
+   "meaning": "speed",
+   "pos": "n."
   },
   "その": {
    "reading": "その",
-   "meaning": "that (before noun)"
+   "meaning": "that (before noun)",
+   "pos": "pron."
   },
   "空": {
    "reading": "そら",
-   "meaning": "sky"
+   "meaning": "sky",
+   "pos": "n."
   },
   "それ": {
    "reading": "それ",
-   "meaning": "that (thing)"
+   "meaning": "that (thing)",
+   "pos": "pron."
   },
   "それでは": {
    "reading": "それでは",
-   "meaning": "well then"
+   "meaning": "well then",
+   "pos": "conj."
   },
   "それから": {
    "reading": "それから",
-   "meaning": "after that; and then"
+   "meaning": "after that; and then",
+   "pos": "conj."
   },
   "そろそろ": {
    "reading": "そろそろ",
-   "meaning": "soon; it's about time"
+   "meaning": "soon; it's about time",
+   "pos": "adv."
   },
   "そして": {
    "reading": "そして",
-   "meaning": "and then"
+   "meaning": "and then",
+   "pos": "conj."
   },
   "外": {
    "reading": "そと",
-   "meaning": "outside"
+   "meaning": "outside",
+   "pos": "n."
   },
   "掃除する": {
    "reading": "そうじする",
-   "meaning": "to clean"
+   "meaning": "to clean",
+   "pos": "v."
   },
   "掃除機": {
    "reading": "そうじき",
-   "meaning": "vacuum cleaner"
+   "meaning": "vacuum cleaner",
+   "pos": "n."
   },
   "すぐ": {
    "reading": "すぐ",
-   "meaning": "immediately; soon"
+   "meaning": "immediately; soon",
+   "pos": "adv."
   },
   "水曜日": {
    "reading": "すいようび",
-   "meaning": "Wednesday"
+   "meaning": "Wednesday",
+   "pos": "n."
   },
   "スカート": {
    "reading": "sukaato",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "657"
   },
   "少し": {
    "reading": "すこし",
-   "meaning": "a little"
+   "meaning": "a little",
+   "pos": "adv."
   },
   "空く": {
    "reading": "すく",
-   "meaning": "to become empty"
+   "meaning": "to become empty",
+   "pos": "v."
   },
   "少ない": {
    "reading": "すくない",
-   "meaning": "few; little"
+   "meaning": "few; little",
+   "pos": "i-adj."
   },
   "すみません": {
    "reading": "すみません",
-   "meaning": "excuse me; I'm sorry"
+   "meaning": "excuse me; I'm sorry",
+   "pos": "phras"
   },
   "住む": {
    "reading": "すむ",
-   "meaning": "to live; to reside"
+   "meaning": "to live; to reside",
+   "pos": "v."
   },
   "スポーツ": {
    "reading": "supootsu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "664"
   },
   "スプーン": {
    "reading": "supuun",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "666"
   },
   "寿司": {
    "reading": "すし",
-   "meaning": "sushi"
+   "meaning": "sushi",
+   "pos": "n."
   },
   "スーパー": {
    "reading": "suupaa",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "669"
   },
   "涼しい": {
    "reading": "すずしい",
-   "meaning": "cool (weather)"
+   "meaning": "cool (weather)",
+   "pos": "i-adj."
   },
   "食べ物": {
    "reading": "たべもの",
-   "meaning": "food"
+   "meaning": "food",
+   "pos": "n."
   },
   "食べる": {
    "reading": "たべる",
-   "meaning": "to eat"
+   "meaning": "to eat",
+   "pos": "v."
   },
   "たぶん": {
    "reading": "たぶん",
-   "meaning": "probably; maybe"
+   "meaning": "probably; maybe",
+   "pos": "adv."
   },
   "ただいま": {
    "reading": "ただいま",
-   "meaning": "I'm home"
+   "meaning": "I'm home",
+   "pos": "phras"
   },
   "正しい": {
    "reading": "ただしい",
-   "meaning": "correct; right"
+   "meaning": "correct; right",
+   "pos": "i-adj."
   },
   "大変": {
    "reading": "たいへん",
-   "meaning": "terrible; very"
+   "meaning": "terrible; very",
+   "pos": "na-adj."
   },
   "大切": {
    "reading": "たいせつ",
-   "meaning": "important; precious"
+   "meaning": "important; precious",
+   "pos": "na-adj."
   },
   "大使館": {
    "reading": "たいしかん",
-   "meaning": "embassy"
+   "meaning": "embassy",
+   "pos": "n."
   },
   "太陽": {
    "reading": "たいよう",
-   "meaning": "sun"
+   "meaning": "sun",
+   "pos": "n."
   },
   "高い": {
    "reading": "たかい",
-   "meaning": "tall; expensive"
+   "meaning": "tall; expensive",
+   "pos": "i-adj."
   },
   "たくさん": {
    "reading": "たくさん",
-   "meaning": "many; a lot"
+   "meaning": "many; a lot",
+   "pos": "adv."
   },
   "タクシー": {
    "reading": "takushii",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "683"
   },
   "棚": {
    "reading": "たな",
-   "meaning": "shelf"
+   "meaning": "shelf",
+   "pos": "n."
   },
   "誕生日": {
    "reading": "たんじょうび",
-   "meaning": "birthday"
+   "meaning": "birthday",
+   "pos": "n."
   },
   "頼む": {
    "reading": "たのむ",
-   "meaning": "to request; to order"
+   "meaning": "to request; to order",
+   "pos": "v."
   },
   "楽しい": {
    "reading": "たのしい",
-   "meaning": "fun; enjoyable"
+   "meaning": "fun; enjoyable",
+   "pos": "i-adj."
   },
   "タオル": {
    "reading": "taoru",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "689"
   },
   "畳": {
    "reading": "たたみ",
-   "meaning": "tatami mat"
+   "meaning": "tatami mat",
+   "pos": "n."
   },
   "建物": {
    "reading": "たてもの",
-   "meaning": "building"
+   "meaning": "building",
+   "pos": "n."
   },
   "立つ": {
    "reading": "たつ",
-   "meaning": "to stand"
+   "meaning": "to stand",
+   "pos": "v."
   },
   "手": {
    "reading": "て",
-   "meaning": "hand"
+   "meaning": "hand",
+   "pos": "n."
   },
   "手袋": {
    "reading": "てぶくろ",
-   "meaning": "gloves"
+   "meaning": "gloves",
+   "pos": "n."
   },
   "テーブル": {
    "reading": "teeburu",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "696"
   },
   "天井": {
    "reading": "てんじょう",
-   "meaning": "ceiling"
+   "meaning": "ceiling",
+   "pos": "n."
   },
   "天気": {
    "reading": "てんき",
-   "meaning": "weather"
+   "meaning": "weather",
+   "pos": "n."
   },
   "天気予報": {
    "reading": "てんきよほう",
-   "meaning": "weather forecast"
+   "meaning": "weather forecast",
+   "pos": "n."
   },
   "天ぷら": {
    "reading": "てんぷら",
-   "meaning": "tempura"
+   "meaning": "tempura",
+   "pos": "n."
   },
   "寺": {
    "reading": "てら",
-   "meaning": "temple"
+   "meaning": "temple",
+   "pos": "n."
   },
   "テレビ": {
    "reading": "terebi",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "703"
   },
   "と": {
    "reading": "と",
-   "meaning": "and; with particle"
+   "meaning": "and; with particle",
+   "pos": "part."
   },
   "飛ぶ": {
    "reading": "とぶ",
-   "meaning": "to fly; to jump"
+   "meaning": "to fly; to jump",
+   "pos": "v."
   },
   "届ける": {
    "reading": "とどける",
-   "meaning": "to deliver; to report"
+   "meaning": "to deliver; to report",
+   "pos": "v."
   },
   "届く": {
    "reading": "とどく",
-   "meaning": "to arrive; to reach"
+   "meaning": "to arrive; to reach",
+   "pos": "v."
   },
   "トイレ": {
    "reading": "toire",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "710"
   },
   "時々": {
    "reading": "ときどき",
-   "meaning": "sometimes"
+   "meaning": "sometimes",
+   "pos": "adv."
   },
   "特に": {
    "reading": "とくに",
-   "meaning": "especially"
+   "meaning": "especially",
+   "pos": "adv."
   },
   "特別": {
    "reading": "とくべつ",
-   "meaning": "special"
+   "meaning": "special",
+   "pos": "na-adj."
   },
   "止まる": {
    "reading": "とまる",
-   "meaning": "to stop (intransitive)"
+   "meaning": "to stop (intransitive)",
+   "pos": "v."
   },
   "泊まる": {
    "reading": "とまる",
-   "meaning": "to stay (overnight)"
+   "meaning": "to stay (overnight)",
+   "pos": "v."
   },
   "友達": {
    "reading": "ともだち",
-   "meaning": "friend"
+   "meaning": "friend",
+   "pos": "n."
   },
   "隣": {
    "reading": "となり",
-   "meaning": "next door; neighboring"
+   "meaning": "next door; neighboring",
+   "pos": "n."
   },
   "十": {
    "reading": "とお",
-   "meaning": "ten (things)"
+   "meaning": "ten (things)",
+   "pos": "ctr."
   },
   "遠い": {
    "reading": "とおい",
-   "meaning": "far"
+   "meaning": "far",
+   "pos": "i-adj."
   },
   "遠く": {
    "reading": "とおく",
-   "meaning": "far away"
+   "meaning": "far away",
+   "pos": "n."
   },
   "鳥": {
    "reading": "とり",
-   "meaning": "bird"
+   "meaning": "bird",
+   "pos": "n."
   },
   "鶏肉": {
    "reading": "とりにく",
-   "meaning": "chicken (meat)"
+   "meaning": "chicken (meat)",
+   "pos": "n."
   },
   "撮る": {
    "reading": "とる",
-   "meaning": "to take (a photo)"
+   "meaning": "to take (a photo)",
+   "pos": "v."
   },
   "取る": {
    "reading": "とる",
-   "meaning": "to take; to get"
+   "meaning": "to take; to get",
+   "pos": "v."
   },
   "年": {
    "reading": "とし",
-   "meaning": "year; age"
+   "meaning": "year; age",
+   "pos": "n."
   },
   "図書館": {
    "reading": "としょかん",
-   "meaning": "library"
+   "meaning": "library",
+   "pos": "n."
   },
   "とても": {
    "reading": "とても",
-   "meaning": "very; extremely"
+   "meaning": "very; extremely",
+   "pos": "adv."
   },
   "疲れる": {
    "reading": "つかれる",
-   "meaning": "to get tired"
+   "meaning": "to get tired",
+   "pos": "v."
   },
   "使う": {
    "reading": "つかう",
-   "meaning": "to use"
+   "meaning": "to use",
+   "pos": "v."
   },
   "付ける": {
    "reading": "つける",
-   "meaning": "to turn on; to attach"
+   "meaning": "to turn on; to attach",
+   "pos": "v."
   },
   "月": {
    "reading": "つき",
-   "meaning": "moon; month"
+   "meaning": "moon; month",
+   "pos": "n."
   },
   "着く": {
    "reading": "つく",
-   "meaning": "to arrive"
+   "meaning": "to arrive",
+   "pos": "v."
   },
   "机": {
    "reading": "つくえ",
-   "meaning": "desk"
+   "meaning": "desk",
+   "pos": "n."
   },
   "作る": {
    "reading": "つくる",
-   "meaning": "to make; to create"
+   "meaning": "to make; to create",
+   "pos": "v."
   },
   "つまらない": {
    "reading": "つまらない",
-   "meaning": "boring"
+   "meaning": "boring",
+   "pos": "i-adj."
   },
   "冷たい": {
    "reading": "つめたい",
-   "meaning": "cold (to touch)"
+   "meaning": "cold (to touch)",
+   "pos": "i-adj."
   },
   "強い": {
    "reading": "つよい",
-   "meaning": "strong"
+   "meaning": "strong",
+   "pos": "i-adj."
   },
   "うどん": {
    "reading": "うどん",
-   "meaning": "udon noodles"
+   "meaning": "udon noodles",
+   "pos": "n."
   },
   "上": {
    "reading": "うえ",
-   "meaning": "above; on top"
+   "meaning": "above; on top",
+   "pos": "n."
   },
   "馬": {
    "reading": "うま",
-   "meaning": "horse"
+   "meaning": "horse",
+   "pos": "n."
   },
   "生まれる": {
    "reading": "うまれる",
-   "meaning": "to be born"
+   "meaning": "to be born",
+   "pos": "v."
   },
   "海": {
    "reading": "うみ",
-   "meaning": "sea; ocean"
+   "meaning": "sea; ocean",
+   "pos": "n."
   },
   "嬉しい": {
    "reading": "うれしい",
-   "meaning": "happy; delighted"
+   "meaning": "happy; delighted",
+   "pos": "i-adj."
   },
   "売る": {
    "reading": "うる",
-   "meaning": "to sell"
+   "meaning": "to sell",
+   "pos": "v."
   },
   "牛": {
    "reading": "うし",
-   "meaning": "cow"
+   "meaning": "cow",
+   "pos": "n."
   },
   "後ろ": {
    "reading": "うしろ",
-   "meaning": "behind; back"
+   "meaning": "behind; back",
+   "pos": "n."
   },
   "歌": {
    "reading": "うた",
-   "meaning": "song"
+   "meaning": "song",
+   "pos": "n."
   },
   "歌う": {
    "reading": "うたう",
-   "meaning": "to sing"
+   "meaning": "to sing",
+   "pos": "v."
   },
   "上着": {
    "reading": "うわぎ",
-   "meaning": "jacket; coat"
+   "meaning": "jacket; coat",
+   "pos": "n."
   },
   "は": {
    "reading": "は",
-   "meaning": "topic marker particle"
+   "meaning": "topic marker particle",
+   "pos": "part."
   },
   "若い": {
    "reading": "わかい",
-   "meaning": "young"
+   "meaning": "young",
+   "pos": "i-adj."
   },
   "分かる": {
    "reading": "わかる",
-   "meaning": "to understand"
+   "meaning": "to understand",
+   "pos": "v."
   },
   "笑う": {
    "reading": "わらう",
-   "meaning": "to laugh; to smile"
+   "meaning": "to laugh; to smile",
+   "pos": "v."
   },
   "悪い": {
    "reading": "わるい",
-   "meaning": "bad"
+   "meaning": "bad",
+   "pos": "i-adj."
   },
   "忘れる": {
    "reading": "わすれる",
-   "meaning": "to forget"
+   "meaning": "to forget",
+   "pos": "v."
   },
   "渡る": {
    "reading": "わたる",
-   "meaning": "to cross"
+   "meaning": "to cross",
+   "pos": "v."
   },
   "私": {
    "reading": "わたし",
-   "meaning": "I; me"
+   "meaning": "I; me",
+   "pos": "n."
   },
   "渡す": {
    "reading": "わたす",
-   "meaning": "to hand over"
+   "meaning": "to hand over",
+   "pos": "v."
   },
   "や": {
    "reading": "や",
-   "meaning": "and (non-exhaustive list)"
+   "meaning": "and (non-exhaustive list)",
+   "pos": "part."
   },
   "約": {
    "reading": "やく",
-   "meaning": "approximately"
+   "meaning": "approximately",
+   "pos": "adv."
   },
   "役に立つ": {
    "reading": "やくにたつ",
-   "meaning": "to be useful"
+   "meaning": "to be useful",
+   "pos": "v."
   },
   "約束": {
    "reading": "やくそく",
-   "meaning": "promise; appointment"
+   "meaning": "promise; appointment",
+   "pos": "n."
   },
   "山": {
    "reading": "やま",
-   "meaning": "mountain"
+   "meaning": "mountain",
+   "pos": "n."
   },
   "屋根": {
    "reading": "やね",
-   "meaning": "roof"
+   "meaning": "roof",
+   "pos": "n."
   },
   "やる": {
    "reading": "やる",
-   "meaning": "to do (casual)"
+   "meaning": "to do (casual)",
+   "pos": "v."
   },
   "野菜": {
    "reading": "やさい",
-   "meaning": "vegetable"
+   "meaning": "vegetable",
+   "pos": "n."
   },
   "易しい": {
    "reading": "やさしい",
-   "meaning": "easy; simple"
+   "meaning": "easy; simple",
+   "pos": "i-adj."
   },
   "優しい": {
    "reading": "やさしい",
-   "meaning": "kind; gentle"
+   "meaning": "kind; gentle",
+   "pos": "i-adj."
   },
   "安い": {
    "reading": "やすい",
-   "meaning": "cheap; inexpensive"
+   "meaning": "cheap; inexpensive",
+   "pos": "i-adj."
   },
   "休み": {
    "reading": "やすみ",
-   "meaning": "holiday; rest"
+   "meaning": "holiday; rest",
+   "pos": "n."
   },
   "休む": {
    "reading": "やすむ",
-   "meaning": "to rest; to take a day off"
+   "meaning": "to rest; to take a day off",
+   "pos": "v."
   },
   "八つ": {
    "reading": "やっつ",
-   "meaning": "eight (things)"
+   "meaning": "eight (things)",
+   "pos": "ctr."
   },
   "柔らかい": {
    "reading": "やわらかい",
-   "meaning": "soft"
+   "meaning": "soft",
+   "pos": "i-adj."
   },
   "よ": {
    "reading": "よ",
-   "meaning": "emphasis particle"
+   "meaning": "emphasis particle",
+   "pos": "part."
   },
   "呼ぶ": {
    "reading": "よぶ",
-   "meaning": "to call; to invite"
+   "meaning": "to call; to invite",
+   "pos": "v."
   },
   "横": {
    "reading": "よこ",
-   "meaning": "beside; side"
+   "meaning": "beside; side",
+   "pos": "n."
   },
   "よく": {
    "reading": "よく",
-   "meaning": "often; well"
+   "meaning": "often; well",
+   "pos": "adv."
   },
   "読む": {
    "reading": "よむ",
-   "meaning": "to read"
+   "meaning": "to read",
+   "pos": "v."
   },
   "四人": {
    "reading": "よにん",
-   "meaning": "four people"
+   "meaning": "four people",
+   "pos": "ctr."
   },
   "喜ぶ": {
    "reading": "よろこぶ",
-   "meaning": "to be glad"
+   "meaning": "to be glad",
+   "pos": "v."
   },
   "よろしくお願いします": {
    "reading": "よろしくお願いします",
-   "meaning": "please take care of me"
+   "meaning": "please take care of me",
+   "pos": "phras"
   },
   "夜": {
    "reading": "よる",
-   "meaning": "night; evening"
+   "meaning": "night; evening",
+   "pos": "n."
   },
   "予定": {
    "reading": "よてい",
-   "meaning": "plan; schedule"
+   "meaning": "plan; schedule",
+   "pos": "n."
   },
   "四つ": {
    "reading": "よっつ",
-   "meaning": "four (things)"
+   "meaning": "four (things)",
+   "pos": "ctr."
   },
   "用事": {
    "reading": "ようじ",
-   "meaning": "errand; things to do"
+   "meaning": "errand; things to do",
+   "pos": "n."
   },
   "弱い": {
    "reading": "よわい",
-   "meaning": "weak"
+   "meaning": "weak",
+   "pos": "i-adj."
   },
   "指": {
    "reading": "ゆび",
-   "meaning": "finger"
+   "meaning": "finger",
+   "pos": "n."
   },
   "床": {
    "reading": "ゆか",
-   "meaning": "floor"
+   "meaning": "floor",
+   "pos": "n."
   },
   "雪": {
    "reading": "ゆき",
-   "meaning": "snow"
+   "meaning": "snow",
+   "pos": "n."
   },
   "ゆっくり": {
    "reading": "ゆっくり",
-   "meaning": "slowly"
+   "meaning": "slowly",
+   "pos": "adv."
   },
   "夢": {
    "reading": "ゆめ",
-   "meaning": "dream"
+   "meaning": "dream",
+   "pos": "n."
   },
   "郵便局": {
    "reading": "ゆうびんきょく",
-   "meaning": "post office"
+   "meaning": "post office",
+   "pos": "n."
   },
   "有名": {
    "reading": "ゆうめい",
-   "meaning": "famous"
+   "meaning": "famous",
+   "pos": "na-adj."
   },
   "残念": {
    "reading": "ざんねん",
-   "meaning": "unfortunate; disappointing"
+   "meaning": "unfortunate; disappointing",
+   "pos": "na-adj."
   },
   "雑誌": {
    "reading": "ざっし",
-   "meaning": "magazine"
+   "meaning": "magazine",
+   "pos": "n."
   },
   "全部": {
    "reading": "ぜんぶ",
-   "meaning": "all; everything"
+   "meaning": "all; everything",
+   "pos": "adv."
   },
   "ぜんぜん": {
    "reading": "ぜんぜん",
-   "meaning": "not at all (with negative)"
+   "meaning": "not at all (with negative)",
+   "pos": "adv."
   },
   "ズボン": {
    "reading": "zubon",
-   "meaning": "n."
+   "meaning": "n.",
+   "pos": "JLPTLord.com — Free JLPT Study Resources"
   }
  },
  "kanji5": {
