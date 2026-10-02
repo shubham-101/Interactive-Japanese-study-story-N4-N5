@@ -3,6 +3,24 @@
   --text:#33302e; --muted:#8a7f8f; --gold:#FFD700; --gold2:#c99900;
   --accent:#FF9EBA; --chip:#e9f7e3;
 }
+body.dark{
+  --bg:#14161f; --panel:#1d2030; --panel2:#2a2340; --line:#3a3f5c;
+  --text:#e8e6df; --muted:#9a93ad; --gold:#FFD700; --gold2:#f0d77b;
+  --accent:#FF9EBA; --chip:#234030;
+}
+body.dark{background:radial-gradient(1200px 600px at 20% -10%,#3a2a4a 0%,var(--bg) 60%),var(--bg)}
+body.dark header{background:rgba(20,22,31,.88)}
+body.dark .story p.sent:hover,body.dark .story p.sent.sel{background:var(--panel2)}
+body.dark .story .w:hover{background:var(--panel2)}
+body.dark #vocabTable tbody tr.focused,body.dark #vocab5Table tbody tr.focused{background:var(--panel2)}
+body.dark .gexample{background:#2a2f45;border-left-color:#FF9EBA}
+body.dark .chip{background:#234030;border-color:#3a6a4a}
+body.dark .fc-front{background:linear-gradient(160deg,#1d2030,#2a2340)}
+body.dark .fc-back{background:linear-gradient(160deg,#1d2030,#234030)}
+body.dark .fc-front .fc-word{color:#e8e6df}
+body.dark .fc-back .fc-meaning{color:#e8e6df}
+body.dark .addrow input,body.dark .fc-select,body.dark .search{background:var(--panel);color:var(--text)}
+body.dark .theme-btn{background:var(--panel);color:var(--text)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:radial-gradient(1200px 600px at 20% -10%,#FFC1CC 0%,var(--bg) 60%),var(--bg);color:var(--text);font-family:'Noto Sans JP',Inter,system-ui,sans-serif;min-height:100vh}
 header{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--line);backdrop-filter:blur(6px);position:sticky;top:0;background:rgba(255,245,195,.88);z-index:10}
@@ -126,6 +144,8 @@ th{color:#c99900;font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .bm-item.focused{outline:2px solid #7aa2f7;outline-offset:2px}
 .kbd-btn-inline{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 14px;color:var(--muted);font-size:12px;cursor:pointer;transition:.15s;font-family:inherit}
 .kbd-btn-inline:hover{border-color:var(--gold2);color:var(--gold2)}
+.theme-btn{margin-left:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 12px;cursor:pointer;font-size:16px;transition:.15s}
+.theme-btn:hover{border-color:var(--gold2)}
 #toast.show{transform:translateX(-50%) translateY(0)}
 .detail h2{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:#d1567f;margin-bottom:14px}
 .detail h3{font-size:15px;margin:14px 0 6px;color:#c99900}

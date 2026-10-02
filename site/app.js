@@ -749,6 +749,16 @@ document.getElementById('kbdClose').addEventListener('click', () => document.get
 document.getElementById('kbdHelp').addEventListener('click', e => { if (e.target.id === 'kbdHelp') e.target.classList.add('hidden'); });
 document.getElementById('kbdBtn').addEventListener('click', () => document.getElementById('kbdHelp').classList.remove('hidden'));
 
+// ===== Theme toggle =====
+const themeBtn = document.getElementById('themeToggle');
+try { if (localStorage.getItem('n4theme') === 'dark'){ document.body.classList.add('dark'); themeBtn.textContent = '☀️'; } } catch(e){}
+themeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const dark = document.body.classList.contains('dark');
+  themeBtn.textContent = dark ? '☀️' : '🌙';
+  localStorage.setItem('n4theme', dark ? 'dark' : 'light');
+});
+
 // ===== Chapter jump menu =====
 (function(){
   const sel = document.getElementById('chapterJump');
