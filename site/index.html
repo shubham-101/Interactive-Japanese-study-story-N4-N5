@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N4 物語スタディ — JLPT N4 Study Ground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">物語</span>
+    <div>
+      <h1>N4 Story Study Ground</h1>
+      <p>JLPT N4 Grammar · Kanji · Vocabulary</p>
+    </div>
+  </div>
+  <nav>
+    <button class="tab active" data-tab="story">物語 Story</button>
+    <button class="tab" data-tab="vocab">単語 Vocabulary</button>
+    <button class="tab" data-tab="kanji">漢字 Kanji</button>
+    <button class="tab" data-tab="grammar">文法 Grammar</button>
+    <button class="tab" data-tab="vocab5">N5単語</button>
+    <button class="tab" data-tab="kanji5">N5漢字</button>
+    <button class="tab" data-tab="grammar5">N5文法</button>
+    <button class="tab" data-tab="flashcards">Flashcards</button>
+    <button class="tab" data-tab="bookmarks">Bookmarks</button>
+  </nav>
+</header>
+
+<main>
+  <section id="story" class="panel active">
+    <div class="story-toolbar">
+      <label class="switch"><input type="checkbox" id="furigana" checked><span></span> Furigana</label>
+      <span class="hint">Click a sentence for its analysis (meaning · words · kanji · grammar) · In the analysis, click any word for its entry</span>
+    </div>
+    <div class="story-layout">
+      <article id="storyText" class="story"></article>
+      <aside id="detail" class="detail">
+        <h2>Dictionary</h2>
+        <p class="empty">Select a sentence or word from the story to study it here.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="vocab" class="panel">
+    <input id="vocabSearch" class="search" placeholder="Search vocabulary… (word, reading, meaning)">
+    <table id="vocabTable"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="kanji" class="panel">
+    <input id="kanjiSearch" class="search" placeholder="Search kanji… (kanji, reading, meaning)">
+    <div id="kanjiGrid" class="kanji-grid"></div>
+  </section>
+
+  <section id="grammar" class="panel">
+    <input id="grammarSearch" class="search" placeholder="Search grammar… (pattern or meaning)">
+    <div id="grammarList" class="grammar-list"></div>
+  </section>
+
+  <section id="vocab5" class="panel">
+    <input id="vocab5Search" class="search" placeholder="Search N5 vocabulary…">
+    <table id="vocab5Table"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="kanji5" class="panel">
+    <input id="kanji5Search" class="search" placeholder="Search N5 kanji…">
+    <div id="kanji5Grid" class="kanji-grid"></div>
+  </section>
+
+  <section id="grammar5" class="panel">
+    <input id="grammar5Search" class="search" placeholder="Search N5 grammar…">
+    <div id="grammar5List" class="grammar-list"></div>
+  </section>
+
+  <section id="flashcards" class="panel">
+    <div class="fc-controls">
+      <select id="fcDeck" class="fc-select">
+        <option value="vocab">N4 Vocabulary</option>
+        <option value="vocab5">N5 Vocabulary</option>
+        <option value="kanji">N4 Kanji</option>
+        <option value="kanji5">N5 Kanji</option>
+        <option value="all">All (N4 + N5)</option>
+      </select>
+      <div id="fcStats" class="fc-stats"></div>
+      <button id="fcReset" class="fc-reset">Reset deck</button>
+    </div>
+    <div id="fcCard" class="fc-card">
+      <div class="fc-inner">
+        <div class="fc-face fc-front" id="fcFront"></div>
+        <div class="fc-face fc-back" id="fcBack"></div>
+      </div>
+    </div>
+    <p class="fc-hint">Click the card to reveal the answer, then grade it</p>
+    <div class="fc-grades">
+      <button class="fc-grade again" data-g="again">Again</button>
+      <button class="fc-grade hard" data-g="hard">Hard</button>
+      <button class="fc-grade good" data-g="good">Good</button>
+      <button class="fc-grade easy" data-g="easy">Easy</button>
+    </div>
+  </section>
+
+  <section id="bookmarks" class="panel">
+    <div id="bmList" class="bm-list"></div>
+  </section>
+</main>
+
+<div id="toast"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
