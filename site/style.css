@@ -102,6 +102,7 @@ th{color:#c99900;font-size:11px;text-transform:uppercase;letter-spacing:1px}
 .bm-empty{color:var(--muted);text-align:center;padding:40px 20px;font-size:14px}
 .editbtn{background:none;border:none;color:var(--gold2);cursor:pointer;font-size:13px;padding:2px 6px;opacity:.6;transition:.15s}
 .editbtn:hover{opacity:1;transform:scale(1.15)}
+.romaji-line{font-size:13px;color:var(--muted);margin-top:2px;font-style:italic}
 #toast.show{transform:translateX(-50%) translateY(0)}
 .detail h2{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:#d1567f;margin-bottom:14px}
 .detail h3{font-size:15px;margin:14px 0 6px;color:#c99900}

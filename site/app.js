@@ -214,6 +214,7 @@ function showSentence(ci, sent, el){
   const transText = customTrans || sent.en || (ch.en ? 'Chapter summary: ' + ch.en : '');
   let html = `<h2>Sentence — ${ch.title}</h2>
     <p class="sent-jp">${rawToHtml(raw)}</p>
+    ${romajiOn ? `<p class="romaji-line">${window.wanakana ? wanakana.toRomaji(plain) : ''}</p>` : ''}
     <p class="sent-en" id="sentEn">${transText} <button class="editbtn" id="editTrans" title="Edit translation">✎</button></p>`;
   if (gs.length) html += `<h3>Grammar used</h3>` + gs.map(g=>`<span class="chip gold" title="${g.meaning}">${g.pattern}</span>`).join('');
   if (ch.focus) html += `<h3>Grammar focus (chapter)</h3><p class="meaning" style="font-size:12px">${ch.focus}</p>`;
@@ -309,6 +310,25 @@ document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () =>
 // Furigana toggle
 document.getElementById('furigana').addEventListener('change', e => {
   document.getElementById('storyText').classList.toggle('no-ruby', !e.target.checked);
+});
+
+// Romaji toggle
+let romajiOn = false;
+document.getElementById('romaji').addEventListener('change', e => {
+  romajiOn = e.target.checked;
+  document.querySelectorAll('#storyText p.sent').forEach(p => {
+    let r = p.querySelector('.romaji-line');
+    if (romajiOn){
+      if (!r){
+        r = document.createElement('div');
+        r.className = 'romaji-line';
+        const text = p.textContent.replace(/[☆★]/g,'').trim();
+        r.textContent = window.wanakana ? wanakana.toRomaji(text) : '';
+        p.appendChild(r);
+      }
+    } else if (r) r.remove();
+  });
+  if (romajiOn && fcCurrent) fcRender();
 });
 
 // Vocab tab
