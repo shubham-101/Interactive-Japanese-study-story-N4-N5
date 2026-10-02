@@ -92,6 +92,7 @@ function saveSegs(){ localStorage.setItem('n4segs', JSON.stringify(SEG)); }
 
 function lookupWord(w){
   if (VOCAB[w]) return VOCAB[w];
+  if (D.vocab5[w]) return D.vocab5[w];
   if (D.kanji[w]) return {reading: D.kanji[w].readings, meaning: D.kanji[w].meaning};
   return null;
 }
@@ -221,6 +222,10 @@ function renderStory(){
       star.title = 'Bookmark sentence';
       star.addEventListener('click', e => { e.stopPropagation(); bmToggleSentence(ci, si); star.classList.toggle('on'); star.textContent = star.classList.contains('on') ? '★' : '☆'; });
       p.appendChild(star);
+      const tts = document.createElement('button');
+      tts.className = 'star tts'; tts.textContent = '🔊'; tts.title = 'Listen';
+      tts.addEventListener('click', e => { e.stopPropagation(); speak(s.jp); });
+      p.appendChild(tts);
       p.addEventListener('click', () => showSentence(ci, s, p));
       root.appendChild(p);
     });
@@ -231,13 +236,50 @@ function renderStory(){
   }));
 }
 
+function speak(text){
+  if (!('speechSynthesis' in window)) { alert('Speech not supported in this browser.'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text.replace(/（[^）]*）/g,''));
+  u.lang = 'ja-JP';
+  speechSynthesis.speak(u);
+}
+
+function entryEditForm(fields, vals){
+  return fields.map(f => `<p style="margin:6px 0"><label style="font-size:12px;color:var(--muted)">${f.label}</label><br><input data-ef="${f.key}" value="${(vals[f.key]||'').replace(/"/g,'&quot;')}" style="width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:8px;margin-top:2px"></p>`).join('') +
+    `<div style="margin-top:10px;display:flex;gap:6px"><button id="eSave" style="background:#AEDD94;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700">Save</button><button id="eCancel" style="background:#FFC1CC;border:none;border-radius:8px;padding:6px 14px;cursor:pointer">Cancel</button></div>`;
+}
+
+function collectEdit(fields){
+  const vals = {};
+  document.querySelectorAll('#popupPanel [data-ef]').forEach(inp => vals[inp.dataset.ef] = inp.value.trim());
+  return vals;
+}
+
 function openWordPopup(w){
   const v = lookupWord(w);
   const ks2 = kanjisIn(w);
   showPopup(`<h2>${w}</h2>
-    <p class="sent-en">${v?v.reading:''}${v&&v.pos?' <span class="pos">'+v.pos+'</span>':''}</p>
+    <p class="sent-en">${v?v.reading:''}${v&&v.pos?' <span class="pos">'+v.pos+'</span>':''} <button id="ttsWord" title="Listen" style="background:none;border:none;cursor:pointer;font-size:16px">🔊</button></p>
     <p>${v?v.meaning:'—'}</p>
-    ${ks2.length ? `<h3>Kanji</h3>` + ks2.map(k => { const v2 = D.kanji[k]; return `<p style="font-size:15px"><b style="font-family:'Noto Serif JP',serif;font-size:20px">${k}</b> — ${v2.readings} — ${v2.meaning}</p>`; }).join('') : ''}`);
+    ${ks2.length ? `<h3>Kanji</h3>` + ks2.map(k => { const v2 = D.kanji[k]; return `<p style="font-size:15px"><b style="font-family:'Noto Serif JP',serif;font-size:20px">${k}</b> — ${v2.readings} — ${v2.meaning}</p>`; }).join('') : ''}
+    <button id="btnEdit" style="margin-top:10px;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px">Edit</button>`);
+  const be = document.getElementById('btnEdit');
+  if (be) be.addEventListener('click', () => {
+    const src = D.vocab[w] ? 'vocab' : (D.vocab5[w] ? 'vocab5' : null);
+    if (!src) return;
+    document.getElementById('popupPanel').innerHTML = entryEditForm(
+      [{key:'reading',label:'Reading'},{key:'meaning',label:'Meaning'},{key:'pos',label:'POS'}],
+      {reading: v?v.reading:'', meaning: v?v.meaning:'', pos: v?v.pos:''});
+    document.getElementById('eCancel').addEventListener('click', () => openWordPopup(w));
+    document.getElementById('eSave').addEventListener('click', () => {
+      const vals = collectEdit();
+      const ds = src === 'vocab' ? D.vocab : D.vocab5;
+      ds[w] = {...ds[w], reading: vals.reading, meaning: vals.meaning, ...(vals.pos ? {pos: vals.pos} : {})};
+      PAGE_EDITS[src][w] = ds[w]; savePageEdits();
+      renderVocab(); renderVocab5();
+      openWordPopup(w);
+    });
+  });
 }
 
 function showSentence(ci, sent, el){
@@ -255,7 +297,7 @@ function showSentence(ci, sent, el){
   const customTrans = getTrans(plain);
   const transText = customTrans || sent.en || (ch.en ? 'Chapter summary: ' + ch.en : '');
   let html = `<h2>Sentence — ${ch.title}</h2>
-    <p class="sent-jp">${rawToHtml(raw)}</p>
+    <p class="sent-jp">${rawToHtml(raw)}</p> <button id="ttsSent" title="Listen" style="background:none;border:none;cursor:pointer;font-size:16px;vertical-align:middle">🔊</button>
     ${romajiOn ? `<p class="romaji-line">${window.wanakana ? wanakana.toRomaji(plain) : ''}</p>` : ''}
     <p class="sent-en" id="sentEn">${transText} <button class="editbtn" id="editTrans" title="Edit translation">✎</button></p>`;
   if (gs.length) html += `<h3>Grammar used</h3>` + gs.map(g=>`<span class="chip gold" data-gp="${g.pattern}" style="cursor:pointer">${g.pattern}</span>`).join('');
@@ -272,7 +314,7 @@ function showSentence(ci, sent, el){
     const g = D.grammar.find(x => x.pattern === c.dataset.gp);
     if (!g) return;
     showPopup(`<h2>${g.pattern}</h2>
-      <p class="sent-en">${g.romaji}</p>
+      <p class="sent-en">${g.romaji} <button class="ttsbtn" data-speak="${g.example_jp||g.pattern}" title="Listen">🔊</button></p>
       <p>${g.meaning}</p>
       ${g.example_jp ? `<h3>Example</h3><div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}`);
   }));
@@ -313,15 +355,18 @@ function showSentence(ci, sent, el){
   document.querySelectorAll('#detail .klink').forEach(td => td.addEventListener('click', () => {
     const v = D.kanji[td.dataset.k];
     showPopup(`<h2 style="font-family:'Noto Serif JP',serif;font-size:36px">${td.dataset.k}</h2>
-      <p class="sent-en">${v.readings}</p><p>${v.meaning}</p>
+      <p class="sent-en">${v.readings} <button class="ttsbtn" data-speak="${td.dataset.k}" title="Listen">🔊</button></p>
+      <p>${v.meaning}</p>
       ${v.strokes ? `<p class="meaning" style="margin-top:8px">Strokes: ${v.strokes}</p>` : ''}`);
   }));
 
   const editBtn = document.getElementById('editTrans');
+  const ttsSentBtn = document.getElementById('ttsSent');
+  if (ttsSentBtn) ttsSentBtn.addEventListener('click', () => speak(plain));
   if (editBtn) editBtn.addEventListener('click', () => {
     const enEl = document.getElementById('sentEn');
     const current = transText;
-    enEl.innerHTML = `<input id="transInput" value="${current.replace(/"/g,'&quot;')}" style="width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--text)">
+    enEl.innerHTML = `<input id="transInput" value="${current.replace(/"/g,'&quot;')}" style="width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px">
       <div style="margin-top:6px;display:flex;gap:6px">
         <button id="transSave" style="background:#AEDD94;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700">Save</button>
         <button id="transCancel" style="background:#FFC1CC;border:none;border-radius:8px;padding:6px 14px;cursor:pointer">Cancel</button>
@@ -341,7 +386,7 @@ function showSentence(ci, sent, el){
     const tokens = segment(plain).map(s => s.t).join(' | ');
     const area = document.createElement('div');
     area.innerHTML = `<p class="meaning" style="font-size:12px;margin:8px 0">Separate words with | (pipe):</p>
-      <input id="segInput" value="${tokens.replace(/"/g,'&quot;')}" style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:'Noto Serif JP',serif;background:#fff;color:var(--text)">
+      <input id="segInput" value="${tokens.replace(/"/g,'&quot;')}" style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:'Noto Serif JP',serif">
       <div style="margin-top:8px;display:flex;gap:6px">
         <button id="segSave" style="background:#AEDD94;border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700">Save</button>
         <button id="segCancel" style="background:#FFC1CC;border:none;border-radius:8px;padding:6px 14px;cursor:pointer">Cancel</button>
@@ -424,23 +469,98 @@ function renderVocab(f=''){
   const f2 = f.toLowerCase();
   vt.innerHTML = Object.entries(D.vocab)
     .filter(([w,v]) => w.includes(f) || v.reading.includes(f) || v.meaning.toLowerCase().includes(f2))
-    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td></tr>`).join('');
+    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button></td></tr>`).join('');
 }
 document.getElementById('vocabSearch').addEventListener('input', e => renderVocab(e.target.value));
 
 // Kanji tab
 const kg = document.getElementById('kanjiGrid');
+function openKanjiPopup(k){
+  const v = D.kanji[k] || D.kanji5[k];
+  if (!v) return;
+  showPopup(`<h2 style="font-family:'Noto Serif JP',serif;font-size:36px">${k}</h2>
+    <p class="sent-en">${v.readings} <button class="ttsbtn" data-speak="${k}" title="Listen">🔊</button></p>
+    <p>${v.meaning}</p>
+    ${v.strokes ? `<p class="meaning" style="margin-top:8px">Strokes: ${v.strokes}</p>` : ''}
+    <button id="btnEdit" style="margin-top:10px;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px">Edit</button>`);
+  const be = document.getElementById('btnEdit');
+  if (be) be.addEventListener('click', () => {
+    const src = D.kanji[k] ? 'kanji' : 'kanji5';
+    document.getElementById('popupPanel').innerHTML = entryEditForm(
+      [{key:'readings',label:'Readings'},{key:'meaning',label:'Meaning'},{key:'strokes',label:'Strokes'}],
+      {readings: v.readings, meaning: v.meaning, strokes: v.strokes});
+    document.getElementById('eCancel').addEventListener('click', () => openKanjiPopup(k));
+    document.getElementById('eSave').addEventListener('click', () => {
+      const vals = collectEdit();
+      const ds = src === 'kanji' ? D.kanji : D.kanji5;
+      ds[k] = {...ds[k], readings: vals.readings, meaning: vals.meaning, strokes: vals.strokes};
+      PAGE_EDITS[src][k] = ds[k]; savePageEdits();
+      renderKanji(); renderKanji5();
+      openKanjiPopup(k);
+    });
+  });
+}
+
+function openGrammarPopup(g){
+  if (!g) return;
+  showPopup(`<h2>${g.pattern}</h2>
+    <p class="sent-en">${g.romaji} <button class="ttsbtn" data-speak="${g.example_jp||g.pattern}" title="Listen">🔊</button></p>
+    <p>${g.meaning}</p>
+    ${g.example_jp ? `<h3>Example</h3><div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}
+    <button id="btnEdit" style="margin-top:10px;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12px">Edit</button>`);
+  const be = document.getElementById('btnEdit');
+  if (be) be.addEventListener('click', () => {
+    const src = D.grammar.includes(g) ? 'grammar' : 'grammar5';
+    document.getElementById('popupPanel').innerHTML = entryEditForm(
+      [{key:'romaji',label:'Romaji'},{key:'meaning',label:'Meaning'},{key:'example_jp',label:'Example (JP)'},{key:'example_en',label:'Example (EN)'}],
+      {romaji: g.romaji, meaning: g.meaning, example_jp: g.example_jp||'', example_en: g.example_en||''});
+    document.getElementById('eCancel').addEventListener('click', () => openGrammarPopup(g));
+    document.getElementById('eSave').addEventListener('click', () => {
+      const vals = collectEdit();
+      Object.assign(g, {romaji: vals.romaji, meaning: vals.meaning, example_jp: vals.example_jp, example_en: vals.example_en});
+      PAGE_EDITS[src][g.pattern] = g; savePageEdits();
+      renderGrammar(); renderGrammar5();
+      openGrammarPopup(g);
+    });
+  });
+}
+
+document.getElementById('vocabTable').addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
+  const tr = e.target.closest('tbody tr');
+  if (tr) openWordPopup(tr.querySelector('td').textContent);
+});
+document.getElementById('vocab5Table').addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
+  const tr = e.target.closest('tbody tr');
+  if (tr) openWordPopup(tr.querySelector('td').textContent);
+});
+document.getElementById('grammarList').addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
+  const card = e.target.closest('.gcard');
+  if (!card) return;
+  const pattern = card.querySelector('b').textContent;
+  openGrammarPopup(D.grammar.find(g => g.pattern === pattern));
+});
+document.getElementById('grammar5List').addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
+  const card = e.target.closest('.gcard');
+  if (!card) return;
+  const pattern = card.querySelector('b').textContent;
+  openGrammarPopup(D.grammar5.find(g => g.pattern === pattern));
+});
+
 function renderKanji(f=''){
   const f2 = f.toLowerCase();
   kg.innerHTML = Object.entries(D.kanji)
     .filter(([k,v]) => k.includes(f) || v.readings.toLowerCase().includes(f2) || v.meaning.toLowerCase().includes(f2))
-    .map(([k,v]) => `<div class="kcard" data-k="${k}"><div class="k">${k}</div><div class="r">${v.readings}</div><div class="m">${v.meaning}</div></div>`).join('');
+    .map(([k,v]) => `<div class="kcard" data-k="${k}"><button class="ttsbtn kcard-tts" data-speak="${k}" title="Listen">🔊</button><div class="k">${k}</div><div class="r">${v.readings}</div><div class="m">${v.meaning}</div></div>`).join('');
 }
 document.getElementById('kanjiSearch').addEventListener('input', e => renderKanji(e.target.value));
 kg.addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
   const c = e.target.closest('.kcard'); if (!c) return;
-  const v = D.kanji[c.dataset.k];
-  toast(`${c.dataset.k} — ${v.readings} — ${v.meaning}`);
+  openKanjiPopup(c.dataset.k);
 });
 
 // Grammar tab
@@ -449,7 +569,7 @@ function renderGrammar(f=''){
   const f2=f.toLowerCase();
   gl.innerHTML = D.grammar
     .filter(g => g.pattern.includes(f) || g.meaning.toLowerCase().includes(f2) || g.romaji.toLowerCase().includes(f2))
-    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
+    .map(g => `<div class="gcard"><button class="ttsbtn gcard-tts" data-speak="${g.example_jp||g.pattern}" title="Listen">🔊</button><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
       ${g.example_jp ? `<div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}
     </div>`).join('');
 }
@@ -464,7 +584,7 @@ function renderVocab5(f=''){
   const f2=f.toLowerCase();
   vt5.innerHTML = Object.entries(D.vocab5)
     .filter(([w,v]) => w.includes(f) || v.reading.includes(f) || v.meaning.toLowerCase().includes(f2))
-    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td><span class="pos">${v.pos||''}</span></td></tr>`).join('');
+    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td><span class="pos">${v.pos||''}</span></td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button></td></tr>`).join('');
 }
 document.getElementById('vocab5Search').addEventListener('input', e => renderVocab5(e.target.value));
 
@@ -473,12 +593,13 @@ function renderKanji5(f=''){
   const f2=f.toLowerCase();
   kg5.innerHTML = Object.entries(D.kanji5)
     .filter(([k,v]) => k.includes(f) || v.readings.toLowerCase().includes(f2) || v.meaning.toLowerCase().includes(f2))
-    .map(([k,v]) => `<div class="kcard" data-k="${k}"><div class="k">${k}</div><div class="r">${v.readings}</div><div class="m">${v.meaning}</div></div>`).join('');
+    .map(([k,v]) => `<div class="kcard" data-k="${k}"><button class="ttsbtn kcard-tts" data-speak="${k}" title="Listen">🔊</button><div class="k">${k}</div><div class="r">${v.readings}</div><div class="m">${v.meaning}</div></div>`).join('');
 }
 document.getElementById('kanji5Search').addEventListener('input', e => renderKanji5(e.target.value));
 kg5.addEventListener('click', e => {
+  if (e.target.closest('.ttsbtn')) return;
   const c = e.target.closest('.kcard'); if (!c) return;
-  const v = D.kanji5[c.dataset.k]; toast(`${c.dataset.k} — ${v.readings} — ${v.meaning}`);
+  openKanjiPopup(c.dataset.k);
 });
 
 const gl5 = document.getElementById('grammar5List');
@@ -486,12 +607,116 @@ function renderGrammar5(f=''){
   const f2=f.toLowerCase();
   gl5.innerHTML = D.grammar5
     .filter(g => g.pattern.includes(f) || g.meaning.toLowerCase().includes(f2) || g.romaji.toLowerCase().includes(f2))
-    .map(g => `<div class="gcard"><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
+    .map(g => `<div class="gcard"><button class="ttsbtn gcard-tts" data-speak="${g.example_jp||g.pattern}" title="Listen">🔊</button><b>${g.pattern}</b><span class="rom">${g.romaji}</span><p>${g.meaning}</p>
       ${g.example_jp ? `<div class="gexample"><span class="gex-jp">${g.example_jp}</span><span class="gex-en">${g.example_en||''}</span></div>` : ''}
     </div>`).join('');
 }
 document.getElementById('grammar5Search').addEventListener('input', e => renderGrammar5(e.target.value));
 renderVocab5(); renderKanji5(); renderGrammar5();
+
+// ===== Page add-entry forms =====
+let PAGE_EDITS = {vocab:{}, vocab5:{}, kanji:{}, kanji5:{}, grammar:{}, grammar5:{}};
+try { PAGE_EDITS = Object.assign(PAGE_EDITS, JSON.parse(localStorage.getItem('n4pageedits') || '{}')); } catch(e){}
+function savePageEdits(){ localStorage.setItem('n4pageedits', JSON.stringify(PAGE_EDITS)); }
+for (const [k,v] of Object.entries(PAGE_EDITS.vocab)) D.vocab[k] = v;
+for (const [k,v] of Object.entries(PAGE_EDITS.vocab5)) D.vocab5[k] = v;
+for (const [k,v] of Object.entries(PAGE_EDITS.kanji)) D.kanji[k] = v;
+for (const [k,v] of Object.entries(PAGE_EDITS.kanji5)) D.kanji5[k] = v;
+for (const [k,v] of Object.entries(PAGE_EDITS.grammar)) {
+  const i = D.grammar.findIndex(g => g.pattern === k);
+  if (i >= 0) D.grammar[i] = v; else D.grammar.push(v);
+}
+for (const [k,v] of Object.entries(PAGE_EDITS.grammar5)) {
+  const i = D.grammar5.findIndex(g => g.pattern === k);
+  if (i >= 0) D.grammar5[i] = v; else D.grammar5.push(v);
+}
+
+function setupAddForm(sectionId, opts){
+  const sec = document.getElementById(sectionId);
+  if (!sec) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<button class="fc-select add-toggle" style="margin-bottom:10px">+ Add entry</button>
+    <div class="add-form" style="display:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:14px">
+      ${opts.fields.map(f => `<input data-f="${f.key}" placeholder="${f.label}" style="border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;margin:0 6px 6px 0">`).join('')}
+      <button class="add-go" style="background:linear-gradient(135deg,#AEDD94,#9CD6A3);border:none;border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700">Add</button>
+    </div>`;
+  sec.insertBefore(wrap, sec.firstChild);
+  const toggle = wrap.querySelector('.add-toggle');
+  const form = wrap.querySelector('.add-form');
+  toggle.addEventListener('click', () => { form.style.display = form.style.display === 'none' ? 'block' : 'none'; });
+  wrap.querySelector('.add-go').addEventListener('click', () => {
+    const vals = {};
+    form.querySelectorAll('input').forEach(inp => vals[inp.dataset.f] = inp.value.trim());
+    opts.add(vals);
+  });
+}
+
+function existsAnywhere(key, keyOf){
+  if (D.vocab[keyOf]) return 'N4';
+  if (D.vocab5[keyOf]) return 'N5';
+  return null;
+}
+function existsKanjiAnywhere(k){
+  if (D.kanji[k]) return 'N4';
+  if (D.kanji5[k]) return 'N5';
+  return null;
+}
+function existsGrammarAnywhere(p){
+  if (D.grammar.some(g => g.pattern === p)) return 'N4';
+  if (D.grammar5.some(g => g.pattern === p)) return 'N5';
+  return null;
+}
+
+setupAddForm('vocab', {
+  fields: [{key:'word',label:'word'},{key:'reading',label:'reading'},{key:'meaning',label:'meaning'}],
+  add(v){ if (!v.word) return;
+    const ex = existsAnywhere(v.word, v.word);
+    if (ex) return showPopup(`<h2>${v.word}</h2><p>Already exists in <b>${ex}</b> vocabulary.</p>`);
+    D.vocab[v.word] = {reading: v.reading, meaning: v.meaning}; PAGE_EDITS.vocab[v.word] = D.vocab[v.word]; savePageEdits(); renderVocab();
+  }
+});
+setupAddForm('vocab5', {
+  fields: [{key:'word',label:'word'},{key:'reading',label:'reading'},{key:'meaning',label:'meaning'},{key:'pos',label:'POS'}],
+  add(v){ if (!v.word) return;
+    const ex = existsAnywhere(v.word, v.word);
+    if (ex) return showPopup(`<h2>${v.word}</h2><p>Already exists in <b>${ex}</b> vocabulary.</p>`);
+    D.vocab5[v.word] = {reading: v.reading, meaning: v.meaning, pos: v.pos}; PAGE_EDITS.vocab5[v.word] = D.vocab5[v.word]; savePageEdits(); renderVocab5();
+  }
+});
+setupAddForm('kanji', {
+  fields: [{key:'k',label:'kanji'},{key:'readings',label:'readings'},{key:'meaning',label:'meaning'}],
+  add(v){ if (!v.k) return;
+    const ex = existsKanjiAnywhere(v.k);
+    if (ex) return showPopup(`<h2>${v.k}</h2><p>Already exists in <b>${ex}</b> kanji.</p>`);
+    D.kanji[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji[v.k] = D.kanji[v.k]; savePageEdits(); renderKanji();
+  }
+});
+setupAddForm('kanji5', {
+  fields: [{key:'k',label:'kanji'},{key:'readings',label:'readings'},{key:'meaning',label:'meaning'}],
+  add(v){ if (!v.k) return;
+    const ex = existsKanjiAnywhere(v.k);
+    if (ex) return showPopup(`<h2>${v.k}</h2><p>Already exists in <b>${ex}</b> kanji.</p>`);
+    D.kanji5[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji5[v.k] = D.kanji5[v.k]; savePageEdits(); renderKanji5();
+  }
+});
+setupAddForm('grammar', {
+  fields: [{key:'pattern',label:'pattern'},{key:'romaji',label:'romaji'},{key:'meaning',label:'meaning'}],
+  add(v){ if (!v.pattern) return;
+    const ex = existsGrammarAnywhere(v.pattern);
+    if (ex) return showPopup(`<h2>${v.pattern}</h2><p>Already exists in <b>${ex}</b> grammar.</p>`);
+    const g = {pattern: v.pattern, romaji: v.romaji, meaning: v.meaning, example_jp:'', example_en:'', example_rom:''};
+    D.grammar.push(g); PAGE_EDITS.grammar[v.pattern] = g; savePageEdits(); renderGrammar();
+  }
+});
+setupAddForm('grammar5', {
+  fields: [{key:'pattern',label:'pattern'},{key:'romaji',label:'romaji'},{key:'meaning',label:'meaning'}],
+  add(v){ if (!v.pattern) return;
+    const ex = existsGrammarAnywhere(v.pattern);
+    if (ex) return showPopup(`<h2>${v.pattern}</h2><p>Already exists in <b>${ex}</b> grammar.</p>`);
+    const g = {pattern: v.pattern, romaji: v.romaji, meaning: v.meaning, example_jp:'', example_en:'', example_rom:''};
+    D.grammar5.push(g); PAGE_EDITS.grammar5[v.pattern] = g; savePageEdits(); renderGrammar5();
+  }
+});
 
 // ===== Flashcards / SRS =====
 const SRS_KEY = 'n4srs';
@@ -545,7 +770,8 @@ function fcRender(){
   card.classList.remove('flipped');
   fcRevealed = false;
   document.getElementById('fcFront').innerHTML =
-    `<div class="fc-word">${fcCurrent.front}</div><div class="fc-type">${fcCurrent.type}</div>`;
+    `<div class="fc-word">${fcCurrent.front}</div>`;
+    // <div class="fc-type">${fcCurrent.type}</div>
   document.getElementById('fcBack').innerHTML =
     `<div class="fc-reading">${fcCurrent.reading}</div><div class="fc-meaning">${fcCurrent.back}</div>`;
   document.querySelectorAll('.fc-grade').forEach(b => b.disabled = true);
@@ -589,6 +815,7 @@ function fcGrade(g){
   srs[fcCurrent.id] = s;
   saveSrs();
   fcNext();
+  renderFcLearned();
 }
 
 document.getElementById('fcCard').addEventListener('click', () => {
@@ -601,15 +828,34 @@ document.querySelectorAll('.fc-grade').forEach(b => b.addEventListener('click', 
 document.getElementById('fcDeck').addEventListener('change', e => {
   fcDeck = buildDeck(e.target.value);
   fcNext();
+  renderFcLearned();
 });
 document.getElementById('fcReset').addEventListener('click', () => {
   if (!confirm('Reset all progress for this deck?')) return;
   const prefix = {vocab:'v:', vocab5:'v5:', kanji:'k:', kanji5:'k5:', all:''}[document.getElementById('fcDeck').value];
   for (const id of Object.keys(srs)) if (!prefix || id.startsWith(prefix)) delete srs[id];
-  saveSrs(); fcNext();
+  saveSrs(); fcNext(); renderFcLearned();
 });
+function renderFcLearned(){
+  const root = document.getElementById('fcLearned');
+  if (!root) return;
+  const seen = [];
+  const all = buildDeck(document.getElementById('fcDeck').value);
+  for (const c of all){
+    const s = srs[c.id];
+    if (s && s.reps > 0) seen.push({c, s});
+  }
+  seen.sort((a,b) => b.s.interval - a.s.interval);
+  if (!seen.length){ root.innerHTML = '<p class="bm-empty">No cards studied yet.</p>'; return; }
+  root.innerHTML = seen.map(({c, s}) => `<div class="bm-item">
+    <div style="flex:1"><div class="bm-text">${c.front} <span class="meaning" style="font-size:13px">— ${c.back}</span></div>
+    <div class="bm-sub">${c.type} · interval ${s.interval ? Math.round(s.interval*10)/10 + 'd' : 'new'} · ease ${s.ease.toFixed(1)} · reps ${s.reps}</div></div>
+    <button class="ttsbtn" data-speak="${c.front}" title="Listen">🔊</button></div>`).join('');
+}
+
 fcDeck = buildDeck('vocab');
 fcNext();
+renderFcLearned();
 
 // ===== Editable translations =====
 const TRANS_KEY = 'n4translations';
@@ -662,18 +908,21 @@ function renderBms(){
     html += '<div class="bm-group">Sentences</div>';
     html += bms.sentences.map(b => `<div class="bm-item" data-bm="s" data-id="${b.id}">
       <div style="flex:1"><div class="bm-text">${b.text}</div><div class="bm-sub">${b.chapter}${b.en ? ' — ' + b.en : ''}</div></div>
+      <button class="ttsbtn" data-speak="${b.text}" title="Listen">🔊</button>
       <button class="bm-del" data-bmdel="s" data-id="${b.id}">✕</button></div>`).join('');
   }
   if (bms.words.length){
     html += '<div class="bm-group">Words</div>';
     html += bms.words.map(b => `<div class="bm-item" data-bm="w" data-w="${b.w}">
       <div style="flex:1"><div class="bm-text">${b.w}</div><div class="bm-sub">${b.reading} — ${b.meaning}</div></div>
+      <button class="ttsbtn" data-speak="${b.w}" title="Listen">🔊</button>
       <button class="bm-del" data-bmdel="w" data-w="${b.w}">✕</button></div>`).join('');
   }
   if (bms.kanji.length){
     html += '<div class="bm-group">Kanji</div>';
     html += bms.kanji.map(b => `<div class="bm-item" data-bm="k" data-k="${b.k}">
       <div style="flex:1"><div class="bm-text" style="font-size:22px">${b.k}</div><div class="bm-sub">${b.readings} — ${b.meaning}</div></div>
+      <button class="ttsbtn" data-speak="${b.k}" title="Listen">🔊</button>
       <button class="bm-del" data-bmdel="k" data-k="${b.k}">✕</button></div>`).join('');
   }
   root.innerHTML = html;
@@ -704,7 +953,7 @@ function showKanji(k){
   const v = D.kanji[k];
   if (!v) return;
   document.getElementById('detail').innerHTML = `<h2>Kanji</h2>
-    <p class="sent-jp" style="font-size:40px">${k}</p>
+    <p class="sent-jp" style="font-size:40px">${k}</p> <button class="ttsbtn" data-speak="${k}" title="Listen">🔊</button>
     <p class="sent-en">${v.readings}</p><p>${v.meaning}</p>`;
 }
 
@@ -715,6 +964,8 @@ function showPopup(html){
   document.getElementById('popupPanel').innerHTML = html + '<button class="kbd-close" id="popupClose">Close</button>';
   document.getElementById('popup').classList.remove('hidden');
   document.getElementById('popupClose').addEventListener('click', () => document.getElementById('popup').classList.add('hidden'));
+  const tw = document.getElementById('ttsWord');
+  if (tw) tw.addEventListener('click', () => speak(tw.closest('.kbd-panel').querySelector('h2').textContent));
 }
 document.getElementById('popup').addEventListener('click', e => { if (e.target.id === 'popup') e.target.classList.add('hidden'); });
 
@@ -908,9 +1159,7 @@ function selectListFocus(tab){
     document.querySelector('[data-tab="story"]').click();
     showWord(w);
   } else if (tab === 'kanji' || tab === 'kanji5'){
-    const k = el.dataset.k;
-    const v = (tab === 'kanji' ? D.kanji : D.kanji5)[k];
-    toast(`${k} — ${v.readings} — ${v.meaning}`);
+    openKanjiPopup(el.dataset.k);
   } else if (tab === 'grammar' || tab === 'grammar5'){
     el.scrollIntoView({behavior:'smooth', block:'center'});
   } else if (tab === 'bookmarks'){
@@ -944,6 +1193,12 @@ document.addEventListener('keydown', e => {
     else if (e.key === '/'){ e.preventDefault(); document.getElementById(activeTab + 'Search').focus(); }
     return;
   }
+});
+
+// Global TTS button delegation
+document.addEventListener('click', e => {
+  const b = e.target.closest('.ttsbtn');
+  if (b){ e.stopPropagation(); speak(b.dataset.speak || b.textContent); }
 });
 
 // ===== Init (must be last — all sections defined) =====
