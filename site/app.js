@@ -235,6 +235,8 @@ function openWordPopup(w){
 function showSentence(ci, sent, el){
   document.querySelectorAll('#storyText p').forEach(p=>p.classList.remove('sel'));
   el.classList.add('sel');
+  const si = window.CHAPTERS[ci].sentences.indexOf(sent);
+  if (si >= 0) markRead(ci, si);
   const ch = window.CHAPTERS[ci];
   const raw = sent.jp;
   const plain = stripReadings(raw);
@@ -669,9 +671,6 @@ function showKanji(k){
 
 renderBms();
 
-// ===== Init (must be last — all sections defined) =====
-renderStory(); renderVocab(); renderKanji(); renderGrammar();
-
 // ===== Popup for grammar/kanji/vocab details =====
 function showPopup(html){
   document.getElementById('popupPanel').innerHTML = html + '<button class="kbd-close" id="popupClose">Close</button>';
@@ -748,6 +747,34 @@ document.addEventListener('keydown', e => {
 document.getElementById('kbdClose').addEventListener('click', () => document.getElementById('kbdHelp').classList.add('hidden'));
 document.getElementById('kbdHelp').addEventListener('click', e => { if (e.target.id === 'kbdHelp') e.target.classList.add('hidden'); });
 document.getElementById('kbdBtn').addEventListener('click', () => document.getElementById('kbdHelp').classList.remove('hidden'));
+
+// ===== Reading progress =====
+const PROG_KEY = 'n4progress';
+let progress = {};
+try { progress = JSON.parse(localStorage.getItem(PROG_KEY) || '{}'); } catch(e){ progress = {}; }
+function saveProgress(){ localStorage.setItem(PROG_KEY, JSON.stringify(progress)); }
+function markRead(ci, si){ progress['ch'+ci+':s'+si] = true; saveProgress(); renderProgress(); }
+function renderProgress(){
+  let total = 0, read = 0;
+  window.CHAPTERS.forEach((c, ci) => c.sentences.forEach((s, si) => {
+    total++;
+    if (progress['ch'+ci+':s'+si]) read++;
+  }));
+  const pct = total ? Math.round(read/total*100) : 0;
+  const bar = document.getElementById('progressBar');
+  if (bar) bar.style.width = pct + '%';
+  const lbl = document.getElementById('progressLabel');
+  if (lbl) lbl.textContent = `${read}/${total} sentences studied (${pct}%)`;
+  document.querySelectorAll('#storyText h3.chapter').forEach(h => {
+    const ci = +h.dataset.ci;
+    const ch = window.CHAPTERS[ci];
+    let r = 0;
+    ch.sentences.forEach((s, si) => { if (progress['ch'+ci+':s'+si]) r++; });
+    let tag = h.querySelector('.ch-prog');
+    if (!tag){ tag = document.createElement('span'); tag.className = 'ch-prog'; h.appendChild(tag); }
+    tag.textContent = `${r}/${ch.sentences.length}`;
+  });
+}
 
 // ===== Theme toggle =====
 const themeBtn = document.getElementById('themeToggle');
@@ -879,3 +906,7 @@ document.addEventListener('keydown', e => {
     return;
   }
 });
+
+// ===== Init (must be last — all sections defined) =====
+renderProgress();
+renderStory(); renderVocab(); renderKanji(); renderGrammar();
