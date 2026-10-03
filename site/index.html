@@ -37,6 +37,7 @@
       </div>
     </div>
     <button class="tab" data-tab="flashcards">Flashcards</button>
+    <button class="tab" data-tab="study">🎯 Study</button>
     <button class="tab" data-tab="bookmarks">Bookmarks</button>
   </nav>
 </header>
@@ -47,6 +48,18 @@
       <label class="switch"><input type="checkbox" id="furigana" checked><span></span> Furigana</label>
       <label class="switch"><input type="checkbox" id="romaji"><span></span> Romaji</label>
       <button id="kbdBtn" class="kbd-btn-inline">Keyboard shortcuts</button>
+      <div class="menu chapsel">
+        <button class="tab menu-btn" id="chapBtn">Chapters · all <span class="caret">▾</span></button>
+        <div class="menu-list chap-list" id="chapList">
+          <div class="chap-actions">
+            <button type="button" data-chap-all>All</button>
+            <button type="button" data-chap-none>None</button>
+            <button type="button" data-chap-inv>Invert</button>
+            <span class="chap-count" id="chapCount"></span>
+          </div>
+          <div id="chapBoxes"></div>
+        </div>
+      </div>
       <select id="chapterJump" class="fc-select" style="padding:6px 12px"></select>
       <span class="hint">Click a sentence for its analysis (meaning · words · kanji · grammar) · In the analysis, click any word for its entry</span>
     </div>
@@ -64,31 +77,103 @@
   </section>
 
   <section id="vocab" class="panel">
+    <div class="filter-bar" data-filter="vocab">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="vocabFilter" value="all" checked> All</label>
+      <label><input type="radio" name="vocabFilter" value="new"> New</label>
+      <label><input type="radio" name="vocabFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="vocabFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="vocabFilter" value="due"> Due now</label>
+      <label><input type="radio" name="vocabFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="vocabFilter" value="story"> In story</label>
+      <label><input type="radio" name="vocabFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="vocabCount"></span>
+    </div>
     <input id="vocabSearch" class="search" placeholder="Search vocabulary… (word, reading, meaning)">
     <table id="vocabTable"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th></th></tr></thead><tbody></tbody></table>
   </section>
 
   <section id="kanji" class="panel">
+    <div class="filter-bar" data-filter="kanji">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="kanjiFilter" value="all" checked> All</label>
+      <label><input type="radio" name="kanjiFilter" value="new"> New</label>
+      <label><input type="radio" name="kanjiFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="kanjiFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="kanjiFilter" value="due"> Due now</label>
+      <label><input type="radio" name="kanjiFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="kanjiFilter" value="story"> In story</label>
+      <label><input type="radio" name="kanjiFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="kanjiCount"></span>
+    </div>
     <input id="kanjiSearch" class="search" placeholder="Search kanji… (kanji, reading, meaning)">
     <div id="kanjiGrid" class="kanji-grid"></div>
   </section>
 
   <section id="grammar" class="panel">
+    <div class="filter-bar" data-filter="grammar">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="grammarFilter" value="all" checked> All</label>
+      <label><input type="radio" name="grammarFilter" value="new"> New</label>
+      <label><input type="radio" name="grammarFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="grammarFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="grammarFilter" value="due"> Due now</label>
+      <label><input type="radio" name="grammarFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="grammarFilter" value="story"> In story</label>
+      <label><input type="radio" name="grammarFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="grammarCount"></span>
+    </div>
     <input id="grammarSearch" class="search" placeholder="Search grammar… (pattern or meaning)">
     <div id="grammarList" class="grammar-list"></div>
   </section>
 
   <section id="vocab5" class="panel">
+    <div class="filter-bar" data-filter="vocab5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="vocab5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="vocab5Filter" value="new"> New</label>
+      <label><input type="radio" name="vocab5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="vocab5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="vocab5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="vocab5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="vocab5Filter" value="story"> In story</label>
+      <label><input type="radio" name="vocab5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="vocab5Count"></span>
+    </div>
     <input id="vocab5Search" class="search" placeholder="Search N5 vocabulary…">
     <table id="vocab5Table"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th></tr></thead><tbody></tbody></table>
   </section>
 
   <section id="kanji5" class="panel">
+    <div class="filter-bar" data-filter="kanji5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="kanji5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="kanji5Filter" value="new"> New</label>
+      <label><input type="radio" name="kanji5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="kanji5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="kanji5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="kanji5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="kanji5Filter" value="story"> In story</label>
+      <label><input type="radio" name="kanji5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="kanji5Count"></span>
+    </div>
     <input id="kanji5Search" class="search" placeholder="Search N5 kanji…">
     <div id="kanji5Grid" class="kanji-grid"></div>
   </section>
 
   <section id="grammar5" class="panel">
+    <div class="filter-bar" data-filter="grammar5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="grammar5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="grammar5Filter" value="new"> New</label>
+      <label><input type="radio" name="grammar5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="grammar5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="grammar5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="grammar5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="grammar5Filter" value="story"> In story</label>
+      <label><input type="radio" name="grammar5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="grammar5Count"></span>
+    </div>
     <input id="grammar5Search" class="search" placeholder="Search N5 grammar…">
     <div id="grammar5List" class="grammar-list"></div>
   </section>
@@ -100,6 +185,8 @@
         <option value="vocab5">N5 Vocabulary</option>
         <option value="kanji">N4 Kanji</option>
         <option value="kanji5">N5 Kanji</option>
+        <option value="grammar">N4 Grammar</option>
+        <option value="grammar5">N5 Grammar</option>
         <option value="all">All (N4 + N5)</option>
       </select>
       <div id="fcStats" class="fc-stats"></div>
@@ -122,6 +209,79 @@
     <div id="fcLearned" class="bm-list" style="margin-top:10px"></div>
   </section>
 
+  <section id="study" class="panel">
+    <h2 class="study-h">Study session</h2>
+    <p class="hint" style="margin-bottom:14px">Pick a deck and what to drill. Grades use the same SM-2 scheduler as the Flashcards tab.</p>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
+      <select id="ssDeck" class="fc-select">
+        <option value="vocab">N4 Vocabulary</option>
+        <option value="vocab5">N5 Vocabulary</option>
+        <option value="kanji">N4 Kanji</option>
+        <option value="kanji5">N5 Kanji</option>
+        <option value="grammar">N4 Grammar</option>
+        <option value="grammar5">N5 Grammar</option>
+        <option value="all">Mixed (everything)</option>
+      </select>
+      <select id="ssMode" class="fc-select">
+        <option value="due">Due for review</option>
+        <option value="weak">Weakest first</option>
+        <option value="new">New (unseen)</option>
+        <option value="allorder">Whole deck in order</option>
+      </select>
+      <select id="ssCount" class="fc-select">
+        <option value="10">10 cards</option>
+        <option value="20" selected>20 cards</option>
+        <option value="30">30 cards</option>
+        <option value="50">50 cards</option>
+      </select>
+      <button id="ssStart" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Start session</button>
+    </div>
+    <div id="ssPreview" class="ss-preview"></div>
+
+    <div id="ssActive" style="display:none">
+      <div class="ss-bar"><div id="ssBar" class="ss-bar-fill"></div></div>
+      <div id="ssMeta" class="ss-meta"></div>
+      <div id="ssCard" class="fc-card" style="cursor:pointer">
+        <div class="fc-inner">
+          <div class="fc-face fc-front" id="ssFront"></div>
+          <div class="fc-face fc-back" id="ssBack"></div>
+        </div>
+      </div>
+      <p class="fc-hint" id="ssHint">Click the card (or press Space) to reveal — then grade it</p>
+      <div class="fc-grades">
+        <button class="fc-grade again" data-sg="again">Again</button>
+        <button class="fc-grade hard" data-sg="hard">Hard</button>
+        <button class="fc-grade good" data-sg="good">Good</button>
+        <button class="fc-grade easy" data-sg="easy">Easy</button>
+      </div>
+      <button id="ssQuit" class="fc-reset" style="margin-top:14px">End session</button>
+    </div>
+
+    <div id="ssDone" style="display:none">
+      <h3 style="color:#d1567f">Session complete 🎉</h3>
+      <div id="ssSummary" class="ss-summary"></div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="ssAgain" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Study again</button>
+        <button id="ssWeakest" class="fc-reset">Drill what I got wrong</button>
+      </div>
+    </div>
+
+    <h2 class="study-h" style="margin-top:34px">Backup &amp; data</h2>
+    <p class="hint" style="margin-bottom:12px">Your progress lives only in this browser. Export regularly — clearing site data will erase it.</p>
+    <div id="bkSummary" class="bk-summary"></div>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
+      <button id="bkExport" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">⬇ Export progress</button>
+      <button id="bkImportBtn" class="fc-reset">⬆ Import progress</button>
+      <select id="bkMode" class="fc-select">
+        <option value="merge">Merge (keep newer)</option>
+        <option value="replace">Replace everything</option>
+      </select>
+      <input type="file" id="bkFile" accept="application/json,.json" hidden>
+      <button id="bkReset" class="fc-reset" style="color:#c0392b;border-color:#c0392b">Reset all progress</button>
+    </div>
+    <div id="bkMsg" class="hint" style="margin-top:10px"></div>
+  </section>
+
   <section id="bookmarks" class="panel">
     <div id="bmList" class="bm-list"></div>
   </section>
@@ -142,9 +302,10 @@
     <div class="kbd-row"><span>Focus search</span><span class="kbd-key">/</span></div>
     <div class="kbd-row"><span>Flip flashcard</span><span class="kbd-key">Space</span></div>
     <div class="kbd-row"><span>Grade flashcard</span><span><span class="kbd-key">1</span> Again <span class="kbd-key">2</span> Hard <span class="kbd-key">3</span> Good <span class="kbd-key">4</span> Easy</span></div>
+    <div class="kbd-row"><span>Study session: reveal / grade</span><span><span class="kbd-key">Space</span> then <span class="kbd-key">1</span>–<span class="kbd-key">4</span></span></div>
     <div class="kbd-row"><span>Toggle furigana</span><span class="kbd-key">F</span></div>
     <div class="kbd-row"><span>Toggle romaji</span><span class="kbd-key">R</span></div>
-    <div class="kbd-row"><span>Switch tabs</span><span><span class="kbd-key">Ctrl</span>+<span class="kbd-key">1</span>–<span class="kbd-key">7</span></span></div>
+    <div class="kbd-row"><span>Switch tabs</span><span><span class="kbd-key">Ctrl</span>+<span class="kbd-key">1</span>–<span class="kbd-key">8</span></span></div>
     <div class="kbd-row"><span>This help</span><span class="kbd-key">?</span></div>
     <div class="kbd-row"><span>Close / deselect</span><span class="kbd-key">Esc</span></div>
     <button class="kbd-close" id="kbdClose">Close</button>
