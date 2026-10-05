@@ -1,0 +1,126 @@
+"use client";
+import * as React from "react";
+import searchlist from "@/../data/searchlist.json";
+import { cn } from "@/lib/utils";
+import { buildKanjiHref } from "@/lib/kanji-routing";
+import { resolveKanjiId } from "@/lib/kanji-variants";
+import { CircleXIcon, SearchIcon } from "lucide-react";
+import Link from "next/link";
+import Handwriting from "@/lib/handwriting";
+import { TouchIsolator } from "./touch-isolator";
+import { Button, buttonVariants } from "./ui/button";
+import { useTheme } from "next-themes";
+
+export const DrawInput: React.FC = () => {
+  const canvasRef = React.useRef(null);
+  const [canvas, setCanvas] = React.useState<InstanceType<
+    typeof Handwriting.Canvas
+  > | null>(null);
+  const [inputSuggestions, setInputSuggestions] = React.useState<string[]>([]);
+  const searchableKanji = React.useMemo(
+    () => new Set(searchlist.map((entry) => resolveKanjiId(entry.k))),
+    [],
+  );
+
+  const { resolvedTheme } = useTheme();
+
+  const inputOptions = {
+    width: 220,
+    height: 220,
+    language: "ja",
+    numOfWords: 1,
+    numOfReturn: 64,
+  };
+
+  const inputCallback = (result: string[], err: string) => {
+    if (err) {
+      return;
+    } else {
+      const uniqueSuggestions = new Set<string>();
+
+      for (const entry of result) {
+        const resolvedEntry = resolveKanjiId(entry);
+
+        if (searchableKanji.has(resolvedEntry)) {
+          uniqueSuggestions.add(resolvedEntry);
+        }
+
+        if (uniqueSuggestions.size >= 4) {
+          break;
+        }
+      }
+
+      const filtered = Array.from(uniqueSuggestions);
+      setInputSuggestions(filtered);
+    }
+  };
+
+  // init
+  React.useEffect(() => {
+    eraseKanji();
+    if (canvasRef.current && resolvedTheme) {
+      const can = new Handwriting.Canvas(
+        canvasRef.current,
+        // document.getElementById("handInput"),
+        resolvedTheme as "dark" | "light",
+      );
+      setCanvas(can);
+      return () => can.destroy();
+    }
+  }, [resolvedTheme]);
+
+  const recognizeKanji = () => {
+    canvas && canvas.recognize(canvas.getTrace(), inputOptions, inputCallback);
+  };
+
+  const eraseKanji = () => {
+    canvas && canvas.erase();
+    setInputSuggestions([]);
+  };
+
+  return (
+    <div className="relative size-[220px] mx-auto bg-background">
+      <div className="absolute left-1/2 h-full border-l border-dashed border-zinc-600/20 dark:border-zinc-600/60 pointer-events-none z-10" />
+      <div className="absolute top-1/2 w-full border-t border-dashed border-zinc-600/20 dark:border-zinc-600/60 pointer-events-none z-10" />
+      <TouchIsolator>
+        <canvas
+          width={220}
+          height={220}
+          ref={canvasRef}
+          id="handInput"
+          className="relative size-[220px] touch-none border border-light rounded-lg cursor-crosshair bg-muted"
+        />
+      </TouchIsolator>
+      <div className="h-10 w-full pt-2 flex items-center justify-between">
+        <Button
+          aria-label="Clear canvas"
+          variant="destructive"
+          size="icon"
+          className="size-8 shrink-0"
+          onClick={eraseKanji}
+        >
+          <CircleXIcon className="size-4" />
+        </Button>
+        {inputSuggestions.map((suggestion) => (
+          <Link
+            key={suggestion}
+            href={buildKanjiHref(suggestion)}
+            className={cn(buttonVariants({ variant: "ghost" }), "size-8")}
+            onClick={eraseKanji}
+          >
+            {suggestion}
+          </Link>
+        ))}
+        <Button
+          variant="default"
+          size="icon"
+          className="size-8 shrink-0"
+          aria-label="Recognize"
+          onClick={recognizeKanji}
+        >
+          <SearchIcon className="size-4" />
+        </Button>
+      </div>
+    </div>
+  );
+};

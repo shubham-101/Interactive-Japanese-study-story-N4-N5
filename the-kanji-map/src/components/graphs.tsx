@@ -1,0 +1,409 @@
+"use client";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import {
+  ArrowUpFromDotIcon,
+  CircleArrowOutUpRightIcon,
+  MaximizeIcon,
+  RefreshCcwIcon,
+} from "lucide-react";
+import dynamic from "next/dynamic";
+import * as React from "react";
+import useMeasure from "react-use-measure";
+import { Button } from "./ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { useRouter } from "next/navigation";
+import { useAtom } from "jotai";
+import {
+  outLinksAtom,
+  particlesAtom,
+  readStoredGraphStyle,
+  rotateAtom,
+  styleAtom,
+} from "@/lib/store";
+import { GraphLegend } from "./graph-legend";
+import { GraphErrorBoundary } from "./graph-error-boundary";
+import { buildKanjiHref, type MobileTabKey } from "@/lib/kanji-routing";
+import {
+  resolveKanjiId,
+} from "@/lib/kanji-variants";
+
+// d3-force mutates the node and link objects it is given, and each engine
+// re-runs its 60-tick warmup on every data swap, so a shared graphData
+// would let the hidden engine's layout disturb the visible one's. Give each
+// engine its own copies; the node.data payloads stay shared (read-only).
+function cloneGraphData(graphData: BothGraphData): BothGraphData {
+  const clone = <T,>(items: T[]) => items.map((item) => ({ ...item }));
+  return {
+    withOutLinks: {
+      ...graphData.withOutLinks,
+      nodes: clone(graphData.withOutLinks.nodes),
+      links: clone(graphData.withOutLinks.links),
+    },
+    noOutLinks: {
+      ...graphData.noOutLinks,
+      nodes: clone(graphData.noOutLinks.nodes),
+      links: clone(graphData.noOutLinks.links),
+    },
+  };
+}
+
+const Graph2DNoSSR = dynamic(() => import("./graph-2D"), {
+  ssr: false,
+  loading: () => <div />,
+});
+const Graph3DNoSSR = dynamic(() => import("./graph-3D"), {
+  ssr: false,
+  loading: () => <div />,
+});
+
+interface Props {
+  kanjiInfo: KanjiInfo | null;
+  graphData: BothGraphData | null;
+  navigationTab?: MobileTabKey;
+  enableNodePreview?: boolean;
+}
+
+type GraphPreviewState = {
+  scope: string;
+  node: GraphNode;
+};
+
+export const Graphs: React.FC<Props> = ({
+  kanjiInfo,
+  graphData,
+  navigationTab,
+  enableNodePreview = false,
+}) => {
+  const [measureRef, bounds] = useMeasure();
+
+  const [style, setStyle] = useAtom(styleAtom);
+  // Latch from the synchronously read stored style instead of `style`:
+  // the storage atom only hydrates after mount, so `style` is still the
+  // default "3D" on the first render of a returning 2D user.
+  const [twoDMounted, setTwoDMounted] = React.useState(
+    () => readStoredGraphStyle() === "2D",
+  );
+  const [threeDMounted, setThreeDMounted] = React.useState(
+    () => readStoredGraphStyle() === "3D",
+  );
+  const [rotate, setRotate] = useAtom(rotateAtom);
+  const [outLinks, setOutLinks] = useAtom(outLinksAtom);
+  const [particles, setParticles] = useAtom(particlesAtom);
+
+  const handleStyleChange = (values: string[]) => {
+    const nextStyle = values[0];
+    if (nextStyle === "2D" || nextStyle === "3D") {
+      setStyle(nextStyle);
+      // An explicit switch is a "show me this graph" request: bump the focus
+      // trigger so the view being switched to re-frames itself. Each engine
+      // keeps its own camera, so without this a round trip would restore the
+      // old framing instead of a fresh fit.
+      setRandom(Date.now());
+    }
+  };
+  // Both view components stay mounted; switching views only hides a cell.
+  // The bounds come from the outer wrapper, which never hides, so both
+  // engines stay mounted across a 2D/3D switch — the hidden one just
+  // pauses via its IntersectionObserver. Engines unmount only when the
+  // whole layer collapses to 0x0 (a mobile tab switch); the 3D view then
+  // disposes and force-loses its WebGL context so the browser's context
+  // pool does not leak, and the camera framing is restored on remount.
+  React.useEffect(() => {
+    if (style === "2D") setTwoDMounted(true);
+    if (style === "3D") setThreeDMounted(true);
+  }, [style]);
+  const activeControls = React.useMemo(() => {
+    const values: string[] = [];
+    if (rotate) values.push("rotate");
+    if (particles) values.push("particles");
+    if (outLinks) values.push("outLinks");
+    return values;
+  }, [outLinks, particles, rotate]);
+  const handleControlsChange = (values: string[]) => {
+    const nextValues = new Set(values);
+    setRotate(nextValues.has("rotate"));
+    setParticles(nextValues.has("particles"));
+    setOutLinks(nextValues.has("outLinks"));
+  };
+
+  const [random, setRandom] = React.useState<number>(() => Date.now());
+  const [previewState, setPreviewState] = React.useState<GraphPreviewState | null>(
+    null,
+  );
+
+  // One independent copy per engine (see cloneGraphData above).
+  const data2D = React.useMemo(
+    () => (graphData ? cloneGraphData(graphData) : null),
+    [graphData],
+  );
+  const data3D = React.useMemo(
+    () => (graphData ? cloneGraphData(graphData) : null),
+    [graphData],
+  );
+
+  const handleZoomToFit = () => {
+    setRandom(Date.now());
+  };
+
+  const { push, prefetch } = useRouter();
+  const previewScope = `${style}:${kanjiInfo?.id ?? ""}`;
+  const previewNode =
+    previewState?.scope === previewScope ? previewState.node : null;
+
+  const previewKunyomi = previewNode?.data?.kunyomi
+    ?.filter(Boolean)
+    ?.join("、");
+  const previewOnyomi = previewNode?.data?.onyomi
+    ?.filter(Boolean)
+    ?.join("、");
+  const previewMeaning = previewNode?.data?.meaning;
+  const previewIsCurrentKanji = previewNode
+    ? resolveKanjiId(previewNode.id) === kanjiInfo?.id
+    : false;
+
+  const buildPreviewHref = React.useCallback(
+    (nodeId: string) =>
+      buildKanjiHref(nodeId, {
+        tab:
+          resolveKanjiId(nodeId) === kanjiInfo?.id
+            ? "kanji"
+            : navigationTab ?? null,
+      }),
+    [kanjiInfo?.id, navigationTab],
+  );
+
+  const openPreviewNode = React.useCallback(
+    (node: GraphNode) => {
+      setPreviewState({
+        scope: previewScope,
+        node,
+      });
+      void prefetch(buildPreviewHref(node.id));
+    },
+    [buildPreviewHref, prefetch, previewScope],
+  );
+
+  const handlePreviewOpenChange = (open: boolean) => {
+    if (!open) {
+      setPreviewState(null);
+    }
+  };
+
+  const handleOpenPreviewPage = () => {
+    if (!previewNode) {
+      return;
+    }
+
+    void push(buildPreviewHref(previewNode.id));
+    setPreviewState(null);
+  };
+
+  if (!kanjiInfo) return <></>;
+
+  return (
+    <div ref={measureRef} className="relative size-full graphs">
+      <div className="absolute top-4 left-4 z-50">
+        <ToggleGroup
+          value={[style]}
+          onValueChange={handleStyleChange}
+          className="overflow-hidden rounded-lg border border-input bg-background divide-x divide-border"
+        >
+          <ToggleGroupItem
+            value="2D"
+            size="sm"
+            className="h-8 rounded-none bg-background data-[pressed]:bg-accent"
+          >
+            2D
+          </ToggleGroupItem>
+          <ToggleGroupItem
+            value="3D"
+            size="sm"
+            className="h-8 rounded-none bg-background data-[pressed]:bg-accent"
+          >
+            3D
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+      <div
+        className="absolute inset-0"
+        style={{ display: style === "3D" ? "block" : "none" }}
+      >
+        {kanjiInfo && threeDMounted && (
+          <GraphErrorBoundary onSwitchTo2D={() => setStyle("2D")}>
+            <Graph3DNoSSR
+              kanjiInfo={kanjiInfo}
+              graphData={data3D}
+              showOutLinks={outLinks}
+              showParticles={particles}
+              autoRotate={rotate}
+              triggerFocus={random}
+              bounds={bounds}
+              navigationTab={navigationTab}
+              enableNodePreview={enableNodePreview}
+              onPreviewNode={openPreviewNode}
+              onClosePreview={() => setPreviewState(null)}
+              // The 3D watchdog has given up after repeated rebuilds: WebGL
+              // is broken on this machine, so fall back to 2D the same way
+              // the error boundary's "Switch to 2D" button does.
+              onWebglBroken={() => setStyle("2D")}
+            />
+          </GraphErrorBoundary>
+        )}
+      </div>
+      <div
+        className="absolute inset-0"
+        style={{ display: style === "2D" ? "block" : "none" }}
+      >
+        {kanjiInfo && twoDMounted && (
+          <GraphErrorBoundary>
+            <Graph2DNoSSR
+              kanjiInfo={kanjiInfo}
+              graphData={data2D}
+              showOutLinks={outLinks}
+              showParticles={particles}
+              triggerFocus={random}
+              bounds={bounds}
+              navigationTab={navigationTab}
+              enableNodePreview={enableNodePreview}
+              onPreviewNode={openPreviewNode}
+              onClosePreview={() => setPreviewState(null)}
+            />
+          </GraphErrorBoundary>
+        )}
+      </div>
+      <GraphLegend showOutLinks={outLinks} showParticles={particles} />
+      <div className="absolute top-0 right-0 p-4 flex gap-1">
+        <ToggleGroup
+          multiple
+          spacing={1}
+          value={activeControls}
+          onValueChange={handleControlsChange}
+        >
+          {style === "3D" && (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <ToggleGroupItem
+                    value="rotate"
+                    variant="outline"
+                    className="size-8 bg-background p-0 data-[pressed]:bg-accent"
+                    aria-label="Autorotate"
+                  />
+                }
+              >
+                <RefreshCcwIcon className="size-4" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Autorotate</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToggleGroupItem
+                  value="particles"
+                  variant="outline"
+                  className="size-8 bg-background p-0 data-[pressed]:bg-accent"
+                  aria-label="Show arrow particles"
+                />
+              }
+            >
+              <ArrowUpFromDotIcon className="size-4" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Show arrow particles</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToggleGroupItem
+                  value="outLinks"
+                  variant="outline"
+                  className="size-8 bg-background p-0 data-[pressed]:bg-accent"
+                  size="sm"
+                  aria-label="Show out links"
+                />
+              }
+            >
+              <CircleArrowOutUpRightIcon className="size-4" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Show outgoing links</p>
+            </TooltipContent>
+          </Tooltip>
+        </ToggleGroup>
+        <div>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="!bg-background hover:!bg-muted dark:!bg-background dark:hover:!bg-muted"
+                  aria-label="Fit to screen"
+                  onClick={handleZoomToFit}
+                />
+              }
+            >
+              <MaximizeIcon className="size-4" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Zoom to fit</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </div>
+      <Sheet
+        modal={false}
+        open={Boolean(previewNode)}
+        onOpenChange={handlePreviewOpenChange}
+      >
+        <SheetContent
+          side="bottom"
+          overlayClassName="pointer-events-none bg-transparent"
+          className="rounded-t-3xl border-t bg-muted px-0 pb-0 pt-3 shadow-2xl"
+          onInteractOutside={(event) => event.preventDefault()}
+        >
+          <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-muted-foreground/20" />
+          <SheetHeader className="gap-3 px-4 pb-4 pr-12 text-left">
+            <SheetTitle className="flex items-center gap-3 text-left">
+              <span className="text-4xl leading-none">
+                {previewNode?.id ?? ""}
+              </span>
+              <span className="text-sm font-normal leading-5 text-muted-foreground">
+                {previewMeaning || "Open this kanji page from the graph."}
+              </span>
+            </SheetTitle>
+            {(previewKunyomi || previewOnyomi) && (
+              <SheetDescription className="space-y-1 text-left">
+                {previewKunyomi && (
+                  <span className="block">Kunyomi: {previewKunyomi}</span>
+                )}
+                {previewOnyomi && (
+                  <span className="block">Onyomi: {previewOnyomi}</span>
+                )}
+              </SheetDescription>
+            )}
+          </SheetHeader>
+          <SheetFooter className="border-t bg-muted p-4">
+            <Button className="h-12 w-full text-base" onClick={handleOpenPreviewPage}>
+              {previewIsCurrentKanji ? "Show kanji" : "Open page"}
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+};

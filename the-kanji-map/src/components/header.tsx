@@ -1,0 +1,70 @@
+"use client";
+
+import { InfoIcon } from "lucide-react";
+import Link from "next/link";
+import LogoSVG from "./logo";
+import { buttonVariants } from "./ui/button";
+import { HEADER_HEIGHT } from "@/lib/graph-layout";
+import { cn } from "@/lib/utils";
+import { ThemeSwitcherButton } from "./theme-switcher";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+export const Header = ({
+  route,
+  className,
+}: {
+  route?: string;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-between",
+        HEADER_HEIGHT,
+        "shrink-0 border-b",
+        className
+      )}
+    >
+      <div className="flex items-center h-full">
+        <Link href={`/`} className="flex h-full items-center">
+          <LogoSVG className="h-full py-2 px-4 w-14 inline-block" />
+          <h1 className="text-lg font-semibold text-nowrap">The Kanji Map</h1>
+        </Link>
+      </div>
+      <div className="flex px-4 gap-2 items-center">
+        <a
+          href="http://localhost:8000"
+          className={cn(
+            buttonVariants({ variant: "ghost", size: "sm" }),
+            "text-sm text-nowrap"
+          )}
+        >
+          ← N4 Study
+        </a>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Link
+                href={route === "about" ? "/" : "/about"}
+                className={cn(
+                  buttonVariants({ variant: "ghost", size: "icon" }),
+                  route === "about" ? "bg-accent! text-accent-foreground!" : ""
+                )}
+              />
+            }
+          >
+            <InfoIcon className={cn("size-5")} />
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>About this website</p>
+          </TooltipContent>
+        </Tooltip>
+        <ThemeSwitcherButton />
+      </div>
+    </div>
+  );
+};
