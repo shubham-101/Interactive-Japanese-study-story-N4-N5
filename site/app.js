@@ -1771,11 +1771,13 @@ document.getElementById('ssCard').addEventListener('click', ssReveal);
 document.querySelectorAll('#ssActive .fc-grade').forEach(b => b.addEventListener('click', () => ssGrade(b.dataset.sg)));
 
 // ===== Backup / import =====
-const BACKUP_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme'];
+const BACKUP_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits'];
 const BACKUP_LABELS = {
   'n4srs':'cards scheduled', 'n4bookmarks':'bookmarks', 'n4edits':'removed/added words',
   'n4pageedits':'edited entries', 'n4translations':'custom translations',
-  'n4segs':'word-splittings', 'n4progress':'sentences read', 'n4theme':'theme'
+  'n4segs':'word-splittings', 'n4progress':'sentences read', 'n4theme':'theme',
+  'n4known':'known kanji', 'n4knownv':'known vocab', 'n4knowng':'known grammar',
+  'n4chapters':'chapter selection', 'n4storyedits':'story edits'
 };
 function bkCount(key){
   try {
@@ -1893,6 +1895,48 @@ document.getElementById('bkReset').addEventListener('click', () => {
   bkReload();
   document.getElementById('bkMsg').innerHTML = '🗑 All study progress deleted (theme kept).';
 });
+
+// ===== Cloud sync (GitHub Gist) =====
+const SYNC_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits'];
+const SYNC_CFG_KEY = 'n4sync';
+function getSyncCfg(){ try { return JSON.parse(localStorage.getItem(SYNC_CFG_KEY) || '{}'); } catch(e){ return {}; } }
+function setSyncCfg(c){ localStorage.setItem(SYNC_CFG_KEY, JSON.stringify(c)); }
+function syncConfigured(){ const c = getSyncCfg(); return c && c.token && c.gistId ? c : null; }
+function collectProgress(){ const o = {_updatedAt: new Date().toISOString()}; for (const k of SYNC_KEYS){ const v = localStorage.getItem(k); if (v !== null) try { o[k] = JSON.parse(v); } catch(e){} } return o; }
+function applyProgress(d){ if (!d) return false; for (const k of SYNC_KEYS){ if (d[k] !== undefined) try { localStorage.setItem(k, JSON.stringify(d[k])); } catch(e){} } try { localStorage.setItem('n4syncedAt', d._updatedAt || new Date().toISOString()); } catch(e){} return true; }
+let pushTimer = null;
+function schedulePush(){ clearTimeout(pushTimer); if (!syncConfigured()) return; pushTimer = setTimeout(pushToRemote, 1500); }
+(function patchStorage(){
+  const _set = window.localStorage.setItem.bind(window.localStorage);
+  window.localStorage.setItem = function(k, v){ _set(k, v); if (k.indexOf('n4') === 0 && k !== SYNC_CFG_KEY && k !== 'n4syncedAt') schedulePush(); };
+})();
+async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return null; try { const r = await fetch('https://api.github.com/gists/' + cfg.gistId, {headers:{ 'Authorization':'token ' + cfg.token }}); if (!r.ok) return null; const j = await r.json(); const f = j.files && j.files['n4-progress.json']; if (!f || !f.content) return null; return JSON.parse(f.content); } catch(e){ return null; } }
+async function pushToRemote(){ const cfg = getSyncCfg(); if (!cfg.token) return; const dump = collectProgress(); const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } }; try { let r; if (cfg.gistId){ r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); } else { r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); } } try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){} updateSyncBtn(); } catch(e){} }
+async function pullFromRemote(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return false; const d = await remoteFetch(); if (!d || !d._updatedAt) return false; let cur = ''; try { cur = localStorage.getItem('n4syncedAt') || ''; } catch(e){} if (d._updatedAt > cur){ applyProgress(d); location.reload(); return true; } localStorage.setItem('n4syncedAt', d._updatedAt); return false; }
+function makeSyncCode(){ const c = getSyncCfg(); return btoa(c.token + '|' + c.gistId); }
+async function ensureSync(){ try { if (sessionStorage.getItem('n4synced') !== '1' && syncConfigured()){ sessionStorage.setItem('n4synced', '1'); await pullFromRemote(); } } catch(e){} }
+function updateSyncBtn(){ const el = document.getElementById('syncBtn'); if (!el) return; el.style.opacity = syncConfigured() ? '1' : '0.45'; el.title = syncConfigured() ? 'Cloud sync enabled (progress is saved to your private GitHub Gist). Click to view details.' : 'Set up cloud sync (saves progress to a private GitHub Gist for use on any device).'; }
+document.getElementById('syncBtn') && document.getElementById('syncBtn').addEventListener('click', async () => {
+  if (syncConfigured()) {
+    const c = getSyncCfg();
+    alert('Cloud sync is ON.\n\nPrivate Gist ID: ' + c.gistId + '\n\nOn your other device, click ☁, paste this in the box, or copy the token + Gist ID shown below:\n\n' + makeSyncCode());
+    const raw = prompt('On the other device, click ☁ and paste that same code to load your progress.\nWant to paste a new sync code here? (leave blank to keep current setup)');
+    if (raw) { try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); alert('Loaded cloud progress. Reloading…'); location.reload(); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } }
+    return;
+  }
+  const raw = prompt('Do you already have a sync code? Paste it here, or leave blank to set up a new one:');
+  if (!raw) {
+    const token = prompt('Paste a GitHub personal access token with the "gist" scope:');
+    if (!token) return;
+    setSyncCfg({token});
+    await pushToRemote();
+    updateSyncBtn();
+    alert('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:\n\n' + makeSyncCode());
+  } else {
+    try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); updateSyncBtn(); alert('Cloud sync set up. Reloading…'); location.reload(); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
+  }
+});
+ensureSync(); setTimeout(updateSyncBtn, 0);
 
 // ===== Init (must be last — all sections defined) =====
 renderProgress();
