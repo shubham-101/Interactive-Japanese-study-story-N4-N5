@@ -1,0 +1,6 @@
+:HL["/Interactive-Japanese-study-story-N4-N5/kanjimap/_next/static/chunks/0qdwqw9ezpgr7.css","style"]
+:HL["/Interactive-Japanese-study-story-N4-N5/kanjimap/_next/static/chunks/0nluij3701lvl.css","style"]
+:HL["/Interactive-Japanese-study-story-N4-N5/kanjimap/_next/static/media/63c9179ac5d1ad4e-s.p.2dadzgczo_8rw.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Interactive-Japanese-study-story-N4-N5/kanjimap/_next/static/media/JapaneseRadicals_Regular-s.p.2m3neo22g0wek.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/Interactive-Japanese-study-story-N4-N5/kanjimap/_next/static/chunks/2u-4v2h8dlqht.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"id","param":{"type":"d","key":"%E7%89%9B","siblings":["about"]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"qR-58jU5_ZXn_mqT3xTHe"}

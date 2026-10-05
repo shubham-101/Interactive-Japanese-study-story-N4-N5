@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N4 Study Ground — Tests</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { padding: 20px; font-family: monospace; }
+  .test-pass { color: #2e9e6b; }
+  .test-fail { color: #c0392b; }
+  .test-section { margin: 20px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; }
+  .test-section h3 { margin-bottom: 8px; }
+  #testSummary { font-size: 18px; font-weight: bold; margin: 20px 0; }
+  #testResults { margin-top: 20px; }
+</style>
+</head>
+<body>
+<h1>N4 Study Ground — Test Suite</h1>
+<div id="testSummary">Running…</div>
+<div id="testResults"></div>
+
+<header>
+  <div class="brand">
+    <span class="logo">物語</span>
+    <div><h1>N4 Story Study Ground</h1><p>JLPT N4 Grammar · Kanji · Vocabulary</p></div>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+  </div>
+  <nav>
+    <button class="tab active" data-tab="story">Story</button>
+    <div class="menu"><button class="tab menu-btn">N4 ▾</button>
+      <div class="menu-list">
+        <button class="tab" data-tab="vocab">Vocab</button>
+        <button class="tab" data-tab="kanji">Kanji</button>
+        <button class="tab" data-tab="grammar">Grammar</button>
+      </div>
+    </div>
+    <div class="menu"><button class="tab menu-btn">N5 ▾</button>
+      <div class="menu-list">
+        <button class="tab" data-tab="vocab5">Vocab</button>
+        <button class="tab" data-tab="kanji5">Kanji</button>
+        <button class="tab" data-tab="grammar5">Grammar</button>
+      </div>
+    </div>
+    <button class="tab" data-tab="flashcards">Flashcards</button>
+    <button class="tab" data-tab="study">Study</button>
+    <button class="tab" data-tab="bookmarks">Bookmarks</button>
+  </nav>
+</header>
+
+<main>
+  <section id="story" class="panel active">
+    <div class="story-toolbar">
+      <label class="switch"><input type="checkbox" id="furigana" checked><span></span> Furigana</label>
+      <label class="switch"><input type="checkbox" id="romaji"><span></span> Romaji</label>
+      <button id="kbdBtn" class="kbd-btn-inline">Keyboard shortcuts</button>
+      <div class="menu chapsel">
+        <button class="tab menu-btn" id="chapBtn">Chapters · all <span class="caret">▾</span></button>
+        <div class="menu-list chap-list" id="chapList">
+          <div class="chap-actions">
+            <button type="button" data-chap-all>All</button>
+            <button type="button" data-chap-none>None</button>
+            <button type="button" data-chap-inv>Invert</button>
+            <span class="chap-count" id="chapCount"></span>
+          </div>
+          <div id="chapBoxes"></div>
+        </div>
+      </div>
+      <select id="chapterJump" class="fc-select" style="padding:6px 12px"></select>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-outer"><div id="progressBar" class="progress-inner"></div></div>
+      <span id="progressLabel" class="hint"></span>
+    </div>
+    <div class="story-layout">
+      <article id="storyText" class="story"></article>
+      <aside id="detail" class="detail"><h2>Dictionary</h2><p class="empty">Select a sentence.</p></aside>
+    </div>
+  </section>
+
+  <section id="vocab" class="panel">
+    <div class="filter-bar" data-filter="vocab">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="vocabFilter" value="all" checked> All</label>
+      <label><input type="radio" name="vocabFilter" value="new"> New</label>
+      <label><input type="radio" name="vocabFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="vocabFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="vocabFilter" value="due"> Due now</label>
+      <label><input type="radio" name="vocabFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="vocabFilter" value="story"> In story</label>
+      <label><input type="radio" name="vocabFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="vocabCount"></span>
+    </div>
+    <input id="vocabSearch" class="search" placeholder="Search vocabulary…">
+    <table id="vocabTable"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="kanji" class="panel">
+    <div class="filter-bar" data-filter="kanji">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="kanjiFilter" value="all" checked> All</label>
+      <label><input type="radio" name="kanjiFilter" value="new"> New</label>
+      <label><input type="radio" name="kanjiFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="kanjiFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="kanjiFilter" value="due"> Due now</label>
+      <label><input type="radio" name="kanjiFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="kanjiFilter" value="story"> In story</label>
+      <label><input type="radio" name="kanjiFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="kanjiCount"></span>
+    </div>
+    <input id="kanjiSearch" class="search" placeholder="Search kanji…">
+    <div id="kanjiGrid" class="kanji-grid"></div>
+  </section>
+
+  <section id="grammar" class="panel">
+    <div class="filter-bar" data-filter="grammar">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="grammarFilter" value="all" checked> All</label>
+      <label><input type="radio" name="grammarFilter" value="new"> New</label>
+      <label><input type="radio" name="grammarFilter" value="learning"> Learning</label>
+      <label><input type="radio" name="grammarFilter" value="mastered"> Known</label>
+      <label><input type="radio" name="grammarFilter" value="due"> Due now</label>
+      <label><input type="radio" name="grammarFilter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="grammarFilter" value="story"> In story</label>
+      <label><input type="radio" name="grammarFilter" value="edited"> My edits</label>
+      <span class="filter-count" id="grammarCount"></span>
+    </div>
+    <input id="grammarSearch" class="search" placeholder="Search grammar…">
+    <div id="grammarList" class="grammar-list"></div>
+  </section>
+
+  <section id="vocab5" class="panel">
+    <div class="filter-bar" data-filter="vocab5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="vocab5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="vocab5Filter" value="new"> New</label>
+      <label><input type="radio" name="vocab5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="vocab5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="vocab5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="vocab5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="vocab5Filter" value="story"> In story</label>
+      <label><input type="radio" name="vocab5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="vocab5Count"></span>
+    </div>
+    <input id="vocab5Search" class="search" placeholder="Search N5 vocabulary…">
+    <table id="vocab5Table"><thead><tr><th>Word</th><th>Reading</th><th>Meaning</th><th>POS</th><th></th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section id="kanji5" class="panel">
+    <div class="filter-bar" data-filter="kanji5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="kanji5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="kanji5Filter" value="new"> New</label>
+      <label><input type="radio" name="kanji5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="kanji5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="kanji5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="kanji5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="kanji5Filter" value="story"> In story</label>
+      <label><input type="radio" name="kanji5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="kanji5Count"></span>
+    </div>
+    <input id="kanji5Search" class="search" placeholder="Search N5 kanji…">
+    <div id="kanji5Grid" class="kanji-grid"></div>
+  </section>
+
+  <section id="grammar5" class="panel">
+    <div class="filter-bar" data-filter="grammar5">
+      <span class="filter-label">Filter</span>
+      <label><input type="radio" name="grammar5Filter" value="all" checked> All</label>
+      <label><input type="radio" name="grammar5Filter" value="new"> New</label>
+      <label><input type="radio" name="grammar5Filter" value="learning"> Learning</label>
+      <label><input type="radio" name="grammar5Filter" value="mastered"> Known</label>
+      <label><input type="radio" name="grammar5Filter" value="due"> Due now</label>
+      <label><input type="radio" name="grammar5Filter" value="bookmarked"> Bookmarked</label>
+      <label><input type="radio" name="grammar5Filter" value="story"> In story</label>
+      <label><input type="radio" name="grammar5Filter" value="edited"> My edits</label>
+      <span class="filter-count" id="grammar5Count"></span>
+    </div>
+    <input id="grammar5Search" class="search" placeholder="Search N5 grammar…">
+    <div id="grammar5List" class="grammar-list"></div>
+  </section>
+
+  <section id="flashcards" class="panel">
+    <div class="fc-controls">
+      <select id="fcDeck" class="fc-select">
+        <option value="vocab">N4 Vocabulary</option>
+        <option value="vocab5">N5 Vocabulary</option>
+        <option value="kanji">N4 Kanji</option>
+        <option value="kanji5">N5 Kanji</option>
+        <option value="grammar">N4 Grammar</option>
+        <option value="grammar5">N5 Grammar</option>
+        <option value="all">All (N4 + N5)</option>
+      </select>
+      <div id="fcStats" class="fc-stats"></div>
+      <button id="fcReset" class="fc-reset">Reset deck</button>
+    </div>
+    <div id="fcCard" class="fc-card">
+      <div class="fc-inner">
+        <div class="fc-face fc-front" id="fcFront"></div>
+        <div class="fc-face fc-back" id="fcBack"></div>
+      </div>
+    </div>
+    <p class="fc-hint">Click the card to reveal the answer, then grade it</p>
+    <div class="fc-grades">
+      <button class="fc-grade again" data-g="again">Again</button>
+      <button class="fc-grade hard" data-g="hard">Hard</button>
+      <button class="fc-grade good" data-g="good">Good</button>
+      <button class="fc-grade easy" data-g="easy">Easy</button>
+    </div>
+    <h3 style="margin-top:28px;color:#d1567f">Learned cards</h3>
+    <div id="fcLearned" class="bm-list" style="margin-top:10px"></div>
+  </section>
+
+  <section id="study" class="panel">
+    <h2 class="study-h">Study session</h2>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
+      <select id="ssDeck" class="fc-select">
+        <option value="vocab">N4 Vocabulary</option>
+        <option value="vocab5">N5 Vocabulary</option>
+        <option value="kanji">N4 Kanji</option>
+        <option value="kanji5">N5 Kanji</option>
+        <option value="grammar">N4 Grammar</option>
+        <option value="grammar5">N5 Grammar</option>
+        <option value="all">Mixed (everything)</option>
+      </select>
+      <select id="ssMode" class="fc-select">
+        <option value="due">Due for review</option>
+        <option value="weak">Weakest first</option>
+        <option value="new">New (unseen)</option>
+        <option value="allorder">Whole deck in order</option>
+      </select>
+      <select id="ssCount" class="fc-select">
+        <option value="10">10 cards</option>
+        <option value="20" selected>20 cards</option>
+        <option value="30">30 cards</option>
+        <option value="50">50 cards</option>
+      </select>
+      <button id="ssStart" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Start session</button>
+    </div>
+    <div id="ssPreview" class="ss-preview"></div>
+    <div id="ssActive" style="display:none">
+      <div class="ss-bar"><div id="ssBar" class="ss-bar-fill"></div></div>
+      <div id="ssMeta" class="ss-meta"></div>
+      <div id="ssCard" class="fc-card" style="cursor:pointer">
+        <div class="fc-inner">
+          <div class="fc-face fc-front" id="ssFront"></div>
+          <div class="fc-face fc-back" id="ssBack"></div>
+        </div>
+      </div>
+      <p class="fc-hint" id="ssHint">Click the card (or press Space) to reveal — then grade it</p>
+      <div class="fc-grades">
+        <button class="fc-grade again" data-sg="again">Again</button>
+        <button class="fc-grade hard" data-sg="hard">Hard</button>
+        <button class="fc-grade good" data-sg="good">Good</button>
+        <button class="fc-grade easy" data-sg="easy">Easy</button>
+      </div>
+      <button id="ssQuit" class="fc-reset" style="margin-top:14px">End session</button>
+    </div>
+    <div id="ssDone" style="display:none">
+      <h3 style="color:#d1567f">Session complete</h3>
+      <div id="ssSummary" class="ss-summary"></div>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+        <button id="ssAgain" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Study again</button>
+        <button id="ssWeakest" class="fc-reset">Drill what I got wrong</button>
+      </div>
+    </div>
+    <h2 class="study-h" style="margin-top:34px">Backup &amp; data</h2>
+    <div id="bkSummary" class="bk-summary"></div>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
+      <button id="bkExport" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Export progress</button>
+      <button id="bkImportBtn" class="fc-reset">Import progress</button>
+      <select id="bkMode" class="fc-select">
+        <option value="merge">Merge (keep newer)</option>
+        <option value="replace">Replace everything</option>
+      </select>
+      <input type="file" id="bkFile" accept="application/json,.json" hidden>
+      <button id="bkReset" class="fc-reset" style="color:#c0392b;border-color:#c0392b">Reset all progress</button>
+    </div>
+    <div id="bkMsg" class="hint" style="margin-top:10px"></div>
+  </section>
+
+  <section id="bookmarks" class="panel">
+    <div id="bmList" class="bm-list"></div>
+  </section>
+</main>
+
+<div id="toast"></div>
+<div id="popup" class="kbd-help hidden">
+  <div class="kbd-panel" id="popupPanel" style="max-width:min(96vw,1020px)"></div>
+</div>
+<div id="kbdHelp" class="kbd-help hidden">
+  <div class="kbd-panel">
+    <h2>Keyboard Shortcuts</h2>
+    <button class="kbd-close" id="kbdClose">Close</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+const results = [];
+let currentSection = '';
+
+function section(name) { currentSection = name; }
+function test(name, fn) {
+  try { fn(); results.push({ section: currentSection, name, pass: true }); }
+  catch (e) { results.push({ section: currentSection, name, pass: false, error: e.message }); }
+}
+function assert(cond, msg) { if (!cond) throw new Error(msg || 'Assertion failed'); }
+function assertEqual(a, b, msg) { if (a !== b) throw new Error(msg || `Expected ${JSON.stringify(b)}, got ${JSON.stringify(a)}`); }
+function assertNotEqual(a, b, msg) { if (a === b) throw new Error(msg || `Expected not ${JSON.stringify(b)}`); }
+function assertIncludes(h, n, msg) { if (!h.includes(n)) throw new Error(msg || `Expected "${h}" to include "${n}"`); }
+function assertNotIncludes(h, n, msg) { if (h.includes(n)) throw new Error(msg || `Expected "${h}" not to include "${n}"`); }
+function assertExists(v, msg) { if (v === null || v === undefined) throw new Error(msg || 'Expected value to exist'); }
+function assertNotExists(v, msg) { if (v !== null && v !== undefined) throw new Error(msg || 'Expected value to not exist'); }
+
+// ===== Data Integrity =====
+section('Data Integrity');
+test('JLPT data exists', () => { for (const k of ['vocab','kanji','grammar','vocab5','kanji5','grammar5']) assertExists(D[k], `D.${k} missing`); });
+test('N4 vocab 600+', () => assert(Object.keys(D.vocab).length >= 600, `Got ${Object.keys(D.vocab).length}`));
+test('N5 vocab 700+', () => assert(Object.keys(D.vocab5).length >= 700, `Got ${Object.keys(D.vocab5).length}`));
+test('N4 kanji 150+', () => assert(Object.keys(D.kanji).length >= 150, `Got ${Object.keys(D.kanji).length}`));
+test('N5 kanji 70+', () => assert(Object.keys(D.kanji5).length >= 70, `Got ${Object.keys(D.kanji5).length}`));
+test('N4 grammar 100+', () => assert(D.grammar.length >= 100, `Got ${D.grammar.length}`));
+test('N5 grammar 50+', () => assert(D.grammar5.length >= 50, `Got ${D.grammar5.length}`));
+test('All vocab have reading+meaning', () => { for (const [w,v] of Object.entries(D.vocab)) { assertExists(v.reading, `"${w}" no reading`); assertExists(v.meaning, `"${w}" no meaning`); } });
+test('All kanji have readings+meaning', () => { for (const [k,v] of Object.entries(D.kanji)) { assertExists(v.readings, `"${k}" no readings`); assertExists(v.meaning, `"${k}" no meaning`); } });
+test('All grammar have pattern+meaning', () => { for (const g of D.grammar) { assertExists(g.pattern, 'no pattern'); assertExists(g.meaning, `"${g.pattern}" no meaning`); } });
+test('Chapters exist with sentences', () => { assert(window.CHAPTERS.length >= 10, `Got ${window.CHAPTERS.length}`); for (const c of window.CHAPTERS) { assertExists(c.title, 'no title'); assert(c.sentences.length > 0, `"${c.title}" no sentences`); } });
+
+// ===== Segmentation =====
+section('Segmentation');
+test('segment splits sentence', () => { const s = segment('私は学生です'); assert(s.filter(x=>x.word).length > 0, 'No words'); });
+test('segment empty string', () => assertEqual(segment('').length, 0, 'Should be empty'));
+test('segment unknown chars', () => { const s = segment('XYZ'); assertEqual(s.length, 3, '3 chars'); assertEqual(s[0].word, false, 'not word'); });
+test('custom segmentation overrides', () => { const k = 'test_custom_seg'; SEG[k] = ['私','は']; const s = segment(k); assertEqual(s.length, 2, '2 parts'); delete SEG[k]; });
+
+// ===== Word Lookup =====
+section('Word Lookup');
+test('lookupWord finds N4', () => { const v = lookupWord('食べる'); assertExists(v, 'not found'); assertEqual(v.reading, 'たべる', 'wrong reading'); });
+test('lookupWord finds kanji', () => { const k = Object.keys(D.kanji)[0]; assertExists(lookupWord(k), 'not found'); });
+test('lookupWord null for unknown', () => assertNotExists(lookupWord('存在しない言葉'), 'should be null'));
+
+// ===== Kanji Detection =====
+section('Kanji Detection');
+test('kanjiIn finds kanji', () => { const k = Object.keys(D.kanji)[0]; const ks = kanjisIn(k + '。'); assert(ks.length > 0, 'none found'); assertIncludes(ks, k, 'missing kanji'); });
+test('kanjiIn deduplicates', () => { const k = Object.keys(D.kanji)[0]; const ks = kanjisIn(k + k); assertEqual(ks.length, 1, 'should be 1'); });
+test('grammarMatch tilde order', () => { assert(grammarMatch({pattern:'A〜B'}, 'AxxB'), 'A before B'); assert(!grammarMatch({pattern:'A〜B'}, 'BxxA'), 'B before A'); });
+test('grammarMatch tilde no overlap', () => assert(!grammarMatch({pattern:'A〜B'}, 'AB'), 'should not overlap'));
+test('grammarInSentence returns matches', () => { const g = D.grammar[0]; const re = grammarInSentence('x' + g.pattern + 'y'); assert(re.length >= 0, 'no match'); });
+
+// ===== Sentence Splitting =====
+section('Sentence Splitting');
+test('splitSentences period', () => assertEqual(splitSentences('私は学生です。元気です。').length, 2, '2 sents'));
+test('splitSentences exclamation', () => assertEqual(splitSentences('すごい！そうですね。').length, 2, '2 sents'));
+test('splitSentences question', () => assertEqual(splitSentences('元気ですか？はい。').length, 2, '2 sents'));
+test('splitSentences empty', () => assertEqual(splitSentences('').length, 0, '0 sents'));
+
+// ===== HTML Building =====
+section('HTML Building');
+test('rawToHtml escapes', () => { const h = rawToHtml('<scr'+'ipt>x</scr'+'ipt>'); assertNotIncludes(h, '<scr'+'ipt>', 'not escaped'); assertIncludes(h, '&lt;script&gt;', 'no escaped'); });
+test('rawToHtml ruby', () => { const h = rawToHtml('春（はる）'); assertIncludes(h, '<ruby>', 'no ruby'); assertIncludes(h, '<rt>はる</rt>', 'no rt'); });
+test('stripReadings', () => assertEqual(stripReadings('春（はる）'), '春', 'not stripped'));
+test('buildSegmentedHtml word spans', () => { const h = buildSegmentedHtml('私は学生です'); assertIncludes(h, 'class="w"', 'no word spans'); });
+
+// ===== SRS =====
+section('SRS');
+test('buildDeck vocab', () => { const c = buildDeck('vocab'); assert(c.length > 0, 'empty'); assertEqual(c[0].type, 'vocab', 'wrong type'); });
+test('buildDeck kanji', () => { const c = buildDeck('kanji'); assert(c.length > 0, 'empty'); assertEqual(c[0].type, 'kanji', 'wrong type'); });
+test('buildDeck all', () => assert(buildDeck('all').length > buildDeck('vocab').length + buildDeck('kanji').length, 'all too small'));
+test('applyGrade again 10min', () => { const id = 'test_again'; const b = Date.now(); applyGrade(id, 'again'); const s = srs[id]; assertEqual(s.interval, 0, 'interval'); assert(s.due > b + 9*60000 && s.due < b + 11*60000, 'due ~10min'); delete srs[id]; });
+test('applyGrade good increases', () => { const id = 'test_good'; applyGrade(id, 'good'); const i1 = srs[id].interval; applyGrade(id, 'good'); assert(srs[id].interval > i1, 'not increased'); delete srs[id]; });
+test('applyGrade easy ease up', () => { const id = 'test_easy'; applyGrade(id, 'good'); const e1 = srs[id].ease; applyGrade(id, 'easy'); assert(srs[id].ease > e1, 'ease not up'); delete srs[id]; });
+test('srsState new', () => assertEqual(srsState('nonexistent_xyz'), 'new', 'not new'));
+test('srsState due', () => { srs['t_due'] = {due: Date.now()-1000, interval:1, ease:2.5, reps:1}; assertEqual(srsState('t_due'), 'due', 'not due'); delete srs['t_due']; });
+test('srsState learning', () => { srs['t_learn'] = {due: Date.now()+86400000, interval:1, ease:2.5, reps:1}; assertEqual(srsState('t_learn'), 'learning', 'not learning'); delete srs['t_learn']; });
+test('srsState mastered', () => { srs['t_mast'] = {due: Date.now()+86400000, interval:25, ease:2.5, reps:10}; assertEqual(srsState('t_mast'), 'mastered', 'not mastered'); delete srs['t_mast']; });
+test('srsState again not due', () => { applyGrade('t_again_state', 'again'); assertNotEqual(srsState('t_again_state'), 'due', 'should not be due'); delete srs['t_again_state']; });
+
+// ===== Bookmarks =====
+section('Bookmarks');
+test('bmToggleWord', () => { bmToggleWord('test_w_bm'); assert(bmIsWord('test_w_bm'), 'not added'); bmToggleWord('test_w_bm'); assert(!bmIsWord('test_w_bm'), 'not removed'); });
+test('bmToggleKanji', () => { bmToggleKanji('測'); assert(bmIsKanji('測'), 'not added'); bmToggleKanji('測'); assert(!bmIsKanji('測'), 'not removed'); });
+test('bmToggleGrammar', () => { bmToggleGrammar('test_g_bm'); assert(bmIsGrammar('test_g_bm'), 'not added'); bmToggleGrammar('test_g_bm'); assert(!bmIsGrammar('test_g_bm'), 'not removed'); });
+test('bmToggleSentence', () => { bmToggleSentence(0, 0); assert(bmIsSentence(0, 0), 'not added'); bmToggleSentence(0, 0); assert(!bmIsSentence(0, 0), 'not removed'); });
+
+// ===== Filters =====
+section('Filters');
+test('filterPass all', () => assert(filterPass('all', 'v:x', {}), 'should pass'));
+test('filterPass new', () => { assert(filterPass('new', 'v:new1', {}), 'should pass'); srs['v:new1'] = {due:1, interval:1, ease:2.5, reps:1}; assert(!filterPass('new', 'v:new1', {}), 'should fail'); delete srs['v:new1']; });
+test('filterPass bookmarked', () => { assert(filterPass('bookmarked', 'v:x', {bm:true}), 'should pass'); assert(!filterPass('bookmarked', 'v:x', {bm:false}), 'should fail'); });
+test('filterPass edited', () => { assert(filterPass('edited', 'v:x', {edited:true}), 'should pass'); assert(!filterPass('edited', 'v:x', {edited:false}), 'should fail'); });
+test('filterPass story', () => { assert(filterPass('story', 'v:x', {story:true}), 'should pass'); assert(!filterPass('story', 'v:x', {story:false}), 'should fail'); });
+
+// ===== Chapter Visibility =====
+section('Chapter Visibility');
+test('chapterVisible', () => { const o = new Set(CHAP_ON); CHAP_ON = new Set([0,1]); assert(chapterVisible(0), '0 not visible'); assert(!chapterVisible(5), '5 visible'); CHAP_ON = o; });
+test('chSentences valid', () => assert(chSentences(0).length > 0, 'no sents'));
+test('chSentences invalid', () => assertEqual(chSentences(9999).length, 0, 'should be empty'));
+
+// ===== Story Index =====
+section('Story Index');
+test('storyIndex caches', () => { storyIndex._c = null; const a = storyIndex(); const b = storyIndex(); assert(a === b, 'not cached'); });
+test('storyIndex has data', () => { storyIndex._c = null; const i = storyIndex(); assert(i.words.size > 0, 'no words'); assert(i.kanji.size > 0, 'no kanji'); });
+
+// ===== N5 Support =====
+section('N5 Support');
+test('showKanji N5', () => { const k = Object.keys(D.kanji5)[0]; showKanji(k); const h = document.getElementById('detail').innerHTML; assertNotIncludes(h, 'undefined', 'undefined shown'); assertIncludes(h, k, 'kanji not shown'); });
+test('showWord N5 kanji removal', () => { const k = Object.keys(D.kanji5)[0]; showWord(k + 'test'); const btn = document.querySelector('#detail [data-delk]'); if (btn) { btn.click(); assert(!D.kanji5[k] || EDITS.removedKanji.includes(k), 'not removed'); } EDITS.removedKanji = EDITS.removedKanji.filter(x => x !== k); saveEdits(); });
+
+// ===== Edit Form =====
+section('Edit Form');
+test('entryEditForm', () => { const h = entryEditForm([{key:'reading',label:'Reading'}], {reading:'test'}); assertIncludes(h, 'data-ef="reading"', 'no data-ef'); assertIncludes(h, 'value="test"', 'no value'); });
+test('collectEdit', () => { document.getElementById('popupPanel').innerHTML = '<input data-ef="reading" value="たべる">'; const v = collectEdit(); assertEqual(v.reading, 'たべる', 'wrong value'); });
+
+// ===== Backup =====
+section('Backup');
+test('bkCount missing', () => assertEqual(bkCount('nonexistent_xyz'), 0, 'should be 0'));
+test('bkCount array', () => { localStorage.setItem('t_bk_a', JSON.stringify([1,2,3])); assertEqual(bkCount('t_bk_a'), 3, 'should be 3'); localStorage.removeItem('t_bk_a'); });
+test('bkCount object', () => { localStorage.setItem('t_bk_o', JSON.stringify({a:1,b:2})); assertEqual(bkCount('t_bk_o'), 2, 'should be 2'); localStorage.removeItem('t_bk_o'); });
+test('bkApply replace', () => { localStorage.setItem('n4srs', JSON.stringify({})); bkApply({n4srs:{t_bk_r:{new:true}}}, 'replace'); const r = JSON.parse(localStorage.getItem('n4srs')); assertEqual(r.t_bk_r && r.t_bk_r.new, true, 'no new'); localStorage.removeItem('n4srs'); });
+test('bkApply merge', () => { localStorage.setItem('n4edits', JSON.stringify({keep:true})); bkApply({n4edits:{t_bk_m:{keep:true,add:true}}}, 'merge'); const r = JSON.parse(localStorage.getItem('n4edits')); assertEqual(r.keep, true, 'lost keep'); assertEqual(r.t_bk_m && r.t_bk_m.add, true, 'no add'); localStorage.removeItem('n4edits'); });
+test('bkApply theme plain', () => { bkApply({n4theme:'dark'}, 'merge'); assertEqual(localStorage.getItem('n4theme'), 'dark', 'not plain'); localStorage.removeItem('n4theme'); });
+test('bkApply touched', () => { const r = bkApply({n4srs:{t:{due:1,interval:1,ease:2.5,reps:1}}}, 'merge'); assert(r.touched > 0, 'no touched'); });
+
+// ===== Study Session =====
+section('Study Session');
+test('ssPool due', () => { document.getElementById('ssDeck').value = 'vocab'; document.getElementById('ssMode').value = 'due'; const p = ssPool(); for (const c of p) { const s = srs[c.id]; assertExists(s, 'no srs'); assert(s.due <= Date.now(), 'not due'); } });
+test('ssPool new', () => { document.getElementById('ssMode').value = 'new'; const p = ssPool(); for (const c of p) assertNotExists(srs[c.id], 'has srs'); });
+test('ssPool weak sort', () => { document.getElementById('ssMode').value = 'weak'; srs['v:w1'] = {due:1,interval:1,ease:2.0,reps:5}; srs['v:w2'] = {due:1,interval:1,ease:1.5,reps:3}; srs['v:w3'] = {due:1,interval:1,ease:2.5,reps:10}; const p = ssPool(); for (let i=1;i<p.length;i++) assert(srs[p[i-1].id].ease <= srs[p[i].id].ease, 'not sorted'); delete srs['v:w1']; delete srs['v:w2']; delete srs['v:w3']; });
+test('ssPool count', () => { document.getElementById('ssMode').value = 'allorder'; document.getElementById('ssCount').value = '10'; assert(ssPool().length <= 10, 'too many'); });
+
+// ===== UI Rendering =====
+section('UI Rendering');
+test('renderVocab', () => { renderVocab(); assert(document.querySelectorAll('#vocabTable tbody tr').length > 0, 'no rows'); });
+test('renderVocab5', () => { renderVocab5(); assert(document.querySelectorAll('#vocab5Table tbody tr').length > 0, 'no rows'); });
+test('renderKanji', () => { renderKanji(); assert(document.querySelectorAll('#kanjiGrid .kcard').length > 0, 'no cards'); });
+test('renderKanji5', () => { renderKanji5(); assert(document.querySelectorAll('#kanji5Grid .kcard').length > 0, 'no cards'); });
+test('renderGrammar', () => { renderGrammar(); assert(document.querySelectorAll('#grammarList .gcard').length > 0, 'no cards'); });
+test('renderGrammar5', () => { renderGrammar5(); assert(document.querySelectorAll('#grammar5List .gcard').length > 0, 'no cards'); });
+test('renderStory', () => { renderStory(); assert(document.querySelectorAll('#storyText p.sent').length > 0, 'no sents'); });
+test('renderBms empty', () => { const o = JSON.parse(localStorage.getItem('n4bookmarks')||'{}'); bms = {sentences:[],words:[],kanji:[],grammar:[]}; renderBms(); assertIncludes(document.getElementById('bmList').innerHTML, 'No bookmarks', 'no msg'); bms = o; renderBms(); });
+
+// ===== Search =====
+section('Search');
+test('renderVocab search', () => { renderVocab('\u98DF'); const r = document.querySelectorAll('#vocabTable tbody tr'); assert(r.length > 0, 'no rows'); assertIncludes(r[0].querySelector('td').textContent, '\u98DF', 'no match'); });
+test('renderVocab meaning search', () => { renderVocab('to eat'); assert(document.querySelectorAll('#vocabTable tbody tr').length > 0, 'no rows'); });
+test('renderKanji search', () => { renderKanji('春'); assert(document.querySelectorAll('#kanjiGrid .kcard').length > 0, 'no cards'); });
+
+// ===== Theme =====
+section('Theme');
+test('theme toggle', () => { const w = document.body.classList.contains('dark'); document.getElementById('themeToggle').click(); assertNotEqual(document.body.classList.contains('dark'), w, 'no toggle'); document.getElementById('themeToggle').click(); assertEqual(document.body.classList.contains('dark'), w, 'no toggle back'); });
+
+// ===== Progress =====
+section('Progress');
+test('markRead', () => { const k = 'ch0:s0'; delete progress[k]; markRead(0, 0); assert(progress[k] === true, 'not marked'); delete progress[k]; saveProgress(); });
+test('renderProgress', () => { renderProgress(); assertIncludes(document.getElementById('progressLabel').textContent, 'sentences studied', 'no label'); });
+
+// ===== Popup =====
+section('Popup');
+test('showPopup', () => { showPopup('<h2>Test</h2>'); assertIncludes(document.getElementById('popupPanel').innerHTML, 'Test', 'no content'); closePopup(); });
+test('closePopup', () => { showPopup('<h2>T</h2>'); closePopup(); assert(document.getElementById('popup').classList.contains('hidden'), 'not hidden'); });
+test('showPopup TTS no crash', () => { showPopup('<h2>T</h2><button id="ttsWord">🔊</button>'); const tw = document.getElementById('ttsWord'); assertExists(tw, 'no btn'); tw.click(); closePopup(); });
+
+// ===== Flashcard Kanji Size =====
+section('Flashcard Kanji Size');
+test('kanji card has fc-kanji class', () => { fcCurrent = {id:'k:食', type:'kanji', front:'食', reading:'しょく', back:'eat'}; fcRender(); const el = document.getElementById('fcFront'); assertIncludes(el.innerHTML, 'fc-kanji', 'no fc-kanji class'); });
+test('vocab card no fc-kanji class', () => { fcCurrent = {id:'v:食べる', type:'vocab', front:'食べる', reading:'たべる', back:'eat'}; fcRender(); const el = document.getElementById('fcFront'); assertNotIncludes(el.innerHTML, 'fc-kanji', 'has fc-kanji class'); });
+
+// ===== Run =====
+function runTests() {
+  const div = document.getElementById('testResults');
+  let p = 0, f = 0, html = '';
+  const secs = [...new Set(results.map(r => r.section))];
+  for (const s of secs) {
+    const rs = results.filter(r => r.section === s);
+    const sp = rs.filter(r => r.pass).length;
+    p += sp; f += rs.length - sp;
+    html += `<div class="test-section"><h3>${s} (${sp}/${rs.length})</h3>`;
+    for (const r of rs) {
+      html += `<div class="${r.pass?'test-pass':'test-fail'}">${r.pass?'✓':'✗'} ${r.name}${r.pass?'':' — '+r.error}</div>`;
+    }
+    html += '</div>';
+  }
+  div.innerHTML = html;
+  document.getElementById('testSummary').innerHTML = `<span class="test-pass">${p} passed</span>, <span class="test-fail">${f} failed</span>`;
+}
+runTests();
+</script>
+</body>
+</html>

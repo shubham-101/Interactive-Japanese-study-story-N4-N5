@@ -1,6 +1,6 @@
+process.env.NODE_ENV = 'production';
 const { execSync } = require('child_process');
 const path = require('path');
-const fs = require('fs');
 
 const ROOT = __dirname;
 
@@ -9,18 +9,14 @@ function run(cmd, opts = {}) {
   execSync(cmd, { stdio: 'inherit', cwd: ROOT, shell: true, ...opts });
 }
 
-// 1. build kanji-map (static export to the-kanji-map/out)
+const kmDir = path.join(ROOT, 'the-kanji-map');
 try {
-  run('bun install --frozen-lockfile', { cwd: path.join(ROOT, 'the-kanji-map') });
-  run('bun run build', { cwd: path.join(ROOT, 'the-kanji-map') });
+  run('bun install --frozen-lockfile', { cwd: kmDir });
+  run('bun run build', { cwd: kmDir });
 } catch (e) {
-  console.warn('bun not available, falling back to local next build');
-  const nextBin = path.join(ROOT, 'the-kanji-map', 'node_modules', '.bin', 'next.cmd');
-  run(`"${nextBin}" build`, { cwd: path.join(ROOT, 'the-kanji-map') });
+  console.warn('bun not available, falling back to npm');
+  run('npm ci', { cwd: kmDir });
+  run('npm run build', { cwd: kmDir });
 }
 
-// 2. assemble deploy/
-const TMP = path.join(__dirname, '.tmp_build');
-const packSrc = path.join(__dirname, 'pack.js');
-if (!fs.existsSync(packSrc)) fs.copyFileSync('C:/Users/kumbh/AppData/Local/Temp/opencode/pack.js', packSrc);
-require(packSrc);
+require('./pack.js');

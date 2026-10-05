@@ -27,11 +27,13 @@ function copyDir(src, dest, transform) {
   }
 }
 
+const KM_BASE = (process.env.KANJI_BASE_PATH || 'kanjimap') + '/';
+
 copyDir(path.join(ROOT, 'site'), DEPLOY, (name, data) => {
   if (!/\.(html|js|css|json|md)$/i.test(name)) return data;
   let s = data.toString('utf8');
-  s = s.split('http://localhost:3000/').join('/kanjimap/');
-  s = s.split('http://localhost:3000').join('/kanjimap/');
+  s = s.split('http://localhost:3000/').join(KM_BASE);
+  s = s.split('http://localhost:3000').join(KM_BASE);
   s = s.split('http://localhost:8000/').join('/');
   s = s.split('http://localhost:8000').join('/');
   return Buffer.from(s, 'utf8');
@@ -41,7 +43,7 @@ copyDir(path.join(ROOT, 'site'), DEPLOY, (name, data) => {
 copyDir(path.join(ROOT, 'the-kanji-map/out'), path.join(DEPLOY, 'kanjimap'), (name, data) => {
   if (!/\.(html|js|css|json|ts|txt)$/i.test(name)) return data;
   let s = data.toString('utf8');
-  s = s.split('http://localhost:8000').join('/');
+  s = s.split('http://localhost:8000').join('../');
   return Buffer.from(s, 'utf8');
 });
 
