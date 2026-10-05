@@ -1,0 +1,11 @@
+{
+  "name": "n4-study-ground",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "deploy": "node pack.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
