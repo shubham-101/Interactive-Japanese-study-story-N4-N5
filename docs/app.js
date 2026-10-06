@@ -1914,12 +1914,13 @@ async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.g
 async function pushToRemote(){ const cfg = getSyncCfg(); if (!cfg.token) return; const dump = collectProgress(); const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } }; try { let r; if (cfg.gistId){ r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); } else { r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); } } try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){} updateSyncBtn(); } catch(e){} }
 async function pullFromRemote(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return false; const d = await remoteFetch(); if (!d || !d._updatedAt) return false; let cur = ''; try { cur = localStorage.getItem('n4syncedAt') || ''; } catch(e){} if (d._updatedAt > cur){ applyProgress(d); location.reload(); return true; } localStorage.setItem('n4syncedAt', d._updatedAt); return false; }
 function makeSyncCode(){ const c = getSyncCfg(); return btoa(c.token + '|' + c.gistId); }
+function showSyncCode(msg){ const code = makeSyncCode(); let copied = false; try { if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code); copied = true; } } catch(e){} prompt(msg + '\n\n' + (copied ? '(Sync code copied to clipboard — press Ctrl/Cmd+C here if not.)' : '(Press Ctrl/Cmd+C here to copy the sync code.)'), code); return code; }
 async function ensureSync(){ try { if (sessionStorage.getItem('n4synced') !== '1' && syncConfigured()){ sessionStorage.setItem('n4synced', '1'); await pullFromRemote(); } } catch(e){} }
 function updateSyncBtn(){ const el = document.getElementById('syncBtn'); if (!el) return; el.style.opacity = syncConfigured() ? '1' : '0.45'; el.title = syncConfigured() ? 'Cloud sync enabled (progress is saved to your private GitHub Gist). Click to view details.' : 'Set up cloud sync (saves progress to a private GitHub Gist for use on any device).'; }
 document.getElementById('syncBtn') && document.getElementById('syncBtn').addEventListener('click', async () => {
   if (syncConfigured()) {
     const c = getSyncCfg();
-    alert('Cloud sync is ON.\n\nPrivate Gist ID: ' + c.gistId + '\n\nOn your other device, click ☁, paste this in the box, or copy the token + Gist ID shown below:\n\n' + makeSyncCode());
+    showSyncCode('Cloud sync is ON.\n\nPrivate Gist ID: ' + c.gistId + '\n\nOn your other device, click ☁ and paste this same code:');
     const raw = prompt('On the other device, click ☁ and paste that same code to load your progress.\nWant to paste a new sync code here? (leave blank to keep current setup)');
     if (raw) { try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); alert('Loaded cloud progress. Reloading…'); location.reload(); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } }
     return;
@@ -1931,7 +1932,7 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     setSyncCfg({token});
     await pushToRemote();
     updateSyncBtn();
-    alert('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:\n\n' + makeSyncCode());
+    showSyncCode('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:');
   } else {
     try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); updateSyncBtn(); alert('Cloud sync set up. Reloading…'); location.reload(); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
   }
