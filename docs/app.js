@@ -1903,12 +1903,13 @@ function getSyncCfg(){ try { return JSON.parse(localStorage.getItem(SYNC_CFG_KEY
 function setSyncCfg(c){ localStorage.setItem(SYNC_CFG_KEY, JSON.stringify(c)); }
 function syncConfigured(){ const c = getSyncCfg(); return c && c.token && c.gistId ? c : null; }
 function collectProgress(){ const o = {_updatedAt: new Date().toISOString()}; for (const k of SYNC_KEYS){ const v = localStorage.getItem(k); if (v !== null) try { o[k] = JSON.parse(v); } catch(e){} } return o; }
-function applyProgress(d){ if (!d) return false; for (const k of SYNC_KEYS){ if (d[k] !== undefined) try { localStorage.setItem(k, JSON.stringify(d[k])); } catch(e){} } try { localStorage.setItem('n4syncedAt', d._updatedAt || new Date().toISOString()); } catch(e){} return true; }
+function applyProgress(d){ if (!d) return false; applyingRemote = true; try { for (const k of SYNC_KEYS){ if (d[k] !== undefined) try { localStorage.setItem(k, JSON.stringify(d[k])); } catch(e){} } try { localStorage.setItem('n4syncedAt', d._updatedAt || new Date().toISOString()); } catch(e){} } finally { applyingRemote = false; } return true; }
 let lastSyncState = '';
+let applyingRemote = false;
 function setSyncStatus(msg){ lastSyncState = msg; updateSyncBtn(); }
 function syncError(msg){ lastSyncState = '⚠ ' + msg; try { toast('☁ ' + msg); } catch(e){} updateSyncBtn(); }
 let pushTimer = null;
-function schedulePush(){ clearTimeout(pushTimer); if (!syncConfigured()) return; pushTimer = setTimeout(pushToRemote, 1500); }
+function schedulePush(){ clearTimeout(pushTimer); if (applyingRemote || !syncConfigured()) return; pushTimer = setTimeout(pushToRemote, 1500); }
 (function patchStorage(){
   const _set = window.localStorage.setItem.bind(window.localStorage);
   window.localStorage.setItem = function(k, v){ _set(k, v); if (k.indexOf('n4') === 0 && k !== SYNC_CFG_KEY && k !== 'n4syncedAt') schedulePush(); };
@@ -1925,7 +1926,7 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     const c = getSyncCfg();
     const raw = prompt('Cloud sync is ON.\nPrivate Gist ID: ' + c.gistId + (lastSyncState ? '\nStatus: ' + lastSyncState : '') + '\n\nType "s" and press OK to SYNC NOW (download latest from the cloud).\nOr paste a different sync code to switch accounts.\nLeave blank to just display/copy this device\'s code.', '');
     if (raw && raw.trim().toLowerCase() === 's') { setSyncStatus('Syncing…'); await pullFromRemote(true); updateSyncBtn(); return; }
-    if (raw && raw.trim()) { try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(true); updateSyncBtn(); alert('Switched sync account. Reloading…'); location.reload(); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } return; }
+    if (raw && raw.trim() && raw.trim().toLowerCase() !== 's') { try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Could not load that sync code.'); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } return; }
     showSyncCode('This device\'s sync code (paste it on your other device after clicking ☁ there):');
     return;
   }
@@ -1939,7 +1940,7 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     updateSyncBtn();
     showSyncCode('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:');
   } else {
-    try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); alert(ok ? 'Cloud sync set up. Reloading…' : 'Sync code saved, but the download failed — see the ☁ button or the message just shown.'); location.reload(); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
+    try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Sync code saved, but the download failed — check the ☁ button for details.'); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
   }
 });
 ensureSync(); setTimeout(updateSyncBtn, 0);
