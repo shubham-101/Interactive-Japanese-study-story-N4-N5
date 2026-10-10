@@ -260,7 +260,7 @@ body.dark .pupl-left{color:var(--text)}
 .kbd-key{background:var(--bg-tint);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-family:monospace;font-size:12px;color:#33302e}
 .kbd-close{margin-top:16px;width:100%;background:linear-gradient(135deg,var(--accent-soft),var(--accent-soft));border:none;border-radius:10px;padding:10px;cursor:pointer;font-weight:700}
 .story p.sent.focused{border-left-color:#7aa2f7;box-shadow:0 0 0 2px rgba(122,162,247,.2)}
-.story .w{cursor:pointer;border-bottom:2px dotted var(--read);transition:.15s}
+.story .w{cursor:pointer;border-bottom:2px solid var(--read);transition:.15s;padding:0 3px;margin:0 3px;border-radius:2px}
 .story .w:hover{background:#FFF0F5;border-bottom-color:#a03060}
 body.dark .story .w{border-bottom-color:#FF9EBA}
 body.dark .story .w:hover{background:var(--panel2);border-bottom-color:var(--accent-soft)}
@@ -308,3 +308,10 @@ body.dark .resume-banner{background:#3a3220;border-color:#5a4c2a;color:#F5E6B8}
 .kcard .k{font-family:'Noto Serif JP',serif;font-size:34px;color:#FF9EBA}
 .kcard .r{font-size:11px;color:#7aa2f7;margin-top:4px}
 #toast.show{transform:translateX(-50%) translateY(0)}
+/* Scrollbars: hidden visual chrome, scrolling itself still works. */
+*{scrollbar-width:thin;scrollbar-color:transparent transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:transparent;border-radius:999px;border:3px solid transparent}
+::-webkit-scrollbar-thumb:hover{background:rgba(107,96,118,.35);border:3px solid transparent}
+::-webkit-scrollbar-corner{background:transparent}
