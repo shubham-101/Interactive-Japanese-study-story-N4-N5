@@ -276,11 +276,11 @@ function renderStory(){
     addBtn.addEventListener('click', () => addSent(ci));
     root.appendChild(addBtn);
   });
-   root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
-     e.stopPropagation();
-     const r = sp.getBoundingClientRect();
-     openWordMenu(sp.dataset.w, r.left, r.bottom + 4);
-   }));
+root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
+      e.stopPropagation();
+      const r = sp.getBoundingClientRect();
+      toggleWordMenu(sp.dataset.w, r.left, r.bottom + 4);
+    }));
   if (romajiOn) applyRomaji();
   renderResumeBanner();
 }
@@ -336,8 +336,11 @@ function fileWordToKanji(w){
   renderKanji();
   toast(added.length ? 'Added to Kanji: ' + added.join('') : 'Kanji already in list');
 }
+let wordMenuTarget = null;
 function openWordMenu(w, x, y){
   const m = document.getElementById('wordMenu');
+  if (!m) return;
+  wordMenuTarget = w;
   m.innerHTML = `<div class="wm-title">${w}</div>
     <button data-act="words">→ Words<span class="wm-sub">add this word to the vocabulary list</span></button>
     <button data-act="kanji">→ Kanji<span class="wm-sub">add its kanji to the kanji list</span></button>
@@ -359,8 +362,51 @@ function openWordMenu(w, x, y){
     else openWordPopup(w);
   }));
 }
-function closeWordMenu(){ const m = document.getElementById('wordMenu'); if (m) m.classList.add('hidden'); }
+function toggleWordMenu(w, x, y){
+  const m = document.getElementById('wordMenu');
+  if (!m) return;
+  if (!m.classList.contains('hidden') && wordMenuTarget === w){ closeWordMenu(); return; }
+  openWordMenu(w, x, y);
+}
+function closeWordMenu(){ const m = document.getElementById('wordMenu'); if (m) m.classList.add('hidden'); wordMenuTarget = null; }
 document.addEventListener('click', e => { if (!e.target.closest('#wordMenu')) closeWordMenu(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWordMenu(); });
+// Drag-select text in the story: offer the same quick actions on the selection.
+// Reading <rt> elements are dropped from the clone so the menu acts on the
+// base text (私, not 私（わたし）).
+function selectionText(sel){
+  if (!sel || !sel.rangeCount) return '';
+  const frag = sel.getRangeAt(0).cloneContents();
+  frag.querySelectorAll('rt').forEach(n => n.remove());
+  frag.querySelectorAll('rp').forEach(n => n.remove());
+  // Furigana may also be inlined as literal text, e.g. 私（わたし）.
+  return stripReadings(frag.textContent || '').replace(/\s+/g, '').trim();
+}
+let selectMenuTimer = null;
+document.addEventListener('mouseup', e => {
+  clearTimeout(selectMenuTimer);
+  // A click on the menu (or any control) must not re-trigger this via a
+  // selection that is still active from an earlier drag.
+  if (e.target && e.target.closest && e.target.closest('#wordMenu, button, select, input, textarea')) {
+    const sel0 = window.getSelection();
+    if (sel0) sel0.removeAllRanges();
+    return;
+  }
+  selectMenuTimer = setTimeout(() => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const text = selectionText(sel);
+    if (!text || text.length > 60) return;
+    const story = document.getElementById('storyText');
+    if (!story || !sel.anchorNode || !story.contains(sel.anchorNode)) return;
+    const m = document.getElementById('wordMenu');
+    if (m && m.contains(sel.anchorNode)) return;
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    if (!rect || (!rect.width && !rect.height)) return;
+    openWordMenu(text, rect.left, rect.bottom + 4);
+  }, 10);
+});
 function openWordPopup(w){
   const v = lookupWord(w);
   const ks2 = kanjisIn(w);
