@@ -62,13 +62,21 @@ nav{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start}
 .chap-row .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chap-row .n{font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
 .story-empty{color:var(--muted);font-size:13.5px;padding:26px 16px;text-align:center;border:1px dashed var(--line);border-radius:12px;margin-top:10px}
-.tab{background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;font-size:13px;font-family:inherit;transition:.2s}
-.tab:hover{color:var(--text);border-color:var(--accent)}
-.tab.active{background:linear-gradient(135deg,#FF9EBA,#D6B5E2);color:#33302e;font-weight:700;border:none}
-/* Utility tabs (supporting pages) sit quieter than the study content. */
-.tab[data-tab="bookmarks"],.tab[data-tab="known"],.tab[data-tab="settings"],a.tab{border-color:transparent;color:var(--muted);font-size:12px;padding:7px 12px}
-.tab[data-tab="bookmarks"]:hover,.tab[data-tab="known"]:hover,.tab[data-tab="settings"]:hover,a.tab:hover{border-color:var(--line);color:var(--text)}
-.tab[data-tab="settings"].active{background:transparent;border:1px solid var(--line);color:var(--text);font-weight:600}
+.tab{background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;font-size:13px;font-family:inherit;transition:background .2s,color .2s,border-color .2s;position:relative;white-space:nowrap}
+.tab:hover{color:var(--text);border-color:var(--accent);background:var(--panel2)}
+.tab.active{background:var(--accent-soft);color:var(--text);font-weight:700;border-color:var(--accent)}
+.tab.active::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-7px;width:16px;height:2px;border-radius:2px;background:var(--read)}
+/* Nav groups: content / practice / utilities / external. */
+.nav-cluster{display:flex;gap:6px;align-items:center}
+.nav-cluster + .nav-cluster{padding-left:10px;margin-left:4px;position:relative}
+.nav-cluster + .nav-cluster::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:20px;background:var(--line)}
+.tab.util{border-color:transparent;color:var(--muted);font-size:12.5px;padding:8px 12px}
+.tab.util:hover{border-color:var(--line)}
+.tab.util.active{background:transparent;border-color:var(--line);color:var(--text);font-weight:600}
+.tab.util.active::after{display:none}
+.tab.external{text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+.tab.external .ext{font-size:10px;opacity:.75}
+body.dark .tab.active::after{background:var(--accent)}
 main{max-width:1400px;margin:0 auto;padding:24px 20px 80px}
 .panel{display:none;animation:fade .3s ease}
 .panel.active{display:block}

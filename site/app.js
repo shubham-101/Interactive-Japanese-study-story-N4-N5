@@ -99,15 +99,20 @@ function lookupWord(w){
 }
 // Which list an entry really belongs to. lookupWord() prefers the merged VOCAB
 // index, so checking D.vocab first sent N5-only words into the N4 store.
+// The active N4/N5 parent also carries .active, so read the leaf tab only.
+function activeLeafTab(){
+  const el = document.querySelector('.tab.active[data-tab]');
+  return el ? el.dataset.tab : '';
+}
 function wordSource(w){
-  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  const activeTab = activeLeafTab();
   if (activeTab === 'vocab5' && D.vocab5[w]) return 'vocab5';
   if (D.vocab[w]) return 'vocab';
   if (D.vocab5[w]) return 'vocab5';
   return 'vocab';
 }
 function kanjiSource(k){
-  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  const activeTab = activeLeafTab();
   if (activeTab === 'kanji5' && D.kanji5[k]) return 'kanji5';
   if (D.kanji[k]) return 'kanji';
   if (D.kanji5[k]) return 'kanji5';
@@ -611,13 +616,25 @@ function showWord(w){
 }
 
 // Tabs
+const TAB_GROUP = { vocab:'n4', kanji:'n4', grammar:'n4', vocab5:'n5', kanji5:'n5', grammar5:'n5' };
+function markActiveTab(id){
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  const leaf = document.querySelector(`.tab[data-tab="${id}"]`);
+  if (leaf) leaf.classList.add('active');
+  // Keep the level parent (N4/N5) lit while one of its pages is open.
+  const grp = TAB_GROUP[id];
+  if (grp){
+    const parent = document.querySelector(`.menu-btn[data-group="${grp}"]`);
+    if (parent) parent.classList.add('active');
+  }
+}
 document.querySelectorAll('.tab').forEach(t => {
   if (t.classList.contains('menu-btn')) return;
+  if (!t.dataset.tab) return;
   t.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
     document.getElementById(t.dataset.tab).classList.add('active');
+    markActiveTab(t.dataset.tab);
     document.querySelectorAll('.menu').forEach(m=>m.classList.remove('open'));
   });
 });
@@ -1522,7 +1539,7 @@ document.addEventListener('keydown', e => {
     return;
   }
 
-  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  const activeTab = activeLeafTab();
 
   if (activeTab === 'story'){
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); moveFocus(-1); }
@@ -1802,7 +1819,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') e.target.blur();
     return;
   }
-  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  const activeTab = activeLeafTab();
 
   if (['vocab','vocab5','kanji','kanji5','grammar','grammar5','bookmarks'].includes(activeTab)){
     const isGrid = activeTab === 'kanji' || activeTab === 'kanji5';

@@ -21,29 +21,37 @@
     <button id="syncBtn" class="theme-btn" title="Cloud sync">☁</button>
   </div>
   <nav>
-    <button class="tab active" data-tab="story">物語 Story</button>
-    <div class="menu">
-      <button class="tab menu-btn">N4 ▾</button>
-      <div class="menu-list">
-        <button class="tab" data-tab="vocab">単語 Vocabulary</button>
-        <button class="tab" data-tab="kanji">漢字 Kanji</button>
-        <button class="tab" data-tab="grammar">文法 Grammar</button>
+    <div class="nav-cluster">
+      <button class="tab active" data-tab="story">物語 Story</button>
+      <div class="menu">
+        <button class="tab menu-btn" data-group="n4">N4 <span class="caret">▾</span></button>
+        <div class="menu-list">
+          <button class="tab" data-tab="vocab">単語 Vocabulary</button>
+          <button class="tab" data-tab="kanji">漢字 Kanji</button>
+          <button class="tab" data-tab="grammar">文法 Grammar</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button class="tab menu-btn" data-group="n5">N5 <span class="caret">▾</span></button>
+        <div class="menu-list">
+          <button class="tab" data-tab="vocab5">単語 Vocabulary</button>
+          <button class="tab" data-tab="kanji5">漢字 Kanji</button>
+          <button class="tab" data-tab="grammar5">文法 Grammar</button>
+        </div>
       </div>
     </div>
-    <div class="menu">
-      <button class="tab menu-btn">N5 ▾</button>
-      <div class="menu-list">
-        <button class="tab" data-tab="vocab5">単語 Vocabulary</button>
-        <button class="tab" data-tab="kanji5">漢字 Kanji</button>
-        <button class="tab" data-tab="grammar5">文法 Grammar</button>
-      </div>
+    <div class="nav-cluster">
+      <button class="tab" data-tab="flashcards">Flashcards</button>
+      <button class="tab" data-tab="study">🎯 Study</button>
     </div>
-    <button class="tab" data-tab="flashcards">Flashcards</button>
-    <button class="tab" data-tab="study">🎯 Study</button>
-    <button class="tab" data-tab="bookmarks">Bookmarks</button>
-    <button class="tab" data-tab="known">✓ Known</button>
-    <button class="tab" data-tab="settings">⚙ Settings</button>
-    <a class="tab" href="/Interactive-Japanese-study-story-N4-N5/kanjimap/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center">🗺 Kanji Map</a>
+    <div class="nav-cluster">
+      <button class="tab util" data-tab="bookmarks">Bookmarks</button>
+      <button class="tab util" data-tab="known">✓ Known</button>
+      <button class="tab util" data-tab="settings">⚙ Settings</button>
+    </div>
+    <div class="nav-cluster">
+      <a class="tab util external" href="/Interactive-Japanese-study-story-N4-N5/kanjimap/" target="_blank" rel="noopener">🗺 Kanji Map <span class="ext" aria-hidden="true">↗</span></a>
+    </div>
   </nav>
 </header>
 
