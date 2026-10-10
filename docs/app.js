@@ -1954,6 +1954,41 @@ document.getElementById('bkReset').addEventListener('click', () => {
   document.getElementById('bkMsg').innerHTML = '🗑 All study progress deleted (theme kept).';
 });
 
+// ===== Backup / restore (manual, device-local) =====
+function exportProgress(){
+  const dump = collectProgress();
+  const json = JSON.stringify(dump, null, 2);
+  const name = 'n4-progress-' + new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-') + '.json';
+  try {
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  } catch(e){}
+  let copied = false;
+  try { if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(json); copied = true; } } catch(e){}
+  const keys = Object.keys(dump).filter(k => k !== '_updatedAt').length;
+  alert('Backup created: ' + name + '\n\n' + keys + ' progress items saved (updated ' + dump._updatedAt + ').\n\n' + (copied ? 'Also copied to your clipboard.' : 'Saved to your Downloads folder.'));
+  return json;
+}
+function importProgress(){
+  const raw = prompt('Paste your backup JSON here.\n\nIt starts with: {"_updatedAt":"..."\n\nThis REPLACES the progress currently on this device.');
+  if (!raw) return;
+  let d;
+  try { d = JSON.parse(raw.trim()); } catch(e){ alert('That is not valid JSON. Paste the whole file contents.'); return; }
+  if (!d || typeof d !== 'object' || !d._updatedAt){ alert('No _updatedAt found - this does not look like an N4 progress backup.'); return; }
+  if (!confirm('Replace progress on this device with the backup from ' + d._updatedAt + '?')) return;
+  const ok = applyProgress(d);
+  alert(ok ? 'Progress restored. Reloading…' : 'Restore failed.');
+  if (ok) location.reload();
+}
+document.getElementById('dataBtn') && document.getElementById('dataBtn').addEventListener('click', async () => {
+  const c = await prompt('Backup / Restore\n\n1 = Download a backup file (+ copy to clipboard)\n2 = Restore from a backup you paste\n\nChoose 1 or 2:', '1');
+  if (c === '2') importProgress(); else if (c === '1') exportProgress();
+});
+
 // ===== Cloud sync (GitHub Gist) =====
 const SYNC_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits'];
 const SYNC_CFG_KEY = 'n4sync';
