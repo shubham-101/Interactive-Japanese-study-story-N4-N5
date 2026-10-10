@@ -990,7 +990,12 @@ setupAddForm('vocab', {
   add(v){ if (!v.word) return;
     const ex = existsAnywhere(v.word, v.word);
     if (ex) return showPopup(`<h2>${v.word}</h2><p>Already exists in <b>${ex}</b> vocabulary.</p>`);
-    D.vocab[v.word] = {reading: v.reading, meaning: v.meaning}; PAGE_EDITS.vocab[v.word] = D.vocab[v.word]; savePageEdits(); renderVocab();
+    D.vocab[v.word] = {reading: v.reading, meaning: v.meaning}; PAGE_EDITS.vocab[v.word] = D.vocab[v.word]; savePageEdits();
+    // New entries must also live in the merged VOCAB index and the durable
+    // EDITS store, otherwise lookupWord() returns nothing and the edit popup
+    // opens with empty fields.
+    VOCAB[v.word] = D.vocab[v.word]; EDITS.addedWords[v.word] = D.vocab[v.word]; saveEdits(); rebuildWords();
+    renderVocab();
   }
 });
 setupAddForm('vocab5', {
@@ -998,7 +1003,9 @@ setupAddForm('vocab5', {
   add(v){ if (!v.word) return;
     const ex = existsAnywhere(v.word, v.word);
     if (ex) return showPopup(`<h2>${v.word}</h2><p>Already exists in <b>${ex}</b> vocabulary.</p>`);
-    D.vocab5[v.word] = {reading: v.reading, meaning: v.meaning, pos: v.pos}; PAGE_EDITS.vocab5[v.word] = D.vocab5[v.word]; savePageEdits(); renderVocab5();
+    D.vocab5[v.word] = {reading: v.reading, meaning: v.meaning, pos: v.pos}; PAGE_EDITS.vocab5[v.word] = D.vocab5[v.word]; savePageEdits();
+    VOCAB[v.word] = D.vocab5[v.word]; EDITS.addedWords[v.word] = D.vocab5[v.word]; saveEdits(); rebuildWords();
+    renderVocab5();
   }
 });
 setupAddForm('kanji', {
@@ -1006,7 +1013,9 @@ setupAddForm('kanji', {
   add(v){ if (!v.k) return;
     const ex = existsKanjiAnywhere(v.k);
     if (ex) return showPopup(`<h2>${v.k}</h2><p>Already exists in <b>${ex}</b> kanji.</p>`);
-    D.kanji[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji[v.k] = D.kanji[v.k]; savePageEdits(); renderKanji();
+    D.kanji[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji[v.k] = D.kanji[v.k]; savePageEdits();
+    EDITS.addedKanji[v.k] = D.kanji[v.k]; saveEdits();
+    renderKanji();
   }
 });
 setupAddForm('kanji5', {
@@ -1014,7 +1023,9 @@ setupAddForm('kanji5', {
   add(v){ if (!v.k) return;
     const ex = existsKanjiAnywhere(v.k);
     if (ex) return showPopup(`<h2>${v.k}</h2><p>Already exists in <b>${ex}</b> kanji.</p>`);
-    D.kanji5[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji5[v.k] = D.kanji5[v.k]; savePageEdits(); renderKanji5();
+    D.kanji5[v.k] = {readings: v.readings, meaning: v.meaning, strokes: ''}; PAGE_EDITS.kanji5[v.k] = D.kanji5[v.k]; savePageEdits();
+    EDITS.addedKanji[v.k] = D.kanji5[v.k]; saveEdits();
+    renderKanji5();
   }
 });
 setupAddForm('grammar', {

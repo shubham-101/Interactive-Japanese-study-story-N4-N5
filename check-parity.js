@@ -39,6 +39,8 @@ const markers = [
   { name: 'known class on story words', re: /isKnownW\(s\.t\) \? ' known'/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
   { name: 'renderStory after known',  re: /refreshFilterViews\(\); renderStory\(\);/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
   { name: 'rubyText helper (js)',    re: /function rubyText\(/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
+  { name: 'add-form populates VOCAB', re: /VOCAB\[v\.word\] = D\.vocab\[v\.word\]; EDITS\.addedWords/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
+  { name: 'add-form populates EDITS kanji', re: /EDITS\.addedKanji\[v\.k\] = D\.kanji\[v\.k\]; saveEdits\(\)/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
   { name: 'ruby furigana build',     re: /'<ruby>' \+ kanji \+ '<rt>'/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
   { name: 'selectionText (js)',       re: /function selectionText\(/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
   { name: 'drag-select mouseup',      re: /addEventListener\('mouseup'[\s\S]{0,800}selectionText\(sel\)/, files: { 'site/app.js': siteApp, 'docs/app.js': docsApp } },
