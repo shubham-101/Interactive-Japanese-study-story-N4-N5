@@ -206,21 +206,58 @@ function splitSentences(text){
   return out;
 }
 
+const KANJI = /[一-龯々〇ヶ]/;
+// Turn Kanji（reading） into <ruby> anywhere in a string, for text that is not
+// segmented into words (chapter titles, popup headings).
+function rubyText(text){
+  if (!text) return '';
+  return String(text).replace(/([一-龯々〇ヶ]{1,12})（([^）]+)）/g, (m, kanji, read) =>
+    '<ruby>' + kanji + '<rt>' + read + '</rt></ruby>').replace(/（([^）]+)）/g, '');
+}
 function buildSegmentedHtml(raw){
-  const plain = stripReadings(raw);
-  const segs = segment(plain);
-  let pos = 0, html = '';
-  for (const s of segs){
-    let need = s.t.length, j = pos, rawChunk = '';
-    while (j < raw.length && need > 0){
-      const ch = raw[j];
-      if (ch === '（'){ const end = raw.indexOf('）', j); rawChunk += raw.slice(j, end + 1); j = end + 1; continue; }
-      rawChunk += ch; need--; j++;
+  // Readings are stored after the kanji they annotate: 玄関（げんかん）.
+  // Segmentation runs on the reading-free text, so a reading would end up
+  // detached from its kanji. Build a per-character list first, tagging every
+  // character of the annotated kanji run with the same reading, then render
+  // segments from that list.
+  const cells = [];   // { ch, read }
+  for (let i = 0; i < raw.length; i++){
+    const ch = raw[i];
+    if (ch === '（'){
+      const end = raw.indexOf('）', i);
+      if (end > 0){
+        const read = raw.slice(i + 1, end);
+        // Walk back over the contiguous kanji run that just ended.
+        let k = cells.length - 1;
+        while (k >= 0 && KANJI.test(cells[k].ch)) k--;
+        for (let m = k + 1; m < cells.length; m++) cells[m].read = read;
+        i = end;
+        continue;
+      }
     }
-    pos = j;
-    const chunkHtml = rawChunk.replace(/([一-龯々〇ヶ]{1,10})（([^）]+)）/g, '<ruby>$1<rt>$2</rt></ruby>');
-    if (s.word) html += `<span class="w${isKnownW(s.t) ? ' known' : ''}" data-w="${s.t}">${chunkHtml}</span>`;
-    else html += chunkHtml;
+    cells.push({ ch: ch, read: '' });
+  }
+  const plain = cells.map(c => c.ch).join('');
+
+  const segs = segment(plain);
+  let pos = 0, html = '', i = 0;
+  for (const s of segs){
+    const to = pos + s.t.length;
+    let body = '';
+    // A ruby run can swallow characters belonging to later segments, so track
+    // the cursor independently of the segment offsets.
+    if (i < pos) i = pos;
+    while (i < to){
+      const c = cells[i];
+      if (!c.read || !KANJI.test(c.ch)){ body += c.ch; i++; continue; }
+      let kanji = c.ch, j = i + 1;
+      while (j < cells.length && cells[j].read === c.read && KANJI.test(cells[j].ch)){ kanji += cells[j].ch; j++; }
+      body += '<ruby>' + kanji + '<rt>' + c.read + '</rt></ruby>';
+      i = j;
+    }
+    pos = to;
+    if (s.word) html += `<span class="w${isKnownW(s.t) ? ' known' : ''}" data-w="${s.t}">${body}</span>`;
+    else html += body;
   }
   return html;
 }
@@ -257,7 +294,7 @@ function renderStory(){
   on.forEach(ci => {
     const ch = window.CHAPTERS[ci];
     const h = document.createElement('h3');
-    h.className = 'chapter'; h.textContent = ch.title; h.dataset.ci = ci;
+    h.className = 'chapter'; h.innerHTML = rubyText(ch.title); h.dataset.ci = ci;
     root.appendChild(h);
     chSentences(ci).forEach((s, si) => {
       if (isSentRemoved(ci, si, ch)) return;
