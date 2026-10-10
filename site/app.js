@@ -2143,7 +2143,17 @@ function syncConfigured(){ const c = getSyncCfg(); return c && c.token && c.gist
 function collectProgress(){ const o = {_updatedAt: new Date().toISOString()}; for (const k of SYNC_KEYS){ const v = localStorage.getItem(k); if (v !== null) try { o[k] = JSON.parse(v); } catch(e){} } return o; }
 function applyProgress(d){ if (!d) return false; for (const k of SYNC_KEYS){ if (d[k] !== undefined) try { localStorage.setItem(k, JSON.stringify(d[k])); } catch(e){} } try { localStorage.setItem('n4syncedAt', d._updatedAt || new Date().toISOString()); } catch(e){} return true; }
 let pushTimer = null;
-function schedulePush(){ clearTimeout(pushTimer); if (!syncConfigured()) return; pushTimer = setTimeout(pushToRemote, 1500); }
+let pushInFlight = false;
+let pushQueued = false;
+// Every localStorage write schedules a push. While reading the story that
+// fires dozens of times a minute, which trips GitHub's secondary rate limit
+// (HTTP 403 on bursts) even though the daily quota is fine. Coalesce writes
+// into one push and debounce generously.
+function schedulePush(){
+  clearTimeout(pushTimer);
+  if (!syncConfigured()) return;
+  pushTimer = setTimeout(() => { pushTimer = null; pushToRemote(); }, 20000);
+}
 (function patchStorage(){
   const _set = window.localStorage.setItem.bind(window.localStorage);
   window.localStorage.setItem = function(k, v){ _set(k, v); if (k.indexOf('n4') === 0 && k !== SYNC_CFG_KEY && k !== 'n4syncedAt') schedulePush(); };
@@ -2152,8 +2162,46 @@ let lastSyncState = '';
 function setSyncStatus(msg){ lastSyncState = msg; updateSyncBtn(); refreshSettings(); }
 function syncError(msg){ lastSyncState = '⚠ ' + msg; try { toast('⚠ ' + msg); } catch(e){} updateSyncBtn(); refreshSettings(); }
 function showSyncCode(msg){ const code = makeSyncCode(); let copied = false; try { if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code); copied = true; } } catch(e){} prompt(msg + '\n\n' + (copied ? '(Sync code copied to clipboard — press Ctrl/Cmd+C here if not.)' : '(Press Ctrl/Cmd+C here to copy the sync code.)'), code); return code; }
-async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return { error:'not configured' }; try { const r = await fetch('https://api.github.com/gists/' + cfg.gistId, {headers:{ 'Authorization':'token ' + cfg.token }}); if (!r.ok) return { error:'HTTP ' + r.status + (r.status === 401 ? ' (bad token or missing gist scope — use a classic token)' : r.status === 404 ? ' (gist not found)' : '') }; const j = await r.json(); const f = j.files && j.files['n4-progress.json']; if (!f || !f.content) return { error:'gist has no saved progress yet' }; return { data: JSON.parse(f.content) }; } catch(e){ return { error: e.message }; } }
-async function pushToRemote(){ const cfg = getSyncCfg(); if (!cfg.token) return false; const dump = collectProgress(); const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } }; try { let r; if (cfg.gistId){ r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); } else { r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); } } if (!r.ok){ syncError('push failed: HTTP ' + r.status + (r.status === 401 ? ' — token is invalid or lacks the gist scope (use a classic token)' : r.status === 404 ? ' — gist not found' : r.status === 422 ? ' — data too large for a gist' : '')); return false; } try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){} setSyncStatus('Synced ' + new Date().toLocaleTimeString()); return true; } catch(e){ syncError('push error: ' + e.message); return false; } }
+async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return { error:'not configured' }; try { const r = await fetch('https://api.github.com/gists/' + cfg.gistId, {headers:{ 'Authorization':'token ' + cfg.token }}); if (!r.ok) return { error:'HTTP ' + r.status + (r.status === 401 ? ' (bad token or expired)' : r.status === 403 ? ' (token lacks gist permission - a fine-grained token cannot use gists)' : r.status === 404 ? ' (gist not found, or owned by another account)' : '') }; const j = await r.json(); const f = j.files && j.files['n4-progress.json']; if (!f || !f.content) return { error:'gist has no saved progress yet' }; return { data: JSON.parse(f.content) }; } catch(e){ return { error: e.message }; } }
+async function pushToRemote(){
+  const cfg = getSyncCfg();
+  if (!cfg.token) return false;
+  // Never run two pushes at once; queue at most one to follow.
+  if (pushInFlight){ pushQueued = true; return false; }
+  pushInFlight = true;
+  const dump = collectProgress();
+  const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } };
+  try {
+    let r;
+    if (cfg.gistId){
+      r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    } else {
+      r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+      if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); }
+    }
+    if (!r.ok){
+      let detail = '';
+      try { const j = await r.json().catch(() => null); if (j && j.message) detail = j.message; } catch(e){}
+      const hint = r.status === 401 ? ' — token is invalid or expired; create a new one'
+        : r.status === 403 ? ' — rate limited by GitHub (too many sync requests). This is temporary; progress is saved locally and will sync on its own.'
+        : r.status === 404 ? ' — gist not found; it may have been deleted, or the token belongs to a different account'
+        : r.status === 422 ? ' — data too large for a gist'
+        : r.status === 429 ? ' — rate limited; wait a minute and try again'
+        : '';
+      syncError('push failed: HTTP ' + r.status + hint + (detail ? ' [' + detail + ']' : ''));
+      return false;
+    }
+    try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){}
+    setSyncStatus('Synced ' + new Date().toLocaleTimeString());
+    return true;
+  } catch(e){
+    syncError('push error: ' + e.message);
+    return false;
+  } finally {
+    pushInFlight = false;
+    if (pushQueued){ pushQueued = false; schedulePush(); }
+  }
+}
 async function pullFromRemote(force){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return false; const res = await remoteFetch(); if (res.error){ syncError('pull failed: ' + res.error); return false; } const d = res.data; if (!d || !d._updatedAt){ syncError('pull failed: gist has no saved progress yet'); return false; } let cur = ''; try { cur = localStorage.getItem('n4syncedAt') || ''; } catch(e){} if (force || d._updatedAt > cur){ applyProgress(d); location.reload(); return true; } setSyncStatus('Already up to date'); return false; }
 function makeSyncCode(){ const c = getSyncCfg(); return btoa(c.token + '|' + c.gistId); }
 function parseSyncCode(raw){
