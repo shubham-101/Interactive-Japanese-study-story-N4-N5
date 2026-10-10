@@ -1914,6 +1914,25 @@ async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.g
 async function pushToRemote(){ const cfg = getSyncCfg(); if (!cfg.token) return; const dump = collectProgress(); const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } }; try { let r; if (cfg.gistId){ r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); } else { r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); } } try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){} updateSyncBtn(); } catch(e){} }
 async function pullFromRemote(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return false; const d = await remoteFetch(); if (!d || !d._updatedAt) return false; let cur = ''; try { cur = localStorage.getItem('n4syncedAt') || ''; } catch(e){} if (d._updatedAt > cur){ applyProgress(d); location.reload(); return true; } localStorage.setItem('n4syncedAt', d._updatedAt); return false; }
 function makeSyncCode(){ const c = getSyncCfg(); return btoa(c.token + '|' + c.gistId); }
+function parseSyncCode(raw){
+  const s = String(raw == null ? '' : raw).trim();
+  if (!s) return null;
+  const clean = s.replace(/^['"]|['"]$/g, '').trim();
+  if (clean.includes('|') && !/^[A-Za-z0-9+/=]+$/.test(clean)) {
+    const i = clean.indexOf('|');
+    const t = clean.slice(0, i).trim();
+    const g = clean.slice(i + 1).trim();
+    return (t && g) ? { token: t, gistId: g } : null;
+  }
+  try {
+    const d = atob(clean);
+    const i = d.indexOf('|');
+    if (i < 1) return null;
+    const t = d.slice(0, i).trim();
+    const g = d.slice(i + 1).trim();
+    return (t && g) ? { token: t, gistId: g } : null;
+  } catch(e){ return { error: e.name || 'decode error' }; }
+}
 async function ensureSync(){ try { if (sessionStorage.getItem('n4synced') !== '1' && syncConfigured()){ sessionStorage.setItem('n4synced', '1'); await pullFromRemote(); } } catch(e){} }
 function updateSyncBtn(){ const el = document.getElementById('syncBtn'); if (!el) return; el.style.opacity = syncConfigured() ? '1' : '0.45'; el.title = syncConfigured() ? 'Cloud sync enabled (progress is saved to your private GitHub Gist). Click to view details.' : 'Set up cloud sync (saves progress to a private GitHub Gist for use on any device).'; }
 document.getElementById('syncBtn') && document.getElementById('syncBtn').addEventListener('click', async () => {
@@ -1921,7 +1940,7 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     const c = getSyncCfg();
     alert('Cloud sync is ON.\n\nPrivate Gist ID: ' + c.gistId + '\n\nOn your other device, click ☁, paste this in the box, or copy the token + Gist ID shown below:\n\n' + makeSyncCode());
     const raw = prompt('On the other device, click ☁ and paste that same code to load your progress.\nWant to paste a new sync code here? (leave blank to keep current setup)');
-    if (raw) { try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); alert('Loaded cloud progress. Reloading…'); location.reload(); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } }
+    if (raw && raw.trim()) { const p = parseSyncCode(raw); if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); await pullFromRemote(); alert('Loaded cloud progress. Reloading…'); location.reload(); } else alert('Invalid sync code' + (p && p.error ? ' (' + p.error + ' — the code was not readable)' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID'); }
     return;
   }
   const raw = prompt('Do you already have a sync code? Paste it here, or leave blank to set up a new one:');
@@ -1933,7 +1952,9 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     updateSyncBtn();
     alert('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:\n\n' + makeSyncCode());
   } else {
-    try { const [token, gistId] = atob(raw).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); await pullFromRemote(); updateSyncBtn(); alert('Cloud sync set up. Reloading…'); location.reload(); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
+    const p = parseSyncCode(raw);
+    if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); await pullFromRemote(); updateSyncBtn(); alert('Cloud sync set up. Reloading…'); location.reload(); }
+    else alert('Could not parse that sync code' + (p && p.error ? ' (' + p.error + ')' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID');
   }
 });
 ensureSync(); setTimeout(updateSyncBtn, 0);

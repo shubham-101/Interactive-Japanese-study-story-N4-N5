@@ -269,10 +269,11 @@ function renderStory(){
     addBtn.addEventListener('click', () => addSent(ci));
     root.appendChild(addBtn);
   });
-  root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
-    e.stopPropagation();
-    openWordPopup(sp.dataset.w);
-  }));
+   root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
+     e.stopPropagation();
+     const r = sp.getBoundingClientRect();
+     openWordMenu(sp.dataset.w, r.left, r.bottom + 4);
+   }));
   if (romajiOn) applyRomaji();
 }
 
@@ -295,6 +296,63 @@ function collectEdit(fields){
   return vals;
 }
 
+function kanjiCharsIn(text){
+  const out = []; const seen = new Set();
+  for (const ch of text){ if (/[\u4e00-\u9fff々]/.test(ch) && !seen.has(ch)){ seen.add(ch); out.push(ch); } }
+  return out;
+}
+function fileWordToVocab(w){
+  const v = lookupWord(w);
+  if (D.vocab[w]){ toast('Already in Words: ' + w); return; }
+  D.vocab[w] = {reading: v ? v.reading : '', meaning: v ? v.meaning : '', ...(v && v.pos ? {pos: v.pos} : {})};
+  EDITS.removedWords = EDITS.removedWords.filter(x => x !== w);
+  EDITS.addedWords[w] = D.vocab[w]; saveEdits();
+  PAGE_EDITS.vocab[w] = D.vocab[w]; savePageEdits();
+  VOCAB[w] = D.vocab[w]; rebuildWords();
+  renderVocab();
+  toast('Added to Words: ' + w);
+}
+function fileWordToKanji(w){
+  const ks = kanjiCharsIn(w);
+  if (!ks.length){ toast('No kanji in this word'); return; }
+  const added = [];
+  for (const k of ks){
+    if (D.kanji[k]) continue;
+    D.kanji[k] = {readings: '', meaning: '', strokes: ''};
+    EDITS.removedKanji = EDITS.removedKanji.filter(x => x !== k);
+    EDITS.addedKanji[k] = D.kanji[k]; saveEdits();
+    PAGE_EDITS.kanji[k] = D.kanji[k];
+    added.push(k);
+  }
+  savePageEdits();
+  renderKanji();
+  toast(added.length ? 'Added to Kanji: ' + added.join('') : 'Kanji already in list');
+}
+function openWordMenu(w, x, y){
+  const m = document.getElementById('wordMenu');
+  m.innerHTML = `<div class="wm-title">${w}</div>
+    <button data-act="words">→ Words<span class="wm-sub">add this word to the vocabulary list</span></button>
+    <button data-act="kanji">→ Kanji<span class="wm-sub">add its kanji to the kanji list</span></button>
+    <button data-act="details">Details…<span class="wm-sub">open the word popup</span></button>`;
+  m.classList.remove('hidden');
+  const mw = m.offsetWidth, mh = m.offsetHeight;
+  let left = x, top = y;
+  if (left + mw > window.innerWidth - 8) left = window.innerWidth - mw - 8;
+  if (top + mh > window.innerHeight - 8) top = window.innerHeight - mh - 8;
+  if (left < 8) left = 8;
+  if (top < 8) top = 8;
+  m.style.left = left + 'px'; m.style.top = top + 'px';
+  m.querySelectorAll('button').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const act = b.dataset.act;
+    closeWordMenu();
+    if (act === 'words') fileWordToVocab(w);
+    else if (act === 'kanji') fileWordToKanji(w);
+    else openWordPopup(w);
+  }));
+}
+function closeWordMenu(){ const m = document.getElementById('wordMenu'); if (m) m.classList.add('hidden'); }
+document.addEventListener('click', e => { if (!e.target.closest('#wordMenu')) closeWordMenu(); });
 function openWordPopup(w){
   const v = lookupWord(w);
   const ks2 = kanjisIn(w);
@@ -1918,6 +1976,25 @@ async function remoteFetch(){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.g
 async function pushToRemote(){ const cfg = getSyncCfg(); if (!cfg.token) return false; const dump = collectProgress(); const payload = { description:'N4 Study progress', public:false, files:{ 'n4-progress.json':{ content: JSON.stringify(dump, null, 2) } } }; try { let r; if (cfg.gistId){ r = await fetch('https://api.github.com/gists/' + cfg.gistId, {method:'PATCH', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); } else { r = await fetch('https://api.github.com/gists', {method:'POST', headers:{'Authorization':'token ' + cfg.token, 'Content-Type':'application/json'}, body:JSON.stringify(payload)}); if (r.ok){ const j = await r.json(); cfg.gistId = j.id; setSyncCfg(cfg); } } if (!r.ok){ syncError('push failed: HTTP ' + r.status + (r.status === 401 ? ' — token is invalid or lacks the gist scope (use a classic token)' : r.status === 404 ? ' — gist not found' : r.status === 422 ? ' — data too large for a gist' : '')); return false; } try { localStorage.setItem('n4syncedAt', dump._updatedAt); } catch(e){} setSyncStatus('Synced ' + new Date().toLocaleTimeString()); return true; } catch(e){ syncError('push error: ' + e.message); return false; } }
 async function pullFromRemote(force){ const cfg = getSyncCfg(); if (!cfg.token || !cfg.gistId) return false; const res = await remoteFetch(); if (res.error){ syncError('pull failed: ' + res.error); return false; } const d = res.data; if (!d || !d._updatedAt){ syncError('pull failed: gist has no saved progress yet'); return false; } let cur = ''; try { cur = localStorage.getItem('n4syncedAt') || ''; } catch(e){} if (force || d._updatedAt > cur){ applyProgress(d); location.reload(); return true; } setSyncStatus('Already up to date'); return false; }
 function makeSyncCode(){ const c = getSyncCfg(); return btoa(c.token + '|' + c.gistId); }
+function parseSyncCode(raw){
+  const s = String(raw == null ? '' : raw).trim();
+  if (!s) return null;
+  const clean = s.replace(/^['"]|['"]$/g, '').trim();
+  if (clean.includes('|') && !/^[A-Za-z0-9+/=]+$/.test(clean)) {
+    const i = clean.indexOf('|');
+    const t = clean.slice(0, i).trim();
+    const g = clean.slice(i + 1).trim();
+    return (t && g) ? { token: t, gistId: g } : null;
+  }
+  try {
+    const d = atob(clean);
+    const i = d.indexOf('|');
+    if (i < 1) return null;
+    const t = d.slice(0, i).trim();
+    const g = d.slice(i + 1).trim();
+    return (t && g) ? { token: t, gistId: g } : null;
+  } catch(e){ return { error: e.name || 'decode error' }; }
+}
 function showSyncCode(msg){ const code = makeSyncCode(); let copied = false; try { if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code); copied = true; } } catch(e){} prompt(msg + '\n\n' + (copied ? '(Sync code copied to clipboard — press Ctrl/Cmd+C here if not.)' : '(Press Ctrl/Cmd+C here to copy the sync code.)'), code); return code; }
 async function ensureSync(){ try { if (syncConfigured()) await pullFromRemote(); } catch(e){} }
 function updateSyncBtn(){ const el = document.getElementById('syncBtn'); if (!el) return; const isErr = lastSyncState.indexOf('⚠') === 0; el.style.opacity = syncConfigured() ? '1' : '0.45'; el.style.background = isErr ? '#c0392b' : ''; el.style.color = isErr ? '#fff' : ''; el.textContent = isErr ? '☁ !' : '☁'; el.title = isErr ? 'Cloud sync problem: ' + lastSyncState + '\nClick for details.' : syncConfigured() ? 'Cloud sync ON' + (lastSyncState ? ' — ' + lastSyncState : '') + '. Click to view/copy code or sync now.' : 'Set up cloud sync (saves progress to a private GitHub Gist for use on any device).'; }
@@ -1926,7 +2003,7 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     const c = getSyncCfg();
     const raw = prompt('Cloud sync is ON.\nPrivate Gist ID: ' + c.gistId + (lastSyncState ? '\nStatus: ' + lastSyncState : '') + '\n\nType "s" and press OK to SYNC NOW (download latest from the cloud).\nOr paste a different sync code to switch accounts.\nLeave blank to just display/copy this device\'s code.', '');
     if (raw && raw.trim().toLowerCase() === 's') { setSyncStatus('Syncing…'); await pullFromRemote(true); updateSyncBtn(); return; }
-    if (raw && raw.trim() && raw.trim().toLowerCase() !== 's') { try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Could not load that sync code.'); } else alert('That did not look like a valid sync code.'); } catch(e){ alert('Invalid sync code.'); } return; }
+    if (raw && raw.trim() && raw.trim().toLowerCase() !== 's') { const p = parseSyncCode(raw); if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Could not load that sync code.'); } else alert('Invalid sync code' + (p && p.error ? ' (' + p.error + ' — the code was not readable)' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID'); return; }
     showSyncCode('This device\'s sync code (paste it on your other device after clicking ☁ there):');
     return;
   }
@@ -1940,7 +2017,9 @@ document.getElementById('syncBtn') && document.getElementById('syncBtn').addEven
     updateSyncBtn();
     showSyncCode('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:');
   } else {
-    try { const [token, gistId] = atob(raw.trim()).split('|'); if (token && gistId){ setSyncCfg({token, gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Sync code saved, but the download failed — check the ☁ button for details.'); } else alert('Could not parse that sync code.'); } catch(e){ alert('Could not parse that sync code.'); }
+    const p = parseSyncCode(raw);
+    if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Sync code saved, but the download failed — check the ☁ button for details.'); }
+    else alert('Could not parse that sync code' + (p && p.error ? ' (' + p.error + ')' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID');
   }
 });
 ensureSync(); setTimeout(updateSyncBtn, 0);
