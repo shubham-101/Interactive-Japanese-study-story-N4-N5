@@ -97,6 +97,22 @@ function lookupWord(w){
   if (D.kanji[w]) return {reading: D.kanji[w].readings, meaning: D.kanji[w].meaning};
   return null;
 }
+// Which list an entry really belongs to. lookupWord() prefers the merged VOCAB
+// index, so checking D.vocab first sent N5-only words into the N4 store.
+function wordSource(w){
+  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  if (activeTab === 'vocab5' && D.vocab5[w]) return 'vocab5';
+  if (D.vocab[w]) return 'vocab';
+  if (D.vocab5[w]) return 'vocab5';
+  return 'vocab';
+}
+function kanjiSource(k){
+  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  if (activeTab === 'kanji5' && D.kanji5[k]) return 'kanji5';
+  if (D.kanji[k]) return 'kanji';
+  if (D.kanji5[k]) return 'kanji5';
+  return 'kanji';
+}
 function segment(sentence){
   const custom = SEG[sentence];
   if (custom && custom.length){
@@ -424,8 +440,7 @@ function openWordPopup(w){
   if (wpK) wpK.addEventListener('click', () => { toggleKnownW(w); openWordPopup(w); renderKnown(); renderVocab(); renderVocab5(); renderBms(); refreshFilterViews(); const selW2 = document.querySelector('#storyText p.sent.sel'); if (selW2) selW2.click(); });
   const be = document.getElementById('btnEdit');
   if (be) be.addEventListener('click', () => {
-    const activeTab = document.querySelector('.tab.active').dataset.tab;
-    const src = activeTab === 'vocab5' && D.vocab5[w] ? 'vocab5' : (D.vocab[w] ? 'vocab' : (D.vocab5[w] ? 'vocab5' : 'vocab'));
+    const src = wordSource(w);
     if (!(src === 'vocab' ? D.vocab[w] : D.vocab5[w])) {
       (src === 'vocab' ? D.vocab : D.vocab5)[w] = {reading: v?v.reading:'', meaning: v?v.meaning:'', ...(v && v.pos ? {pos: v.pos} : {})};
     }
@@ -438,6 +453,7 @@ function openWordPopup(w){
       const ds = src === 'vocab' ? D.vocab : D.vocab5;
       ds[w] = {...ds[w], reading: vals.reading, meaning: vals.meaning, ...(vals.pos ? {pos: vals.pos} : {})};
       PAGE_EDITS[src][w] = ds[w]; savePageEdits();
+      EDITS.addedWords[w] = ds[w]; saveEdits();
       VOCAB[w] = ds[w]; rebuildWords();
       renderVocab(); renderVocab5();
       openWordPopup(w);
@@ -676,8 +692,7 @@ function openKanjiPopup(k){
   if (kpK) kpK.addEventListener('click', () => { toggleKnown(k); openKanjiPopup(k); renderKnown(); renderKanji(); renderKanji5(); renderBms(); refreshFilterViews(); const selK2 = document.querySelector('#storyText p.sent.sel'); if (selK2) selK2.click(); });
   const be = document.getElementById('btnEdit');
   if (be) be.addEventListener('click', () => {
-    const activeTab = document.querySelector('.tab.active').dataset.tab;
-    const src = activeTab === 'kanji5' && D.kanji5[k] ? 'kanji5' : (D.kanji[k] ? 'kanji' : 'kanji5');
+    const src = kanjiSource(k);
     document.getElementById('popupPanel').innerHTML = entryEditForm(
       [{key:'readings',label:'Readings'},{key:'meaning',label:'Meaning'},{key:'strokes',label:'Strokes'}],
       {readings: v.readings, meaning: v.meaning, strokes: v.strokes});
@@ -687,6 +702,7 @@ function openKanjiPopup(k){
       const ds = src === 'kanji' ? D.kanji : D.kanji5;
       ds[k] = {...ds[k], readings: vals.readings, meaning: vals.meaning, strokes: vals.strokes};
       PAGE_EDITS[src][k] = ds[k]; savePageEdits();
+      EDITS.addedKanji[k] = ds[k]; saveEdits();
       renderKanji(); renderKanji5();
       openKanjiPopup(k);
       const selK = document.querySelector('#storyText p.sent.sel'); if (selK) selK.click();

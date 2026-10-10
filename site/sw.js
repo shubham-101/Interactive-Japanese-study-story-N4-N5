@@ -1,4 +1,4 @@
-﻿const CACHE = 'n4study-v8';
+﻿const CACHE = 'n4study-v9';
 const ASSETS = [
   './',
   './index.html',
