@@ -278,7 +278,8 @@ function renderStory(){
   });
   root.querySelectorAll('.w').forEach(sp => sp.addEventListener('click', e => {
     e.stopPropagation();
-    openWordPopup(sp.dataset.w);
+    const r = sp.getBoundingClientRect();
+    openWordMenu(sp.dataset.w, r.left, r.bottom + 4);
   }));
   if (romajiOn) applyRomaji();
   renderResumeBanner();
@@ -302,6 +303,65 @@ function collectEdit(fields){
   document.querySelectorAll('#popupPanel [data-ef]').forEach(inp => vals[inp.dataset.ef] = inp.value.trim());
   return vals;
 }
+
+function kanjiCharsIn(text){
+  const out = []; const seen = new Set();
+  for (const ch of text){ if (/[\u4e00-\u9fff?]/.test(ch) && !seen.has(ch)){ seen.add(ch); out.push(ch); } }
+  return out;
+}
+function fileWordToVocab(w){
+  const v = lookupWord(w);
+  if (D.vocab[w]){ toast('Already in Words: ' + w); return; }
+  D.vocab[w] = {reading: v ? v.reading : '', meaning: v ? v.meaning : '', ...(v && v.pos ? {pos: v.pos} : {})};
+  EDITS.removedWords = EDITS.removedWords.filter(x => x !== w);
+  EDITS.addedWords[w] = D.vocab[w]; saveEdits();
+  PAGE_EDITS.vocab[w] = D.vocab[w]; savePageEdits();
+  VOCAB[w] = D.vocab[w]; rebuildWords();
+  renderVocab();
+  toast('Added to Words: ' + w);
+}
+function fileWordToKanji(w){
+  const ks = kanjiCharsIn(w);
+  if (!ks.length){ toast('No kanji in this word'); return; }
+  const added = [];
+  for (const k of ks){
+    if (D.kanji[k]) continue;
+    D.kanji[k] = {readings: '', meaning: '', strokes: ''};
+    EDITS.removedKanji = EDITS.removedKanji.filter(x => x !== k);
+    EDITS.addedKanji[k] = D.kanji[k]; saveEdits();
+    PAGE_EDITS.kanji[k] = D.kanji[k];
+    added.push(k);
+  }
+  savePageEdits();
+  renderKanji();
+  toast(added.length ? 'Added to Kanji: ' + added.join('') : 'Kanji already in list');
+}
+function openWordMenu(w, x, y){
+  const m = document.getElementById('wordMenu');
+  if (!m) return;
+  m.innerHTML = `<div class="wm-title">${w}</div>
+    <button data-act="words">→ Words<span class="wm-sub">add this word to the vocabulary list</span></button>
+    <button data-act="kanji">→ Kanji<span class="wm-sub">add its kanji to the kanji list</span></button>
+    <button data-act="details">Details…<span class="wm-sub">open the word popup</span></button>`;
+  m.classList.remove('hidden');
+  const mw = m.offsetWidth, mh = m.offsetHeight;
+  let left = x, top = y;
+  if (left + mw > window.innerWidth - 8) left = window.innerWidth - mw - 8;
+  if (top + mh > window.innerHeight - 8) top = window.innerHeight - mh - 8;
+  if (left < 8) left = 8;
+  if (top < 8) top = 8;
+  m.style.left = left + 'px'; m.style.top = top + 'px';
+  m.querySelectorAll('button').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const act = b.dataset.act;
+    closeWordMenu();
+    if (act === 'words') fileWordToVocab(w);
+    else if (act === 'kanji') fileWordToKanji(w);
+    else openWordPopup(w);
+  }));
+}
+function closeWordMenu(){ const m = document.getElementById('wordMenu'); if (m) m.classList.add('hidden'); }
+document.addEventListener('click', e => { if (!e.target.closest('#wordMenu')) closeWordMenu(); });
 
 function openWordPopup(w){
   const v = lookupWord(w);

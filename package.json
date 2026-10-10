@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "deploy": "node pack.js"
+    "deploy": "node pack.js",
+    "check": "node check-parity.js"
   },
   "dependencies": {},
   "devDependencies": {}
