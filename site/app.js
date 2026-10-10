@@ -653,7 +653,7 @@ function renderVocab(f='', fl){
   FILTER_SHOWN.vocab = entries.length;
   vt.innerHTML = entries
     .filter(([w,v]) => w.includes(f) || v.reading.includes(f) || v.meaning.toLowerCase().includes(f2))
-    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td><span class="pos">${v.pos||''}</span></td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button><button class="knwbtn" data-t="w" data-k="${w}" title="Mark as known">✓</button></td></tr>`).join('');
+    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td>${v.pos?`<span class="pos">${v.pos}</span>`:''}</td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button><button class="knwbtn" data-t="w" data-k="${w}" title="Mark as known">✓</button></td></tr>`).join('');
 }
 document.getElementById('vocabSearch').addEventListener('input', e => renderVocab(e.target.value));
 document.querySelectorAll('input[name="vocabFilter"]').forEach(r => r.addEventListener('change', () => setFilter('vocab', r.value)));
@@ -808,7 +808,7 @@ function renderVocab5(f='', fl){
   FILTER_SHOWN.vocab5 = entries.length;
   vt5.innerHTML = entries
     .filter(([w,v]) => w.includes(f) || v.reading.includes(f) || v.meaning.toLowerCase().includes(f2))
-    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td><span class="pos">${v.pos||''}</span></td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button><button class="knwbtn" data-t="w" data-k="${w}" title="Mark as known">✓</button></td></tr>`).join('');
+    .map(([w,v]) => `<tr><td>${w}</td><td>${v.reading}</td><td class="meaning">${v.meaning}</td><td>${v.pos?`<span class="pos">${v.pos}</span>`:''}</td><td><button class="ttsbtn" data-speak="${w}" title="Listen">🔊</button><button class="knwbtn" data-t="w" data-k="${w}" title="Mark as known">✓</button></td></tr>`).join('');
 }
 document.getElementById('vocab5Search').addEventListener('input', e => renderVocab5(e.target.value));
 document.querySelectorAll('input[name="vocab5Filter"]').forEach(r => r.addEventListener('change', () => setFilter('vocab5', r.value)));
