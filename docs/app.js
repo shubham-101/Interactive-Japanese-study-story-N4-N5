@@ -219,7 +219,7 @@ function buildSegmentedHtml(raw){
     }
     pos = j;
     const chunkHtml = rawChunk.replace(/([一-龯々〇ヶ]{1,10})（([^）]+)）/g, '<ruby>$1<rt>$2</rt></ruby>');
-    if (s.word) html += `<span class="w" data-w="${s.t}">${chunkHtml}</span>`;
+    if (s.word) html += `<span class="w${isKnownW(s.t) ? ' known' : ''}" data-w="${s.t}">${chunkHtml}</span>`;
     else html += chunkHtml;
   }
   return html;
@@ -442,7 +442,7 @@ function openWordPopup(w){
   document.querySelectorAll('#popupPanel .pop-klink').forEach(el => el.addEventListener('click', () => openKanjiPopup(el.dataset.k)));
   if (bw) bw.addEventListener('click', () => { bmToggleWord(w); openWordPopup(w); });
   const wpK = document.getElementById('wpKnown');
-  if (wpK) wpK.addEventListener('click', () => { toggleKnownW(w); openWordPopup(w); renderKnown(); renderVocab(); renderVocab5(); renderBms(); refreshFilterViews(); const selW2 = document.querySelector('#storyText p.sent.sel'); if (selW2) selW2.click(); });
+  if (wpK) wpK.addEventListener('click', () => { toggleKnownW(w); openWordPopup(w); renderKnown(); renderVocab(); renderVocab5(); renderBms(); refreshFilterViews(); renderStory(); const selW2 = document.querySelector('#storyText p.sent.sel'); if (selW2) selW2.click(); });
   const be = document.getElementById('btnEdit');
   if (be) be.addEventListener('click', () => {
     const src = wordSource(w);
@@ -706,7 +706,7 @@ function openKanjiPopup(k){
   const bk = document.getElementById('bmKanji');
   if (bk) bk.addEventListener('click', () => { bmToggleKanji(k); openKanjiPopup(k); });
   const kpK = document.getElementById('kpKnown');
-  if (kpK) kpK.addEventListener('click', () => { toggleKnown(k); openKanjiPopup(k); renderKnown(); renderKanji(); renderKanji5(); renderBms(); refreshFilterViews(); const selK2 = document.querySelector('#storyText p.sent.sel'); if (selK2) selK2.click(); });
+  if (kpK) kpK.addEventListener('click', () => { toggleKnown(k); openKanjiPopup(k); renderKnown(); renderKanji(); renderKanji5(); renderBms(); refreshFilterViews(); renderStory(); const selK2 = document.querySelector('#storyText p.sent.sel'); if (selK2) selK2.click(); });
   const be = document.getElementById('btnEdit');
   if (be) be.addEventListener('click', () => {
     const src = kanjiSource(k);

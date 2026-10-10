@@ -270,6 +270,10 @@ body.dark .pupl-left{color:var(--text)}
 .story p.sent.focused{border-left-color:#7aa2f7;box-shadow:0 0 0 2px rgba(122,162,247,.2)}
 .story .w{cursor:pointer;border-bottom:2px solid var(--read);transition:.15s;padding:0 3px;margin:0 3px;border-radius:2px}
 .story .w:hover{background:#FFF0F5;border-bottom-color:#a03060}
+/* Words/kanji already marked known carry no underline. Placed after the
+   base :hover rule so it is not overridden on hover. */
+.story .w.known{border-bottom-color:transparent}
+.story .w.known:hover{border-bottom-color:transparent;background:#FFF0F5}
 body.dark .story .w{border-bottom-color:#FF9EBA}
 body.dark .story .w:hover{background:var(--panel2);border-bottom-color:var(--accent-soft)}
 #vocabTable tbody tr.focused,#vocab5Table tbody tr.focused{background:var(--bg-tint);outline:2px solid #7aa2f7;outline-offset:-2px}
