@@ -230,6 +230,7 @@ function renderStory(){
     d.innerHTML = 'No chapters selected.<br>Use the <b>Chapters</b> menu in the toolbar to pick which stories to read.';
     root.appendChild(d);
     renderProgress();
+    renderResumeBanner();
     return;
   }
   on.forEach(ci => {
@@ -250,6 +251,12 @@ function renderStory(){
       star.title = 'Bookmark sentence';
       star.addEventListener('click', e => { e.stopPropagation(); bmToggleSentence(ci, si); star.classList.toggle('on'); star.textContent = star.classList.contains('on') ? '★' : '☆'; });
       p.appendChild(star);
+      const res = document.createElement('button');
+      res.className = 'star resume-mark' + (isResumeSent(ci, si) ? ' on' : '');
+      res.textContent = isResumeSent(ci, si) ? '📍' : '⚑';
+      res.title = isResumeSent(ci, si) ? 'Reading position — click to clear' : 'Mark as reading position (resume here next time)';
+      res.addEventListener('click', e => { e.stopPropagation(); const r = getResume(); if (r && r.ch === ci && r.si === si){ clearResume(); } else { setResume(ci, si); toast('📍 Saved — you\'ll resume here next time.'); } });
+      p.appendChild(res);
       const tts = document.createElement('button');
       tts.className = 'star tts'; tts.textContent = '🔊'; tts.title = 'Listen';
       tts.addEventListener('click', e => { e.stopPropagation(); speak(s.jp); });
@@ -274,6 +281,7 @@ function renderStory(){
     openWordPopup(sp.dataset.w);
   }));
   if (romajiOn) applyRomaji();
+  renderResumeBanner();
 }
 
 function speak(text){
@@ -1425,6 +1433,42 @@ let progress = {};
 try { progress = JSON.parse(localStorage.getItem(PROG_KEY) || '{}'); } catch(e){ progress = {}; }
 function saveProgress(){ localStorage.setItem(PROG_KEY, JSON.stringify(progress)); }
 function markRead(ci, si){ progress['ch'+ci+':s'+si] = true; saveProgress(); renderProgress(); }
+// ===== Reading position ("resume here") =====
+const RESUME_KEY = 'n4resume';
+function getResume(){ try { const r = JSON.parse(localStorage.getItem(RESUME_KEY) || 'null'); return (r && typeof r.ch === 'number' && typeof r.si === 'number') ? r : null; } catch(e){ return null; } }
+function setResume(ci, si){ try { localStorage.setItem(RESUME_KEY, JSON.stringify({ch: ci, si: si, at: new Date().toISOString()})); } catch(e){} renderResumeMarks(); renderResumeBanner(); }
+function clearResume(){ try { localStorage.removeItem(RESUME_KEY); } catch(e){} renderResumeMarks(); renderResumeBanner(); }
+function isResumeSent(ci, si){ const r = getResume(); return !!(r && r.ch === ci && r.si === si); }
+function renderResumeMarks(){ document.querySelectorAll('#storyText p.sent').forEach(p => { const b = p.querySelector('.resume-mark'); if (!b) return; const on = isResumeSent(+p.dataset.ch, +p.dataset.si); b.classList.toggle('on', on); b.textContent = on ? '📍' : '⚑'; b.title = on ? 'Reading position — click to clear' : 'Mark as reading position (resume here next time)'; }); }
+function resumeSentenceText(r){ const ch = window.CHAPTERS[r.ch]; if (!ch) return ''; const s = chSentences(r.ch)[r.si]; return s ? stripReadings(s.jp) : ''; }
+function renderResumeBanner(){
+  const el = document.getElementById('resumeBanner');
+  if (!el) return;
+  const r = getResume();
+  if (!r){ el.classList.add('hidden'); el.innerHTML = ''; return; }
+  const txt = resumeSentenceText(r);
+  if (!txt){ el.classList.add('hidden'); el.innerHTML = ''; return; }
+  el.classList.remove('hidden');
+  el.innerHTML = '<span class="resume-txt">📍 You stopped here: <b></b></span>'
+    + '<button id="resumeGo" class="resume-btn">Resume</button>'
+    + '<button id="resumeClear" class="resume-btn ghost">Clear</button>';
+  el.querySelector('b').textContent = txt.slice(0, 60) + (txt.length > 60 ? '…' : '');
+  const go = document.getElementById('resumeGo');
+  if (go) go.addEventListener('click', () => goToResume());
+  const cl = document.getElementById('resumeClear');
+  if (cl) cl.addEventListener('click', () => { clearResume(); });
+}
+function goToResume(){
+  const r = getResume();
+  if (!r) return;
+  const p = document.querySelector(`#storyText p.sent[data-ch="${r.ch}"][data-si="${r.si}"]`);
+  if (!p){ toast('That sentence is in a chapter you have hidden, or it was removed.'); return; }
+  p.scrollIntoView({behavior:'smooth', block:'center'});
+  p.classList.add('sel');
+  const ch = window.CHAPTERS[r.ch];
+  const s = chSentences(r.ch)[r.si];
+  if (s) showSentence(r.ch, s, p, r.si);
+}
 function renderProgress(){
   let total = 0, read = 0;
   window.CHAPTERS.forEach((c, ci) => {
@@ -1771,13 +1815,13 @@ document.getElementById('ssCard').addEventListener('click', ssReveal);
 document.querySelectorAll('#ssActive .fc-grade').forEach(b => b.addEventListener('click', () => ssGrade(b.dataset.sg)));
 
 // ===== Backup / import =====
-const BACKUP_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits'];
+const BACKUP_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits','n4resume'];
 const BACKUP_LABELS = {
   'n4srs':'cards scheduled', 'n4bookmarks':'bookmarks', 'n4edits':'removed/added words',
   'n4pageedits':'edited entries', 'n4translations':'custom translations',
   'n4segs':'word-splittings', 'n4progress':'sentences read', 'n4theme':'theme',
   'n4known':'known kanji', 'n4knownv':'known vocab', 'n4knowng':'known grammar',
-  'n4chapters':'chapter selection', 'n4storyedits':'story edits'
+  'n4chapters':'chapter selection', 'n4storyedits':'story edits', 'n4resume':'reading position'
 };
 function bkCount(key){
   try {
@@ -1904,7 +1948,7 @@ document.getElementById('dataBtn') && document.getElementById('dataBtn').addEven
 });
 
 // ===== Cloud sync (GitHub Gist) =====
-const SYNC_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits'];
+const SYNC_KEYS = ['n4srs','n4bookmarks','n4edits','n4pageedits','n4translations','n4segs','n4progress','n4theme','n4known','n4knownv','n4knowng','n4chapters','n4storyedits','n4resume'];
 const SYNC_CFG_KEY = 'n4sync';
 function getSyncCfg(){ try { return JSON.parse(localStorage.getItem(SYNC_CFG_KEY) || '{}'); } catch(e){ return {}; } }
 function setSyncCfg(c){ localStorage.setItem(SYNC_CFG_KEY, JSON.stringify(c)); }
