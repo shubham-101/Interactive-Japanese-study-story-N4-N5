@@ -1984,9 +1984,9 @@ function importProgress(){
   alert(ok ? 'Progress restored. Reloading…' : 'Restore failed.');
   if (ok) location.reload();
 }
-document.getElementById('dataBtn') && document.getElementById('dataBtn').addEventListener('click', async () => {
-  const c = await prompt('Backup / Restore\n\n1 = Download a backup file (+ copy to clipboard)\n2 = Restore from a backup you paste\n\nChoose 1 or 2:', '1');
-  if (c === '2') importProgress(); else if (c === '1') exportProgress();
+document.getElementById('dataBtn') && document.getElementById('dataBtn').addEventListener('click', () => {
+  const t = document.querySelector('[data-tab="settings"]');
+  if (t) t.click();
 });
 
 // ===== Cloud sync (GitHub Gist) =====
@@ -2033,35 +2033,64 @@ function parseSyncCode(raw){
 function showSyncCode(msg){ const code = makeSyncCode(); let copied = false; try { if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code); copied = true; } } catch(e){} prompt(msg + '\n\n' + (copied ? '(Sync code copied to clipboard — press Ctrl/Cmd+C here if not.)' : '(Press Ctrl/Cmd+C here to copy the sync code.)'), code); return code; }
 async function ensureSync(){ try { if (syncConfigured()) await pullFromRemote(); } catch(e){} }
 function updateSyncBtn(){ const el = document.getElementById('syncBtn'); if (!el) return; const isErr = lastSyncState.indexOf('⚠') === 0; el.style.opacity = syncConfigured() ? '1' : '0.45'; el.style.background = isErr ? '#c0392b' : ''; el.style.color = isErr ? '#fff' : ''; el.textContent = isErr ? '☁ !' : '☁'; el.title = isErr ? 'Cloud sync problem: ' + lastSyncState + '\nClick for details.' : syncConfigured() ? 'Cloud sync ON' + (lastSyncState ? ' — ' + lastSyncState : '') + '. Click to view/copy code or sync now.' : 'Set up cloud sync (saves progress to a private GitHub Gist for use on any device).'; }
-document.getElementById('syncBtn') && document.getElementById('syncBtn').addEventListener('click', async () => {
-  if (syncConfigured()) {
-    const c = getSyncCfg();
-    const raw = prompt('Cloud sync is ON.\nPrivate Gist ID: ' + c.gistId + (lastSyncState ? '\nStatus: ' + lastSyncState : '') + '\n\nType "s" and press OK to SYNC NOW (download latest from the cloud).\nOr paste a different sync code to switch accounts.\nLeave blank to just display/copy this device\'s code.', '');
-    if (raw && raw.trim().toLowerCase() === 's') { setSyncStatus('Syncing…'); await pullFromRemote(true); updateSyncBtn(); return; }
-    if (raw && raw.trim() && raw.trim().toLowerCase() !== 's') { const p = parseSyncCode(raw); if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Could not load that sync code.'); } else alert('Invalid sync code' + (p && p.error ? ' (' + p.error + ' — the code was not readable)' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID'); return; }
-    showSyncCode('This device\'s sync code (paste it on your other device after clicking ☁ there):');
-    return;
-  }
-  const raw = prompt('Do you already have a sync code? Paste it here, or leave blank to set up a new one:');
-  if (!raw) {
-    const token = prompt('Paste a GitHub personal access token with the "gist" scope (a CLASSIC token):');
-    if (!token) return;
-    setSyncCfg({token: token.trim()});
-    const ok = await pushToRemote();
-    if (!ok || !getSyncCfg().gistId){ setSyncStatus(lastSyncState || 'Setup failed'); alert('Cloud sync setup FAILED.\n\n' + (lastSyncState || 'The gist could not be created.') + '\n\nCommon cause: the token is a fine-grained token, or is missing the "gist" scope. Create a CLASSIC token with the gist checkbox and try again.'); return; }
-    updateSyncBtn();
-    showSyncCode('Cloud sync is ready. Save this code somewhere safe and paste it on every other device when it asks:');
-  } else {
-    const p = parseSyncCode(raw);
-    if (p && p.token){ setSyncCfg({token: p.token, gistId: p.gistId}); const ok = await pullFromRemote(true); updateSyncBtn(); if (!ok) alert('Sync code saved, but the download failed — check the ☁ button for details.'); }
-    else alert('Could not parse that sync code' + (p && p.error ? ' (' + p.error + ')' : '') + '.\n\nPaste it as plain text in this format instead:\nYOUR_TOKEN|YOUR_GIST_ID');
-  }
+document.getElementById('syncBtn') && document.getElementById('syncBtn').addEventListener('click', () => {
+  const t = document.querySelector('[data-tab="settings"]');
+  if (t) t.click();
 });
 ensureSync(); setTimeout(updateSyncBtn, 0);
+
+// ===== Settings page controls =====
+function setSyncLine(txt){ const el = document.getElementById('setSyncStatus'); if (el) el.textContent = txt; const g = document.getElementById('setSyncGist'); const c = getSyncCfg(); if (g) g.textContent = (c && c.gistId) ? c.gistId : 'not connected'; }
+function setSyncErr(msg){ setSyncLine(msg); }
+function refreshSettings(){
+  const c = getSyncCfg();
+  setSyncLine(syncConfigured() ? (lastSyncState || 'Connected') : 'Not connected');
+  const t = document.getElementById('setThemeState'); if (t) t.textContent = document.body.classList.contains('dark') ? 'Dark' : 'Light';
+  bkRenderSummary();
+}
+document.getElementById('setThemeBtn') && document.getElementById('setThemeBtn').addEventListener('click', () => { themeBtn.click(); setTimeout(refreshSettings, 0); });
+document.getElementById('setSyncNow') && document.getElementById('setSyncNow').addEventListener('click', async () => {
+  if (!syncConfigured()) { setSyncErr('Not connected. Use "Connect / change account" first.'); return; }
+  setSyncLine('Syncing…'); await pullFromRemote(true); refreshSettings();
+});
+document.getElementById('setSyncPush') && document.getElementById('setSyncPush').addEventListener('click', async () => {
+  if (!syncConfigured()) { setSyncErr('Not connected. Use "Connect / change account" first.'); return; }
+  setSyncLine('Pushing…'); const ok = await pushToRemote(); refreshSettings();
+  if (ok) alert('Progress pushed to your gist.');
+});
+document.getElementById('setSyncCode') && document.getElementById('setSyncCode').addEventListener('click', () => {
+  if (!syncConfigured()) { setSyncErr('Not connected. Use "Connect / change account" first.'); return; }
+  showSyncCode('Sync code — paste this on your other device:');
+});
+document.getElementById('setSyncSetup') && document.getElementById('setSyncSetup').addEventListener('click', async () => {
+  const raw = prompt('Paste your sync code here.\n\nEither format works:\n  base64 code (copied from another device)\n  or plain:  YOUR_TOKEN|YOUR_GIST_ID\n\nLeave blank to enter a fresh token and create a new gist.');
+  if (!raw || !raw.trim()) {
+    const token = prompt('Paste a GitHub personal access token (CLASSIC, with the "gist" scope):');
+    if (!token) return;
+    setSyncCfg({ token: token.trim() });
+    const ok = await pushToRemote();
+    refreshSettings();
+    if (!ok || !getSyncCfg().gistId) { setSyncErr(lastSyncState || 'Setup failed — token may be fine-grained or missing the gist scope.'); alert('Setup failed.\n\n' + (lastSyncState || '') + '\n\nUse a CLASSIC token with the gist checkbox checked.'); return; }
+    showSyncCode('Cloud sync is ready. Paste this code on your other devices:');
+    return;
+  }
+  const p = parseSyncCode(raw);
+  if (!p || !p.token) { setSyncErr('Could not parse that sync code' + (p && p.error ? ' (' + p.error + ')' : '') + '. Paste it as plain TOKEN|GISTID.'); alert('Could not parse that sync code' + (p && p.error ? ' (' + p.error + ')' : '') + '.\n\nPaste it as plain text: YOUR_TOKEN|YOUR_GIST_ID'); return; }
+  setSyncCfg({ token: p.token, gistId: p.gistId });
+  const ok = await pullFromRemote(true);
+  refreshSettings();
+  if (!ok) setSyncErr('Connected, but the download failed: ' + lastSyncState);
+});
+document.getElementById('setSyncDisconnect') && document.getElementById('setSyncDisconnect').addEventListener('click', () => {
+  if (!confirm('Disconnect cloud sync on this device?\n\nYour progress stays in this browser. You will need a sync code to reconnect.')) return;
+  try { localStorage.removeItem(SYNC_CFG_KEY); } catch(e){}
+  updateSyncBtn(); refreshSettings(); setSyncLine('Not connected');
+});
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => setTimeout(refreshSettings, 0)));
 
 // ===== Init (must be last — all sections defined) =====
 renderProgress();
 renderStory(); renderVocab(); renderKanji(); renderGrammar();
 renderVocab5(); renderKanji5(); renderGrammar5();
 updateFilterCounts();
-ssDescribe(); bkRenderSummary();
+ssDescribe(); bkRenderSummary(); refreshSettings();

@@ -249,6 +249,11 @@ body.dark .pupl-left{color:var(--text)}
 .story .w:hover{background:#FFF0F5;border-bottom-color:#a03060}
 body.dark .story .w{border-bottom-color:#FF9EBA}
 body.dark .story .w:hover{background:var(--panel2);border-bottom-color:#FFC1CC}
+#wordMenu{position:fixed;z-index:60;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.28);padding:6px;min-width:170px}
+#wordMenu .wm-title{padding:6px 12px;font-size:13px;font-weight:700;color:var(--text);border-bottom:1px solid var(--line);margin-bottom:4px;font-family:'Noto Serif JP',serif}
+#wordMenu button{display:block;width:100%;text-align:left;background:none;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--text);font-family:inherit}
+#wordMenu button:hover{background:var(--panel2)}
+#wordMenu button .wm-sub{display:block;font-size:11px;color:var(--muted);font-weight:400}
 #vocabTable tbody tr.focused,#vocab5Table tbody tr.focused{background:#FFF5C3;outline:2px solid #7aa2f7;outline-offset:-2px}
 .kcard.focused{outline:2px solid #7aa2f7;outline-offset:2px}
 .gcard.focused{outline:2px solid #7aa2f7;outline-offset:2px}

@@ -16,9 +16,9 @@
       <h1>N4 Story Study Ground</h1>
       <p>JLPT N4 Grammar · Kanji · Vocabulary</p>
     </div>
-<button id="themeToggle" class="theme-btn" title="Toggle dark/light theme">🌙</button>
-  <button id="dataBtn" class="theme-btn" title="Backup and restore your progress">💾</button>
-  <button id="syncBtn" class="theme-btn" title="Cloud sync">☁</button>
+    <button id="themeToggle" class="theme-btn" title="Toggle dark/light theme">🌙</button>
+    <button id="dataBtn" class="theme-btn" title="Backup and restore your progress">💾</button>
+    <button id="syncBtn" class="theme-btn" title="Cloud sync">☁</button>
   </div>
   <nav>
     <button class="tab active" data-tab="story">物語 Story</button>
@@ -42,6 +42,7 @@
     <button class="tab" data-tab="study">🎯 Study</button>
     <button class="tab" data-tab="bookmarks">Bookmarks</button>
     <button class="tab" data-tab="known">✓ Known</button>
+    <button class="tab" data-tab="settings">⚙ Settings</button>
     <a class="tab" href="/Interactive-Japanese-study-story-N4-N5/kanjimap/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center">🗺 Kanji Map</a>
   </nav>
 </header>
@@ -270,7 +271,31 @@
       </div>
     </div>
 
-    <h2 class="study-h" style="margin-top:34px">Backup &amp; data</h2>
+    </section>
+
+  <section id="settings" class="panel">
+    <h2 class="study-h">⚙ Settings</h2>
+
+    <h3 class="study-h" style="margin-top:20px">Appearance</h3>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
+      <button id="setThemeBtn" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Toggle dark / light</button>
+      <span class="hint">Currently: <b id="setThemeState">—</b></span>
+    </div>
+
+    <h3 class="study-h" style="margin-top:34px">Cloud sync</h3>
+    <p class="hint" style="margin-bottom:12px">Syncs progress across devices using a private GitHub Gist. Needs a classic personal access token with the <b>gist</b> scope.</p>
+    <div class="fc-controls" style="flex-wrap:wrap;gap:10px;align-items:center">
+      <button id="setSyncNow" class="fc-reset" style="background:#FF9EBA;color:#3a1020;border-color:#FF9EBA">Sync now</button>
+      <button id="setSyncPush" class="fc-reset">Push my progress up</button>
+      <button id="setSyncCode" class="fc-reset">Copy sync code</button>
+      <button id="setSyncSetup" class="fc-reset">Connect / change account</button>
+      <button id="setSyncDisconnect" class="fc-reset" style="color:#c0392b;border-color:#c0392b">Disconnect</button>
+    </div>
+    <div class="hint" style="margin-top:10px">Status: <b id="setSyncStatus">—</b></div>
+    <div class="hint" style="margin-top:6px">Gist ID: <b id="setSyncGist">—</b></div>
+    <div class="hint" style="margin-top:6px">On another device, open this page → ⚙ Settings → Connect / change account, and paste <code>token|gistID</code> or the base64 sync code.</div>
+
+    <h3 class="study-h" style="margin-top:34px">Backup &amp; data</h3>
     <p class="hint" style="margin-bottom:12px">Your progress lives only in this browser. Export regularly — clearing site data will erase it.</p>
     <div id="bkSummary" class="bk-summary"></div>
     <div class="fc-controls" style="flex-wrap:wrap;gap:10px">
@@ -312,7 +337,6 @@
 <div id="popup" class="kbd-help hidden">
   <div class="kbd-panel" id="popupPanel" style="max-width:min(96vw,1020px)"></div>
 </div>
-<div id="wordMenu" class="hidden"></div>
 <div id="kbdHelp" class="kbd-help hidden">
   <div class="kbd-panel">
     <h2>Keyboard Shortcuts</h2>
